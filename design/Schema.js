@@ -227,3 +227,9 @@ const deptSchema = {
     },
     // Note: add more if necessary
 }
+
+
+// Lesson: Lesson represend a class/lecture/tutorial
+const lessonSchema = {
+    // TODO:
+}
