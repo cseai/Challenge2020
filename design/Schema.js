@@ -229,7 +229,91 @@ const deptSchema = {
 }
 
 
+// File:
+const fileSchema = {
+    // TODO:
+}
+
+// Image:
+const imageSchema = {
+    // TODO:
+}
+
+
+// Slide:
+const slideSchema = {
+    // TODO:
+}
+
+
+// Discussion:
+const discussionSchema = {
+    // TODO:
+}
+
+
+// PrivacyGroup: PrivacyGroup manage the privacy settings
+const privacyGroupSchema = {
+    // TODO:
+}
+
+
 // Lesson: Lesson represend a class/lecture/tutorial
 const lessonSchema = {
-    // TODO:
+    content: {
+        type: String
+    },
+    files: [{
+        name: {
+            type: String
+        },
+        fileID: {
+            type: fileSchema // FK # file representaion i.e. txt,doc,pdf etc
+        }
+    }],
+    images: [{
+        url: {
+            type: String
+        },
+        imageID: {
+            type: imageSchema // FK # image representation i.e. jpg, png, gif
+        }
+    }],
+    slides: [{
+        type: slideSchema     // FK # slide representation
+    }],
+    video: {
+        type: videoSchema     // FK # vedio representtion
+    },
+    audio: {
+        type: audioSchema     // FK # audio representtion
+    },
+    assignment: {
+        type: assignmentSchema // FK # assignment representation
+    },
+    discussion: {
+        type: discussionSchema // FK # discussion representation
+    },
+    reaction: {
+        type: reactionSchema   // FK # reaction representation
+    },
+    privacy: {
+        method: {
+            type: String
+        },
+        privacyGID: {
+            type: privacyGroupSchema // FK # privacyGroup representation
+        }
+
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    }
+    // TODO: add more if necessary
 }
