@@ -229,25 +229,176 @@ const deptSchema = {
 }
 
 
-// File:
-const fileSchema = {
-    // TODO:
-}
-
-// Image:
-const imageSchema = {
-    // TODO:
-}
-
-
-// Slide:
-const slideSchema = {
+// Reaction:
+const reactionSchema = {
     // TODO:
 }
 
 
 // Discussion:
 const discussionSchema = {
+    // TODO:
+}
+
+
+// File: File will be stored in storage and represented information in DB
+const fileSchema = {
+    info: {
+        name: {
+            type: String
+        },
+        extension: {
+            type: String
+        },
+        size: {
+            type: Number
+        }
+    },
+    description: {
+        type: String
+    },
+    url: {
+        type: String
+    },
+    reference: [{  // Note: same File can be part of many entities... i.e. [lesson,post,... etc.]
+        contentType: { 
+            type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
+        },
+        objectID: {
+            type: String // GFK: # Note: object ID of contentTypeCollection of DB 
+        }
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    },
+    // Note: Add if necessary
+}
+
+
+// Image: Image will be stored in storage and represented information in DB
+const imageSchema = {
+    info: {
+        name: {
+            type: String
+        },
+        extension: {
+            type: String
+        },
+        size: {
+            type: Number
+        },
+        height: {
+            type: Number
+        },
+        weight: {
+            type: Number
+        }
+    },
+    description: {
+        type: String
+    },
+    url: {
+        type: String
+    },
+    reference: [{  // Note: same Image can be part of many entities... i.e. [lesson,post,... etc.]
+        contentType: { 
+            type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
+        },
+        objectID: {
+            type: String // GFK: # Note: object ID of contentTypeCollection of DB 
+        }
+    }],
+    discussion: {
+        type: discussionSchema // FK # discussion representation
+    },
+    reaction: {
+        type: reactionSchema   // FK # reaction representation
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    },
+    // Note: Add if necessary
+}
+
+
+// Slide: Slide will be stored in storage and represented information in DB
+const slideSchema = {
+    info: {
+        name: {
+            type: String
+        },
+        extension: {
+            type: String
+        },
+        size: {
+            type: Number
+        },
+        height: {
+            type: Number
+        },
+        weight: {
+            type: Number
+        }
+    },
+    description: {
+        type: String
+    },
+    url: {
+        type: String
+    },
+    reference: [{  // Note: same Slide can be part of many entities... i.e. [lesson,post,... etc.]
+        contentType: { 
+            type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
+        },
+        objectID: {
+            type: String // GFK: # Note: object ID of contentTypeCollection of DB 
+        }
+    }],
+    discussion: {
+        type: discussionSchema // FK # discussion representation
+    },
+    reaction: {
+        type: reactionSchema   // FK # reaction representation
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    },
+    // Note: Add if necessary
+}
+
+
+// Video: 
+const videoSchema = {
+    // TODO:
+}
+
+
+// Audio:
+const audioSchema = {
+    // TODO:
+}
+
+
+// Assignment:
+const assignmentSchema = {
     // TODO:
 }
 
@@ -265,6 +416,9 @@ const lessonSchema = {
     },
     files: [{
         name: {
+            type: String
+        },
+        url: {
             type: String
         },
         fileID: {
