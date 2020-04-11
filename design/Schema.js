@@ -385,21 +385,138 @@ const slideSchema = {
 }
 
 
-// Video: 
+// Video: Video represents all kind of video i.e. [live, normal, watch-party..] etc.
 const videoSchema = {
-    // TODO:
+    category: {
+        type: String   // Note: video category represents [live, normal, watch-party..] etc.
+    },
+    info: {
+        name: {
+            type: String
+        },
+        extension: {
+            type: String
+        },
+        size: {
+            type: Number
+        },
+        duration: {
+            type: Number
+        },
+        // dimention: ... need to disscuss
+    },
+    description: {
+        type: String
+    },
+    url: {
+        type: String
+    },
+    reference: [{  // Note: same Video can be part of many entities... i.e. [lesson,post,... etc.]
+        contentType: { 
+            type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
+        },
+        objectID: {
+            type: String // GFK: # Note: object ID of contentTypeCollection of DB 
+        }
+    }],
+    discussion: {
+        type: discussionSchema // FK # discussion representation
+    },
+    reaction: {
+        type: reactionSchema   // FK # reaction representation
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    },
+    // Note: Add if necessary
 }
 
 
-// Audio:
+// Audio: Audio represents all kind of video i.e. [broadcast, recorded, listening-party..] etc. 
 const audioSchema = {
-    // TODO:
+    category: {
+        type: String   // Note: audio category represents [broadcast, recorded, listening-party..] etc.
+    },
+    info: {
+        name: {
+            type: String
+        },
+        extension: {
+            type: String
+        },
+        size: {
+            type: Number
+        },
+        duration: {
+            type: Number
+        }
+    },
+    description: {
+        type: String
+    },
+    url: {
+        type: String
+    },
+    reference: [{  // Note: same File can be part of many entities... i.e. [lesson,post,... etc.]
+        contentType: { 
+            type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
+        },
+        objectID: {
+            type: String // GFK: # Note: object ID of contentTypeCollection of DB 
+        }
+    }],
+    discussion: {
+        type: discussionSchema // FK # discussion representation
+    },
+    reaction: {
+        type: reactionSchema   // FK # reaction representation
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    },
+    // Note: Add if necessary
 }
 
 
-// Assignment:
+// Editorial: 
+const editorialSchema = {
+    // TODO: 
+}
+
+
+// Assignment:... NOTE: Disscussion required
 const assignmentSchema = {
-    // TODO:
+    questions: [{
+        type: String
+    }],
+    editorial: [{
+        type: editorialSchema  // FK # editorial means actual (possible) solution of question by Tutor
+    }],
+    answers: [{
+        type: editorialSchema // FK # answer means reply of assignment (solution) of question by Student
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    }
+    // TODO: If required
 }
 
 
