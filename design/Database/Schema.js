@@ -7,6 +7,7 @@ NOTE:
     - Add comment if necessary so that everyone can understand
     - Follow the design pattern
     - Commit for changes
+    - Array property name keep PluralNoune
 =====================================================================
 */
 
@@ -38,7 +39,7 @@ const contentTypeSchema = {
 
 // MemberGroup: represent collection of member in a same Dept/Org/PrivacyGroup etc. as a General Design Patern
 const memberGroupSchema = {
-    reference: [{  // Note: same MemberGroup can be part of many Dept/Org/PrivacyGroup... i.e. [dept, library etc.]
+    references: [{  // Note: same MemberGroup can be part of many Dept/Org/PrivacyGroup... i.e. [dept, library etc.]
         contentType: { 
             type: contentTypeSchema // FK # Note: reference of collection of member in a same Dept/Org/PrivacyGroup etc.
         },
@@ -260,7 +261,7 @@ const fileSchema = {
     url: {
         type: String
     },
-    reference: [{  // Note: same File can be part of many entities... i.e. [lesson,post,... etc.]
+    references: [{  // Note: same File can be part of many entities... i.e. [lesson,post,... etc.]
         contentType: { 
             type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
         },
@@ -306,7 +307,7 @@ const imageSchema = {
     url: {
         type: String
     },
-    reference: [{  // Note: same Image can be part of many entities... i.e. [lesson,post,... etc.]
+    references: [{  // Note: same Image can be part of many entities... i.e. [lesson,post,... etc.]
         contentType: { 
             type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
         },
@@ -358,7 +359,7 @@ const slideSchema = {
     url: {
         type: String
     },
-    reference: [{  // Note: same Slide can be part of many entities... i.e. [lesson,post,... etc.]
+    references: [{  // Note: same Slide can be part of many entities... i.e. [lesson,post,... etc.]
         contentType: { 
             type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
         },
@@ -411,7 +412,7 @@ const videoSchema = {
     url: {
         type: String
     },
-    reference: [{  // Note: same Video can be part of many entities... i.e. [lesson,post,... etc.]
+    references: [{  // Note: same Video can be part of many entities... i.e. [lesson,post,... etc.]
         contentType: { 
             type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
         },
@@ -463,7 +464,7 @@ const audioSchema = {
     url: {
         type: String
     },
-    reference: [{  // Note: same File can be part of many entities... i.e. [lesson,post,... etc.]
+    references: [{  // Note: same File can be part of many entities... i.e. [lesson,post,... etc.]
         contentType: { 
             type: contentTypeSchema // FK # Note: reference of Collection i.e. lesson/post... etc.
         },
