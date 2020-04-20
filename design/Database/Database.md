@@ -54,6 +54,8 @@ type: String
 FK # discussion required
 type: memberGroupSchema
 
+- Member Group Schema 
+
 ### since
 
 Note: The date when this dept established
@@ -127,10 +129,14 @@ TODO: add more like... verifiedBy, certificate etc.
 FK # Calender manage routine/schedule etc.
 type: calenderSchema
 
+- Calendar Schema 
+
 ### libraryID
 
 FK # A Library can be part of Dept/Org etc.
 type: librarySchema
+
+- Library Schema 
 
 ## User
 
@@ -143,6 +149,239 @@ Note: add more if necessary
 type: String,
 required: true,
 unique: true,
+
+### name
+
+type: String,
+trim: true,
+
+### register
+
+TODO: Privacy i.e. public/inner etc.
+
+- method
+
+  Note: Method (login method) can be email/phone/both 
+  type: String,
+  trim: true,
+  required: true
+
+- email
+
+  type: String,
+  unique: true  // Note: Don't know is it possible or not!
+
+- phone
+
+  type: String,
+  unique: true  // Note: Don't know is it possible or not!
+
+### birth
+
+- day
+
+  type: String  // dd-mm
+
+- year
+
+  type: String  // yyyy
+
+### bio
+
+Note: Short description about user
+type: String
+
+### profileImage
+
+TODO: design it
+
+### coverImage
+
+TODO: design it
+
+### profileID
+
+FK # represents Profile of User... OneToOne Relation
+type: profileSchema,
+required: true,
+unique: true
+
+- Profile Schema
+
+### connected
+
+Note: Quick Reference of different links i.e. [EduHub, Dept, Org etc.]
+
+// orgs: [{}],  // Note: Add it later
+// TODO: Add more later if necessary
+
+- eduHubs
+
+  Array: [{}]
+  Note: Need discussion
+
+	- category
+
+	  Note: i.e. University/School/College/justDept etc.
+	  type: String
+
+	- deptName
+
+	  Note: Name can be stored for quick view of dept without DB-Query of Dept Document
+	  type: String
+
+	- deptID
+
+	  FK # Dept reference
+	  type: deptSchema
+
+		- Dept Schema
+
+- // orgs: [{}]
+
+  Note: Add it later
+
+### createdAt
+
+type: Date,
+default: Date.now()
+TODO: Make it uneditable
+
+### updatedAt
+
+type: Date,
+TODO: Auto update
+
+## Profile
+
+Profile: Profile of User
+
+TODO: Design it
+
+### userID
+
+Note: Reference to User
+type: String
+
+### contacts
+
+Array: [{}]
+
+- method
+
+  Note: Method could be i.e. mobile/phone/email/fax/postal etc.
+  type: String,
+  required: true
+
+- numbers
+
+  Array: [{}]
+  TODO: Privacy i.e. public/inner etc.
+
+	- number
+
+	  Note: i.e. mobile/phone/email/fax/postal etc. number as string
+	  type: String,
+	  required: true
+
+	- description
+
+	  Note: About this contact information i.e. name/schedule/office etc.
+	  type: String,
+	  trim: true
+
+	- active
+
+	  type: Boolean,
+	  default: true
+
+### presentAddress
+
+Note: Address User is living
+
+- country
+
+  type: String,
+  trim: true,
+  required: true,
+
+- line1
+
+  type: String,
+  trim: true,
+  required: true,
+
+- line2
+
+  type: String,
+  trim: true
+
+- zip
+
+  type: String,
+  trim: true
+
+- mapCoOrdinate
+
+	- lat
+
+	  type: String,
+	  trim: true
+
+	- lon
+
+	  type: String,
+	  trim: true
+
+### pastAddress
+
+Array: [{}]
+Note: Address User lived
+
+- country
+
+  type: String,
+  trim: true,
+  required: true,
+
+- line1
+
+  type: String,
+  trim: true,
+  required: true,
+
+- line2
+
+  type: String,
+  trim: true
+
+- zip
+
+  type: String,
+  trim: true
+
+- mapCoOrdinate
+
+	- lat
+
+	  type: String,
+	  trim: true
+
+	- lon
+
+	  type: String,
+	  trim: true
+
+### createdAt
+
+type: Date,
+default: Date.now()
+TODO: Make it uneditable
+
+### updatedAt
+
+type: Date,
+TODO: Auto update
 
 ## ContentType
 
@@ -177,6 +416,8 @@ Note: same MemberGroup can be part of many Dept/Org/PrivacyGroup... i.e
   FK # Note: reference of collection of member in a same Dept/Org/PrivacyGroup etc.
   type: contentTypeSchema
 
+	- Content Type Schema 
+
 - objectID
 
   GFK: # Note: object ID of contentTypeCollection of DB 
@@ -190,6 +431,8 @@ Array: [{}]
 
   FK
   type: userSchema,
+
+	- User Schema 
 
 - active
 
@@ -227,7 +470,39 @@ default: Date.now()
 
 PrivacyGroup: PrivacyGroup manage the privacy settings
 
-TODO:
+Note: add more if necessary
+
+### references
+
+Array: [{}]
+Note: same PrivacyGroup can be part of many Settings/Post/Discussion/... i.e. [post, settings, discussion etc.]
+
+- contentType
+
+  FK # Note: reference of collection of member in a same Settings/Post/Discussion/ etc.
+  type: contentTypeSchema
+
+	- Content Type Schema
+
+- objectID
+
+  GFK: # Note: object ID of contentTypeCollection of DB 
+  type: String
+
+### members
+
+Note: Users of this Privacy Group
+
+- userID
+
+  FK # User
+
+	- User Schema
+
+### createdAt
+
+type: Date,
+default: Date.now()
 
 ## Calender
 
@@ -241,6 +516,8 @@ TODO: Design it later
 
 FK # Note: reference of Dept/Org etc.
 type: contentTypeSchema
+
+- Content Type Schema
 
 ### objectID
 
@@ -263,6 +540,8 @@ TODO: Design it later
 
 FK # Note: reference of Dept/Org etc.
 type: contentTypeSchema
+
+- Content Type Schema
 
 ### objectID
 
@@ -301,6 +580,8 @@ Array: [{}]
   FK # file representaion i.e. txt,doc,pdf etc
   type: fileSchema
 
+	- File Schema 
+
 ### images
 
 Array: [{}]
@@ -314,36 +595,50 @@ Array: [{}]
   FK # image representation i.e. jpg, png, gif
   type: imageSchema
 
+	- Image Schema 
+
 ### slides
 
 Array: [{}]
 FK # slide representation
 type: slideSchema
 
+- SlideSchema 
+
 ### video
 
 FK # vedio representtion
 type: videoSchema
+
+- Video Schema 
 
 ### audio
 
 FK # audio representtion
 type: audioSchema
 
+- Audio Schema 
+
 ### assignment
 
 FK # assignment representation
 type: assignmentSchema
+
+- Assignment Schema 
 
 ### discussion
 
 FK # discussion representation
 type: discussionSchema
 
+- Discussion Schema 
+
 ### reaction
 
 FK # reaction representation
 type: reactionSchema
+
+- Reaction Schema 
 
 ### privacy
 
@@ -355,6 +650,8 @@ type: reactionSchema
 
   FK # privacyGroup representation
   type: privacyGroupSchema
+
+	- Privacy Schema 
 
 ### createdAt
 
@@ -410,6 +707,8 @@ Note: same File can be part of many entities... i.e. [lesson,post,...�
 
   FK # Note: reference of Collection i.e. lesson/post... etc.
   type: contentTypeSchema
+
+	- Content Type Schema
 
 - objectID
 
@@ -473,6 +772,8 @@ Note: same Image can be part of many entities... i.e. [lesson,post,...
   FK # Note: reference of Collection i.e. lesson/post... etc.
   type: contentTypeSchema
 
+	- Content Type Schema
+
 - objectID
 
   GFK: # Note: object ID of contentTypeCollection of DB 
@@ -483,10 +784,14 @@ Note: same Image can be part of many entities... i.e. [lesson,post,...
 FK # discussion representation
 type: discussionSchema
 
+- Discussion Schema 
+
 ### reaction
 
 FK # reaction representation
 type: reactionSchema
+
+- Reaction Schema 
 
 ### createdAt
 
@@ -545,6 +850,8 @@ Note: same Slide can be part of many entities... i.e. [lesson,post,...
   FK # Note: reference of Collection i.e. lesson/post... etc.
   type: contentTypeSchema
 
+	- Content Type Schema
+
 - objectID
 
   GFK: # Note: object ID of contentTypeCollection of DB 
@@ -555,10 +862,14 @@ Note: same Slide can be part of many entities... i.e. [lesson,post,...
 FK # discussion representation
 type: discussionSchema
 
+- Discussion Schema 
+
 ### reaction
 
 FK # reaction representation
 type: reactionSchema
+
+- Reaction Schema 
 
 ### createdAt
 
@@ -620,6 +931,8 @@ Note: same Video can be part of many entities... i.e. [lesson,post,...
   FK # Note: reference of Collection i.e. lesson/post... etc.
   type: contentTypeSchema
 
+	- Content Type Schema 
+
 - objectID
 
   GFK: # Note: object ID of contentTypeCollection of DB 
@@ -630,10 +943,14 @@ Note: same Video can be part of many entities... i.e. [lesson,post,...
 FK # discussion representation
 type: discussionSchema
 
+- Discussion Schema 
+
 ### reaction
 
 FK # reaction representation
 type: reactionSchema
+
+- Reaction Schema 
 
 ### createdAt
 
@@ -693,6 +1010,8 @@ Note: same File can be part of many entities... i.e. [lesson,post,...�
   FK # Note: reference of Collection i.e. lesson/post... etc.
   type: contentTypeSchema
 
+	- Content Type Schema 
+
 - objectID
 
   GFK: # Note: object ID of contentTypeCollection of DB 
@@ -703,10 +1022,14 @@ Note: same File can be part of many entities... i.e. [lesson,post,...�
 FK # discussion representation
 type: discussionSchema
 
+- Discussion Schema 
+
 ### reaction
 
 FK # reaction representation
 type: reactionSchema
+
+- Reaction Schema 
 
 ### createdAt
 
@@ -731,5 +1054,19 @@ TODO:
 Assignment:... NOTE: Disscussion required
 
 TODO:
+
+## Notations/Symbols
+
+### Need Discussion
+
+- 
+
+### Referance/FK/GFK
+
+- 
+
+### Focus Point
+
+- 
 
 *XMind - Trial Version*

@@ -169,7 +169,7 @@ const userSchema = {
                 type: String  // Note: Name can be stored for quick view of dept without DB-Query of Dept Document
             },
             deptID: {
-                type: deptSchema 
+                type: deptSchema  // FK # Dept reference
             }
         }],
         // orgs: [{}],  // Note: Add it later
@@ -234,6 +234,29 @@ const memberGroupSchema = {
         createdAt: {
             type: Date,
             default: Date.now()
+        }
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    }
+    // Note: add more if necessary
+}
+
+
+// PrivacyGroup: PrivacyGroup manage the privacy settings
+const privacyGroupSchema = {
+    references: [{  // Note: same PrivacyGroup can be part of many Settings/Post/Discussion/... i.e. [post, settings, discussion etc.]
+        contentType: { 
+            type: contentTypeSchema // FK # Note: reference of collection of member in a same Settings/Post/Discussion/ etc.
+        },
+        objectID: {
+            type: String // GFK: # Note: object ID of contentTypeCollection of DB 
+        }
+    }],
+    members: [{  // Note: Users of this Privacy Group
+        userID: {
+            type: userSchema, // FK # User
         }
     }],
     createdAt: {
@@ -683,12 +706,6 @@ const assignmentSchema = {
         // TODO: Auto update
     }
     // TODO: If required
-}
-
-
-// PrivacyGroup: PrivacyGroup manage the privacy settings
-const privacyGroupSchema = {
-    // TODO:
 }
 
 
