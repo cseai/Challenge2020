@@ -685,6 +685,243 @@ const editorialSchema = {
 }
 
 
+// MCQ: MCQ stands for Multiple Choise Question
+const mcqSchema = {  
+    stem: {   // See: https:ar.cetl.hku.hk/am_mcq.htm
+        text: {
+            type: String
+        },
+        image: {
+            url: {
+                type: String
+            },
+            height: {
+                type: Number
+            },
+            weight: {
+                type: Number
+            }
+        },
+        required: true
+    },
+    options: [{
+        text: {
+            type: String
+        },
+        image: {
+            url: {
+                type: String
+            },
+            height: {
+                type: Number
+            },
+            weight: {
+                type: Number
+            }
+        },
+        isKey: {
+            type: Boolean,
+            default: false
+        }
+    }],
+    info: {
+        numberOfOption: {
+            type: Number,
+            default: 0
+            // Note: Autometic update
+        },
+        numberOfKey: {  //Note: Key means correct answer
+            type: Number,
+            default: 0
+            // Note: Autometic update
+        },
+        numberOfResponse:{
+            type: Number,  // Note: The number of time User answered this MCQ
+            default: 0
+        },
+        numberOfCorrectResponse: {
+            type: Number,  // Note: The number of time User answered correct this MCQ
+            default: 0
+        }
+    },
+    explanation: {
+        text: {
+            type: String
+        },
+        images: [{
+            url: {
+                type: String
+            },
+            height: {
+                type: Number
+            },
+            weight: {
+                type: Number
+            }
+        }],
+        editorials: [{
+            userID: {
+                type: userSchema // FK # User who created this editorial
+            },
+            editorial: {
+                type: editorialSchema   // FK # editorial of this MCQ ... if required
+            }
+        }]
+    },
+    specific: {
+        levels: [{
+            type: String // Note: represents class/level etc
+        }],
+        subjects: [{
+            type: String // Note: represents subject/category etc
+        }],
+        topics: [{
+            type: String // Note: represents topic/chapter etc
+        }],
+        medium: {
+            type: String // Note: Representational language i.e. Bangla/English... etc
+        },
+        startYear: {
+            type: Number // Note: Year (yyyy) since this MCQ conserned as reasonable
+        },
+        country: {
+            type: String // Note: Country name
+        },
+        // Note: Add if required
+    },
+    privacy: {
+        method: {
+            type: String
+        },
+        privacyGID: {
+            type: privacyGroupSchema // FK # privacyGroup representation
+        }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    },
+    // Note: Add if necessary
+}
+
+
+// CQ: CQ represents CreativeQuestion/Question/Quiz etc
+const cqSchema = {
+    stem: {
+        text: {
+            type: String
+        },
+        images: [{
+            url: {
+                type: String
+            },
+            height: {
+                type: Number
+            },
+            weight: {
+                type: Number
+            }
+        }]
+    },
+    questions: [{
+        text: {
+            type: String
+        },
+        image: {
+            url: {
+                type: String
+            },
+            height: {
+                type: Number
+            },
+            weight: {
+                type: Number
+            }
+        },
+        // Note: Add if required
+    }],
+    info: {
+        numberOfPart: {
+            type: Number,
+            default: 0
+            // Note: Autometic update
+        },
+        numberOfResponse:{
+            type: Number,  // Note: The number of time User answered this CQ
+            default: 0
+        }
+    },
+    explanation: {
+        text: {
+            type: String
+        },
+        images: [{
+            url: {
+                type: String
+            },
+            height: {
+                type: Number
+            },
+            weight: {
+                type: Number
+            }
+        }],
+        editorials: [{
+            userID: {
+                type: userSchema // FK # User who created this editorial
+            },
+            editorial: {
+                type: editorialSchema   // FK # editorial of this MCQ ... if required
+            }
+        }]
+    },
+    specific: {
+        levels: [{
+            type: String // Note: represents class/level etc
+        }],
+        subjects: [{
+            type: String // Note: represents subject/category etc
+        }],
+        topics: [{
+            type: String // Note: represents topic/chapter etc
+        }],
+        medium: {
+            type: String // Note: Representational language i.e. Bangla/English... etc
+        },
+        startYear: {
+            type: Number // Note: Year (yyyy) since this MCQ conserned as reasonable
+        },
+        country: {
+            type: String // Note: Country name
+        },
+        // Note: Add if required
+    },
+    privacy: {
+        method: {
+            type: String
+        },
+        privacyGID: {
+            type: privacyGroupSchema // FK # privacyGroup representation
+        }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+        // TODO: Make it uneditable
+    },
+    updatedAt: {
+        type: Date,
+        // TODO: Auto update
+    },
+    // Note: Add if necessary
+}
+
+
 // Assignment:... NOTE: Disscussion required
 const assignmentSchema = {
     questions: [{
@@ -758,7 +995,6 @@ const lessonSchema = {
         privacyGID: {
             type: privacyGroupSchema // FK # privacyGroup representation
         }
-
     },
     createdAt: {
         type: Date,
