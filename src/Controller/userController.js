@@ -1,8 +1,4 @@
-exports.checkID = (req, res, next, val) => {
-    console.log(`User id is ${val}`);
-    // Put here logic
-    next();
-};
+const User = require('./../models/userModel');
 
 exports.checkBody = (req, res, next) => {
     if(!req.body.name){
@@ -67,19 +63,20 @@ exports.getUser = (req, res) => {
 };
 
 
-exports.createUser = (req, res) => {
+exports.createUser = async (req, res) => {
 	try {
-        console.log(req.body);
+		const newUser = await User.create(req.body);
+        // console.log(req.body);
 		res.status(201).json({
-			success: true,
+			status: 'success',
             msg: 'New User Created',
             data: {
-                user: req.body
+                user: newUser
             }
         });
 	} catch (err) {
 		return res.status(500).json({
-			success: false,
+			status: 'fail',
 			msg: 'Server Error',
 			err: err,
 		});

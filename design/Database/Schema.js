@@ -18,6 +18,41 @@ const profileSchema = {
     userID: {
         type: String // Note: Reference to User
     },
+    /*
+    register: {
+        method: {
+            type: String,  // Note: Method (login method) can be email/phone/both 
+            trim: true,
+            required: true
+        },
+        email: {
+            type: String,
+            unique: true   // Note: Don't know is it possible or not!
+        },
+        phone: {
+            type: String,
+            unique: true   // Note: Don't know is it possible or not!
+        },
+        // TODO: Privacy i.e. public/inner etc.
+    },
+    */
+    birth: {
+        day: {
+            type: String  // dd-mm
+        },
+        year: {
+            type: String  // yyyy
+        }
+    },
+    bio: {
+        type: String  // Note: Short description about user
+    },
+    profileImage: {
+        // TODO: design it
+    },
+    coverImage: {
+        // TODO: design it
+    },
     contacts: [{
         method: {
             type: String, // Note: Method could be i.e. mobile/phone/email/fax/postal etc.
@@ -99,6 +134,21 @@ const profileSchema = {
             }
         }
     }],
+    connected: {  // Note: Quick Reference of different links i.e. [EduHub, Dept, Org etc.]
+        eduHubs: [{    // Note: Need discussion
+            category: {
+                type: String // Note: i.e. University/School/College/justDept etc.
+            },
+            deptName: {
+                type: String  // Note: Name can be stored for quick view of dept without DB-Query of Dept Document
+            },
+            deptID: {
+                type: deptSchema  // FK # Dept reference
+            }
+        }],
+        // orgs: [{}],  // Note: Add it later
+        // TODO: Add more later if necessary
+    },
     createdAt: {
         type: Date,
         default: Date.now()
@@ -118,63 +168,20 @@ const userSchema = {
         required: true,
         unique: true,
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     name: {
         type: String,
         trim: true,
     },
-    register: {
-        method: {
-            type: String,  // Note: Method (login method) can be email/phone/both 
-            trim: true,
-            required: true
-        },
-        email: {
-            type: String,
-            unique: true   // Note: Don't know is it possible or not!
-        },
-        phone: {
-            type: String,
-            unique: true   // Note: Don't know is it possible or not!
-        },
-        // TODO: Privacy i.e. public/inner etc.
-    },
-    birth: {
-        day: {
-            type: String  // dd-mm
-        },
-        year: {
-            type: String  // yyyy
-        }
-    },
-    bio: {
-        type: String  // Note: Short description about user
-    },
-    profileImage: {
-        // TODO: design it
-    },
-    coverImage: {
-        // TODO: design it
-    },
-    profileID: {
-        type: profileSchema,  // FK # represents Profile of User... OneToOne Relation
-        required: true,
-        unique: true  
-    },
-    connected: {  // Note: Quick Reference of different links i.e. [EduHub, Dept, Org etc.]
-        eduHubs: [{    // Note: Need discussion
-            category: {
-                type: String // Note: i.e. University/School/College/justDept etc.
-            },
-            deptName: {
-                type: String  // Note: Name can be stored for quick view of dept without DB-Query of Dept Document
-            },
-            deptID: {
-                type: deptSchema  // FK # Dept reference
-            }
-        }],
-        // orgs: [{}],  // Note: Add it later
-        // TODO: Add more later if necessary
-    },
+    // profileID: {
+    //     type: profileSchema,  // FK # represents Profile of User... OneToOne Relation
+    //     required: true,
+    //     unique: true  
+    // },
     createdAt: {
         type: Date,
         default: Date.now()
