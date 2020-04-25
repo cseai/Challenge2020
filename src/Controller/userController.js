@@ -1,3 +1,19 @@
+exports.checkID = (req, res, next, val) => {
+    console.log(`User id is ${val}`);
+    // Put here logic
+    next();
+};
+
+exports.checkBody = (req, res, next) => {
+    if(!req.body.name){
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Missing name'
+        });
+    };
+    next();
+};
+
 exports.getAllUsers = (req, res) => {
 	try {
 		res.status(200).json({

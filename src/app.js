@@ -6,8 +6,10 @@ const testRoute = require('./routes/testRoute');
 const userRoute = require('./routes/userRoute');
 
 // 1) MIDDLEWARES
-// morgan for log
-app.use(morgan('dev'));
+// morgan for log when development
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'));
+}
 // express json parse
 app.use(express.json());
 
