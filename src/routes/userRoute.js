@@ -3,9 +3,12 @@ const userController = require('./../Controller/userController');
 
 // router.param('id', userController.checkID);
 
+// Example of use middleware
+router.route('/latest-2').get(userController.aliasLatestUsers, userController.getAllUsers);
+
 router.route('/')
     .get(userController.getAllUsers)
-    .post(userController.checkBody, userController.createUser);
+    .post(userController.createUser);
 
 router.route('/:id')
     .get(userController.getUser)

@@ -1,36 +1,26 @@
 const User = require('./../models/userModel');
+const APIFeatures = require('./../utils/apiFeatures');
 
-exports.checkBody = (req, res, next) => {
-    if(!req.body.name){
-        return res.status(400).json({
-            status: 'fail',
-            message: 'Missing name'
-        });
-    };
-    next();
+exports.aliasLatestUsers = (req, res, next) => {
+	req.query.limit = '2';
+	req.query.sort = '-createdAt';
+	req.query.fields = 'name,username,email';
+	// console.log(req.query);
+	next();
 };
 
-exports.getAllUsers = (req, res) => {
+
+exports.getAllUsers = async (req, res) => {
 	try {
+		// EXECUTE QUERY
+		const features = new APIFeatures(User.find(), req.query).filter().sort().limitFields().paginate();
+		const users = await features.query;
+
+		// SEND RESPONSE
 		res.status(200).json({
 			success: true,
-            msg: 'Got All User',
-            data: {
-                users: [
-                    {
-                        userId: 1,
-                        name: 'Belal'
-                    },
-                    {
-                        userId: 2,
-                        name: 'Helal'
-                    },
-                    {
-                        userId: 3,
-                        name: 'Jahurul'
-                    }
-                ]
-            }
+            results: users.length,
+            users: users
 		});
 	} catch (err) {
 		return res.status(500).json({
@@ -41,16 +31,14 @@ exports.getAllUsers = (req, res) => {
 	}
 };
 
-exports.getUser = (req, res) => {
+exports.getUser = async (req, res) => {
 	try {
+		const user = await User.findById(req.params.id);
 		res.status(200).json({
 			success: true,
             msg: 'Get User',
             data: {
-                user: {
-                    userId: req.params.id * 1,
-                    name: 'Belal'
-                }
+                user
             }
 		});
 	} catch (err) {
@@ -68,7 +56,7 @@ exports.createUser = async (req, res) => {
 		const newUser = await User.create(req.body);
         // console.log(req.body);
 		res.status(201).json({
-			status: 'success',
+			success: true,
             msg: 'New User Created',
             data: {
                 user: newUser
@@ -84,13 +72,16 @@ exports.createUser = async (req, res) => {
 };
 
 
-exports.updateUser = (req, res) => {
+exports.updateUser = async (req, res) => {
 	try {
+		const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+			new: true
+		});
 		res.status(200).json({
 			success: true,
             msg: 'Update User',
             data: {
-                user: req.body
+                user
             }
 		});
 	} catch (err) {
@@ -103,8 +94,9 @@ exports.updateUser = (req, res) => {
 };
 
 
-exports.deleteUser = (req, res) => {
+exports.deleteUser = async (req, res) => {
 	try {
+		await User.findByIdAndDelete(req.params.id);
 		res.status(204).json({
 			success: true,
             msg: 'Delete User',
