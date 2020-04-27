@@ -74,6 +74,7 @@ exports.createUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
 	try {
+		// NOTE: one issue-> update will not call pre-save middleware.... should change.... i.e. changing password
 		const user = await User.findByIdAndUpdate(req.params.id, req.body, {
 			new: true
 		});

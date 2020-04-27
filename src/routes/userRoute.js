@@ -1,13 +1,15 @@
 const router = require('express').Router();
 const userController = require('./../Controller/userController');
-
-// router.param('id', userController.checkID);
+const authController = require('./../Controller/authController');
 
 // Example of use middleware
 router.route('/latest-2').get(userController.aliasLatestUsers, userController.getAllUsers);
 
+router.post('/signup', authController.signup);
+router.post('/login', authController.login);
+
 router.route('/')
-    .get(userController.getAllUsers)
+    .get(authController.protect, userController.getAllUsers)
     .post(userController.createUser);
 
 router.route('/:id')
