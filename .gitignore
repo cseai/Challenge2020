@@ -5,7 +5,7 @@ src/dev_data/API/*
 src/dev_data/DB/*
 
 # dependencies
-src/node_modules
+# src/node_modules
 
 # dependencies
 /node_modules

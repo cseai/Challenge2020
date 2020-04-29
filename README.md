@@ -31,6 +31,7 @@ devDependencies:
 ## API Documentation
 
 Links: 
+- See at `src/API-Doc.md` [API-Doc.md](src/API-Doc.md)
 - All API did not publish for some reason. [Postman Generatet Public API Documentation](https://documenter.getpostman.com/view/5663139/SzmY7fpM)
 
 ## Contributing
