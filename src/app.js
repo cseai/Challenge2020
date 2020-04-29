@@ -6,6 +6,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const testRoute = require('./routes/testRoute');
 const userRoute = require('./routes/userRoute');
+const deptRoute = require('./routes/deptRoute');
 
 // 1) MIDDLEWARES
 // morgan for log when development
@@ -20,6 +21,8 @@ app.use(express.json());
 app.use('/api/v1/test', testRoute);
 // user router
 app.use('/api/v1/users', userRoute);
+// dept router
+app.use('/api/v1/depts', deptRoute);
 
 
 app.all('*', (req, res, next) => {
