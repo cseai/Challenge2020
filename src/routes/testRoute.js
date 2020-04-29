@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getTest } = require('./../Controller/testController');
+const { getTest } = require('../controllers/testController');
 
 router.route('/').get(getTest);
 

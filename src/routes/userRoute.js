@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const userController = require('./../Controller/userController');
-const authController = require('./../Controller/authController');
+const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
 
 // Example of use middleware
 router.route('/latest-2').get(userController.aliasLatestUsers, userController.getAllUsers);

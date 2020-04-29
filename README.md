@@ -28,6 +28,11 @@ devDependencies:
 	npm install -D morgan
 ```
 
+## API Documentation
+
+Links: 
+- All API did not publish for some reason. [Postman Generatet Public API Documentation](https://documenter.getpostman.com/view/5663139/SzmY7fpM)
+
 ## Contributing
 
 [Md. Shariar kabir](https://github.com/codezerro)
