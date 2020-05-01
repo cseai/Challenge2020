@@ -3,6 +3,8 @@
 # development data
 src/dev_data/API/*
 src/dev_data/DB/*
+src/dev_data/cheat_sheet/*
+src/dev_data/test/*
 
 # dependencies
 src/node_modules

@@ -57,7 +57,7 @@ exports.createUser =catchAsync(async (req, res, next) => {
 });
 
 
-exports.updateUser = catchAsync(async (req, res) => {
+exports.updateUser = catchAsync(async (req, res, next) => {
 	// NOTE: one issue-> update will not call pre-save middleware.... should change.... i.e. changing password
 	const user = await User.findByIdAndUpdate(req.params.id, req.body, {
 		new: true
@@ -77,7 +77,7 @@ exports.updateUser = catchAsync(async (req, res) => {
 });
 
 
-exports.deleteUser = catchAsync(async (req, res) => {
+exports.deleteUser = catchAsync(async (req, res, next) => {
 	await User.findByIdAndDelete(req.params.id);
 	res.status(204).json({
 		success: true,
