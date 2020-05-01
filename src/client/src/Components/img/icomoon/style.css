@@ -1,0 +1,176 @@
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.icon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.icon-bars-alt {
+  width: 0.875em;
+}
+
+.icon-lock-fill {
+  width: 0.75em;
+}
+
+.icon-unlock-fill {
+  width: 0.75em;
+}
+
+.icon-close {
+  width: 0.7857142857142857em;
+}
+
+.icon-power-off {
+  width: 0.8571428571428571em;
+}
+
+.icon-camera2 {
+  width: 1.0714285714285714em;
+}
+
+.icon-chevron-left {
+  width: 0.75em;
+}
+
+.icon-chevron-right {
+  width: 0.6785714285714285em;
+}
+
+.icon-arrow-up {
+  width: 0.9285714285714285em;
+}
+
+.icon-arrow-down {
+  width: 0.9285714285714285em;
+}
+
+.icon-folder2 {
+  width: 0.9285714285714285em;
+}
+
+.icon-folder-open {
+  width: 1.0485714285714285em;
+}
+
+.icon-twitter-square {
+  width: 0.8571428571428571em;
+}
+
+.icon-facebook-square {
+  width: 0.8571428571428571em;
+}
+
+.icon-upload {
+  width: 0.9285714285714285em;
+}
+
+.icon-unlock {
+  width: 0.9285714285714285em;
+}
+
+.icon-hand-o-up {
+  width: 0.8571428571428571em;
+}
+
+.icon-hand-o-down {
+  width: 0.8571428571428571em;
+}
+
+.icon-cloud {
+  width: 1.0714285714285714em;
+}
+
+.icon-pinterest {
+  width: 0.8571428571428571em;
+}
+
+.icon-google-plus-square {
+  width: 0.8571428571428571em;
+}
+
+.icon-money {
+  width: 1.0714285714285714em;
+}
+
+.icon-lightbulb-o {
+  width: 0.5714285714285714em;
+}
+
+.icon-angle-double-left {
+  width: 0.5892857142857143em;
+}
+
+.icon-angle-double-right {
+  width: 0.5535714285714285em;
+}
+
+.icon-angle-double-up {
+  width: 0.6428571428571428em;
+}
+
+.icon-angle-double-down {
+  width: 0.6428571428571428em;
+}
+
+.icon-angle-left {
+  width: 0.375em;
+}
+
+.icon-angle-right {
+  width: 0.33928571428571425em;
+}
+
+.icon-angle-up {
+  width: 0.6428571428571428em;
+}
+
+.icon-angle-down {
+  width: 0.6428571428571428em;
+}
+
+.icon-thumbs-up {
+  width: 0.8928571428571428em;
+}
+
+.icon-thumbs-down {
+  width: 0.8928571428571428em;
+}
+
+.icon-stack-overflow {
+  width: 0.8571428571428571em;
+}
+
+.icon-instagram {
+  width: 0.8571428571428571em;
+}
+
+.icon-wechat {
+  width: 1.1428571428571428em;
+}
+
+.icon-paper-plane {
+  width: 1.0011428571428571em;
+}
+
+.icon-paper-plane-o {
+  width: 1.0005714285714284em;
+}
+
+.icon-user-plus {
+  width: 1.1428571428571428em;
+}
+
+.icon-user-times {
+  width: 1.1378571428571427em;
+}
