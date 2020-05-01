@@ -5,7 +5,9 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "nodemon server.js",
-		"dev": "nodemon server.js"
+		"dev": "nodemon server.js",
+		"client": "npm start --prefix client",
+		"edukos": "concurrently \"npm run dev\" \"npm run client\""
 	},
 	"author": "Md.Shariar Kabir & Md. Belal Hossain",
 	"license": "ISC",
@@ -20,6 +22,7 @@
 	},
 	"devDependencies": {
 		"colors": "^1.4.0",
+		"concurrently": "^5.2.0",
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb": "^18.1.0",
 		"eslint-config-prettier": "^6.11.0",

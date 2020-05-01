@@ -10,8 +10,8 @@ const deptRoute = require('./routes/deptRoute');
 
 // 1) MIDDLEWARES
 // morgan for log when development
-if(process.env.NODE_ENV === 'development'){
-    app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+	app.use(morgan('dev'));
 }
 // express json parse
 app.use(express.json());
@@ -24,9 +24,9 @@ app.use('/api/v1/users', userRoute);
 // dept router
 app.use('/api/v1/depts', deptRoute);
 
-
+// route protecting
 app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+	next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.use(globalErrorHandler);
