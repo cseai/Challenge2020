@@ -50,29 +50,38 @@ exports.createDept = catchAsync(async (req, res, next) => {
 
 exports.updateDept = catchAsync(async (req, res, next) => {
     /* CAREFULLY NOTE
-    - `eduHub` and `children` property can be update manually... it will be changed automaticaly
+    - `eduHub` and `children` property can not be update manually... it will be changed automaticaly BUT...
+    - IF when need to change ROOT EDUHUB that's the TERRIBLE SITUATION TO HANDLE...THIS BUG DID NOT FIXED YET
     - so that never UPDATE using req.body data without check `eduHub` and `children` property
     - always validate data before update
     */
-
-    // const dept = await Dept.findByIdAndUpdate(req.params.id, req.body, {
-    //     new: true
-    // });
-
+    
     const dept = await Dept.findById(req.params.id);
     if(!dept){
         return next(new AppError(`Department doesn't exist!`, 404));
     }
 
+
+    // PROTECT EDUHUB DELETION/MOVE (BUG-PROTECTION)
+    // A) PROTECT: DEPT -> EDUHUB
+    // B) PROTECT: EDUHUB -> DEPT
+    // C) PROTECT/RESTRICT: DEPT -> DEPT [IF BOTH DEPT'S `eduHub` NOT SAME THEN PROTECT]
+    
+    // CASES-COMBINATION: oldDept->newDept [0=EDUHUB, 1=DEPT]
+    // 1->0:(BUG-A), 0->1:(BUG-B), 1->1:(RESTRICTED, BUG(SOME CASES)), 0->0->UNCHANGED
+
+    
     const clearedData = {...req.body};
-    console.log(`req.body: ${req.body}, clearedData: ${clearedData}, dept: ${dept}`);
+    // console.log(`req.body: ${req.body}, clearedData: ${clearedData}, dept: ${dept}`);
+    // COPY PROTECTED PROPERTY
     clearedData.eduHub = dept.eduHub;
     clearedData.children = dept.children;
 
-    // CASES: 01, 10, 11, 00->UNCHANGED
     // NOTE: This is dangarous buggy code.... somehow pre-update doesn't work, so this way
-    if(clearedData.parent === null && dept.parent !== null){
-        // EDUHUB
+    if(dept.parent !== null && clearedData.parent === null){
+        // PROTECT: BUG-A: DEPT -> EDUHUB
+        return next(new AppError(`Dept update failed! PROTECT: BUG-A: DEPT -> EDUHUB`, 401));
+        /*
         clearedData.parent = null;
         clearedData.eduHub = null;
 
@@ -85,54 +94,81 @@ exports.updateDept = catchAsync(async (req, res, next) => {
             parentDept.children.splice(id_index, 1);
             parentDept.save();
         }
-    } else if(clearedData.parent !== null && dept.parent === null){
-        // CHANGE PARENT: EDUHUB TO DEPT
+        */
+    } else if(dept.parent === null && clearedData.parent !== null){
+        // PROTECT: BUG-B: EDUHUB -> DEPT
+        return next(new AppError(`Dept update failed! PROTECT: BUG-B: EDUHUB -> DEPT`, 401));
+        /*
         const newParentDept = await Dept.findById(clearedData.parent);
         if(!newParentDept) return next(new AppError(`Parent doesn't exist. Dept updation failed!`, 404));
         
         // set eduHub id
-        clearedData.eduHub = clearedData.parent;
+        clearedData.eduHub = newParentDept.parent !== null ? newParentDept.eduHub : newParentDept._id ;
 
-
-        const id_index = newParentDept.children.indexOf(dept._id);
-        if(id_index > -1){
-            newParentDept.children.splice(id_index, 1);
-            newParentDept.save();
+        // add children to newParentDept's children list
+        if(!newParentDept.children.includes(dept._id)){
+            newParentDept.children = [...newParentDept.children, dept._id];
+            const obj = await newParentDept.save();
+            // console.log({parentObjSaved: obj});
         }
-    } else if((clearedData.parent !== dept.parent) && clearedData.parent !== null && dept.parent !== null){
-        // CHANGE PARENT
+        */
+    } else if((dept.parent !== clearedData.parent) && dept.parent !== null && clearedData.parent !== null){
+        // PROTECT/RESTRICT: BUG-C: DEPT -> DEPT [IF BOTH DEPT'S `eduHub` NOT SAME THEN PROTECT]
+        
+        // BUT ONE BUG REMAINING: 
+        // When changing dept-parent in case-BUG-C old-parent's children didn't remove...NEED TO FIX
+        
+        const newParentDept = await Dept.findById(clearedData.parent);
+        if(!newParentDept) return next(new AppError(`Parent doesn't exist. Dept updation failed!`, 404));
+        // C1) IF dept.eduhub !== newParentDept.eduHub THEN PROTECT
+        if((dept.eduhub !== newParentDept.eduHub) && (newParentDept.eduHub !== null)){
+            return next(new AppError(`Dept update failed! PROTECT/RESTRICT: BUG-C: DEPT -> DEPT [IF BOTH DEPT'S 'eduHub' NOT SAME THEN PROTECT]`, 401));
+        }
+
+        // const newParentDept = await Dept.findById(clearedData.parent);
+        // if(!newParentDept) return next(new AppError(`Parent doesn't exist. Dept updation failed!`, 404));
+
+        // set eduHub id
+        // clearedData.eduHub = newParentDept.parent !== null ? newParentDept.eduHub : newParentDept._id ;
+        
+        // add children to newParentDept's children list
+        if(!newParentDept.children.includes(dept._id)){
+            newParentDept.children = [...newParentDept.children, dept._id];
+            const obj = await newParentDept.save();
+            // console.log({parentObjSaved: obj});
+        }
+
         const oldParentDept = await Dept.findById(dept.parent);
         if(!oldParentDept) return next(new AppError(`Parent doesn't exist. Dept updation failed!`, 404));
 
-        // remov children from old parent
+        // remove children from old parent
         const id_index = oldParentDept.children.indexOf(dept._id);
         if(id_index > -1){
             oldParentDept.children.splice(id_index, 1);
             oldParentDept.save();
         }
-
-        // add children to new parent
-        // call `save` after dept-update... this will change automatically
     }
 
 
 
+    // const updatedDept = await dept.update(clearedData); // deprecated
     const updatedDept = await dept.updateOne(clearedData);
-
     // NOTE: save() call need because of parent update
-    dept.save();
 
-    if(!updatedDept){
-        console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
+    const updatedAndSavedDept = await dept.save();
+
+    console.log(`updatedAndSavedDept: ${updatedAndSavedDept}`);
+    if(!updatedAndSavedDept){
+        // console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
         return next(new AppError('Dept update faild. Fix BUG..'));
     }
 
-    console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
+    // console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
 
     res.status(200).json({
         success: true,
         msg: 'Department updated',
-        dept
+        dept: updatedAndSavedDept
     })
 });
 

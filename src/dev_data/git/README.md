@@ -4,5 +4,5 @@
 ```
     git stash
     git pull origin master
-    git stath pop
+    git stash pop
 ```
