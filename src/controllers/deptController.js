@@ -3,7 +3,6 @@ const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 
-
 exports.getAllDepts = catchAsync(async (req, res, next) => {
 	// EXECUTE QUERY
 	const features = new APIFeatures(Dept.find(), req.query).filter().sort().limitFields().paginate();
@@ -13,20 +12,19 @@ exports.getAllDepts = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		success: true,
 		results: depts.length,
-		depts
+		depts,
 	});
 });
 
-
 exports.getDept = catchAsync(async (req, res, next) => {
 	const dept = await Dept.findById(req.params.id);
-	if(!dept){
+	if (!dept) {
 		return next(new AppError(`Dept doesn't exists!`, 404));
 	}
 	res.status(200).json({
 		success: true,
 		msg: 'Get dept',
-		dept
+		dept,
 	});
 });
 
@@ -78,56 +76,54 @@ exports.getEduHub = catchAsync(async (req, res, next) => {
 
  
 exports.createDept = catchAsync(async (req, res, next) => {
-    req.body.user = req.user._id;
+	req.body.user = req.user._id;
 
-    // console.log({body: req.body});
+	// console.log({body: req.body});
 
-    const newDept = await Dept.create(req.body);
-    if(!newDept){
-        return next(new AppError(`Department creation failed!`));
-    }
+	const newDept = await Dept.create(req.body);
+	if (!newDept) {
+		return next(new AppError(`Department creation failed!`));
+	}
 
-    res.status(201).json({
-        success: true,
-        msg: 'New Dept created',
-        dept: newDept
-    })
+	res.status(201).json({
+		success: true,
+		msg: 'New Dept created',
+		dept: newDept,
+	});
 });
 
 exports.updateDept = catchAsync(async (req, res, next) => {
-    /* CAREFULLY NOTE
+	/* CAREFULLY NOTE
     - `eduHub` and `children` property can not be update manually... it will be changed automaticaly BUT...
     - IF when need to change ROOT EDUHUB that's the TERRIBLE SITUATION TO HANDLE...THIS BUG DID NOT FIXED YET
     - so that never UPDATE using req.body data without check `eduHub` and `children` property
     - always validate data before update
     */
-    
-    const dept = await Dept.findById(req.params.id);
-    if(!dept){
-        return next(new AppError(`Department doesn't exist!`, 404));
-    }
 
+	const dept = await Dept.findById(req.params.id);
+	if (!dept) {
+		return next(new AppError(`Department doesn't exist!`, 404));
+	}
 
-    // PROTECT EDUHUB DELETION/MOVE (BUG-PROTECTION)
-    // A) PROTECT: DEPT -> EDUHUB
-    // B) PROTECT: EDUHUB -> DEPT
-    // C) PROTECT/RESTRICT: DEPT -> DEPT [IF BOTH DEPT'S `eduHub` NOT SAME THEN PROTECT]
-    
-    // CASES-COMBINATION: oldDept->newDept [0=EDUHUB, 1=DEPT]
-    // 1->0:(BUG-A), 0->1:(BUG-B), 1->1:(RESTRICTED, BUG(SOME CASES)), 0->0->UNCHANGED
+	// PROTECT EDUHUB DELETION/MOVE (BUG-PROTECTION)
+	// A) PROTECT: DEPT -> EDUHUB
+	// B) PROTECT: EDUHUB -> DEPT
+	// C) PROTECT/RESTRICT: DEPT -> DEPT [IF BOTH DEPT'S `eduHub` NOT SAME THEN PROTECT]
 
-    
-    const clearedData = {...req.body};
-    // console.log(`req.body: ${req.body}, clearedData: ${clearedData}, dept: ${dept}`);
-    // COPY PROTECTED PROPERTY
-    clearedData.eduHub = dept.eduHub;
-    clearedData.children = dept.children;
+	// CASES-COMBINATION: oldDept->newDept [0=EDUHUB, 1=DEPT]
+	// 1->0:(BUG-A), 0->1:(BUG-B), 1->1:(RESTRICTED, BUG(SOME CASES)), 0->0->UNCHANGED
 
-    // NOTE: This is dangarous buggy code.... somehow pre-update doesn't work, so this way
-    if(dept.parent !== null && clearedData.parent === null){
-        // PROTECT: BUG-A: DEPT -> EDUHUB
-        return next(new AppError(`Dept update failed! PROTECT: BUG-A: DEPT -> EDUHUB`, 401));
-        /*
+	const clearedData = { ...req.body };
+	// console.log(`req.body: ${req.body}, clearedData: ${clearedData}, dept: ${dept}`);
+	// COPY PROTECTED PROPERTY
+	clearedData.eduHub = dept.eduHub;
+	clearedData.children = dept.children;
+
+	// NOTE: This is dangarous buggy code.... somehow pre-update doesn't work, so this way
+	if (dept.parent !== null && clearedData.parent === null) {
+		// PROTECT: BUG-A: DEPT -> EDUHUB
+		return next(new AppError(`Dept update failed! PROTECT: BUG-A: DEPT -> EDUHUB`, 401));
+		/*
         clearedData.parent = null;
         clearedData.eduHub = null;
 
@@ -141,10 +137,10 @@ exports.updateDept = catchAsync(async (req, res, next) => {
             parentDept.save();
         }
         */
-    } else if(dept.parent === null && clearedData.parent !== null){
-        // PROTECT: BUG-B: EDUHUB -> DEPT
-        return next(new AppError(`Dept update failed! PROTECT: BUG-B: EDUHUB -> DEPT`, 401));
-        /*
+	} else if (dept.parent === null && clearedData.parent !== null) {
+		// PROTECT: BUG-B: EDUHUB -> DEPT
+		return next(new AppError(`Dept update failed! PROTECT: BUG-B: EDUHUB -> DEPT`, 401));
+		/*
         const newParentDept = await Dept.findById(clearedData.parent);
         if(!newParentDept) return next(new AppError(`Parent doesn't exist. Dept updation failed!`, 404));
         
@@ -201,7 +197,13 @@ exports.updateDept = catchAsync(async (req, res, next) => {
         dept.removeChildLink();
     }
 
+	const updatedAndSavedDept = await dept.save();
 
+	console.log(`updatedAndSavedDept: ${updatedAndSavedDept}`);
+	if (!updatedAndSavedDept) {
+		// console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
+		return next(new AppError('Dept update faild. Fix BUG..'));
+	}
 
     // const updatedDept = await dept.update(clearedData); // deprecated
     // const updatedDept = await dept.updateOne(clearedData);
@@ -210,34 +212,17 @@ exports.updateDept = catchAsync(async (req, res, next) => {
     // NOTE: save() call need because of parent update
     const updatedAndSavedDept = await dept.save();
 
-    console.log(`updatedAndSavedDept: ${updatedAndSavedDept}`);
-    if(!updatedAndSavedDept){
-        // console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
-        return next(new AppError('Dept update faild. Fix BUG..'));
-    }
+exports.deleteDept = catchAsync(async (req, res, next) => {
+	// await Dept.findByIdAndDelete(req.params.id);
+	const delDept = await Dept.findById(req.params.id);
+	if (!delDept) {
+		return next(new AppError(`Dept doesn't exist which want to delete!`, 404));
+	}
 
     console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
 
-    res.status(200).json({
-        success: true,
-        msg: 'Department updated',
-        dept: updatedAndSavedDept
-    })
-});
-
-
-exports.deleteDept = catchAsync(async (req, res, next) => {
-    // await Dept.findByIdAndDelete(req.params.id);
-    const delDept = await Dept.findById(req.params.id);
-    if(!delDept){
-        return next(new AppError(`Dept doesn't exist which want to delete!`, 404));
-    }
-    
-    const status = await delDept.deleteOne();
-    console.log(`delete-status: ${status}`);
-
-    res.status(200).json({
-        success: true,
-        msg: 'Department deleted',
-    })
+	res.status(200).json({
+		success: true,
+		msg: 'Department deleted',
+	});
 });

@@ -1,12 +1,42 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import './Loginlight.css';
 import readingimage from './../img/undraw_book_lover_mkck.svg';
 import { login } from './../../actions/authAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer';
+// import { ThemeProvider } from 'styled-components';
+// import DarkTheme from './../theme/Dark';
+// import LightTheme from './../theme/Light';
+// import { themeMode } from './../../actions/configAction';
 
 const LoginLight = ({ login, isAuthenticated }) => {
+	// const [darkMode, setDarkMode] = useState(true);
+	// // console.log(darkMode);
+	// useState(() => {
+	// 	setDarkMode((preMode) => !preMode);
+	// 	themeMode(window.localStorage.getItem('theme'));
+	// }, []);
+
+	// const changeTheme = () => {
+	// 	let theme;
+	// 	console.log('func ', darkMode);
+
+	// 	setDarkMode((preMode) => !preMode);
+
+	// 	if (darkMode) {
+	// 		window.localStorage.setItem('theme', 'dark');
+	// 		theme = 'dark';
+	// 	} else {
+	// 		window.localStorage.setItem('theme', 'light');
+	// 		theme = 'light';
+	// 	}
+	// 	// themeMode(theme);
+	// 	themeChange(theme);
+	// };
+
+	// from
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -17,7 +47,7 @@ const LoginLight = ({ login, isAuthenticated }) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		login(email, password);
-		console.log(email, password);
+		// console.log(email, password);
 	};
 
 	if (isAuthenticated) {
@@ -26,10 +56,11 @@ const LoginLight = ({ login, isAuthenticated }) => {
 
 	return (
 		<Fragment>
-			<div className='signin'>
-				<div className='signin__company'>
-					<div className='signin__company__name'>Edukos</div>
-				</div>
+			{/* <ThemeProvider theme={themeDark === 'light' ? LightTheme : DarkTheme}> */}
+			<SignIn>
+				<SigninCompany>
+					<SigninCompanyName>Edukos</SigninCompanyName>
+				</SigninCompany>
 				<div className='signin__main'>
 					<div className='signin__main___left'>
 						<img className='signin__main___left-img-pos' src={readingimage} />
@@ -86,25 +117,30 @@ const LoginLight = ({ login, isAuthenticated }) => {
 								<a href='signup.html'>create an account</a>
 							</div>
 						</form>
-
 						<div className='poweredby'>
 							<span>Powered By</span>
 							<h5>Pizzu</h5>
 						</div>
+						{/* <button onClick={() => changeTheme()}>theme</button> */}
 						<img className='mobile-image' src='./../img/undraw_book_lover_mkck.svg' />
 					</div>
 				</div>
-			</div>
+			</SignIn>
+			{/* </ThemeProvider> */}
 		</Fragment>
 	);
 };
 
 LoginLight.propTypes = {
 	login: PropTypes.func.isRequired,
+	// themeMode: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+	// themeDark: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
+	// themeDark: state.config.darkMode,
 });
 
 export default connect(mapStateToProps, { login })(LoginLight);
