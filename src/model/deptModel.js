@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const AppError = require('./../utils/appError');
-const catchAsync = require('./../utils/catchAsync');
+const AppError = require('../utils/appError');
+const catchAsync = require('../utils/catchAsync');
 
 
 // Department: represent Department (including EduHub itself) of EduHub
@@ -31,8 +31,8 @@ const deptSchema = new mongoose.Schema({
     ], // FK # list of direct-child
     category: {
         type: String,     // Note: may be update later # i.e. school/college/university etc.
-        enum: ['university', 'college', 'school', 'eduhub'],
-        default: 'eduhub'
+        enum: ['university', 'college', 'school', 'eduHub'],
+        default: 'eduHub'
     },
     user: {
         type: mongoose.Schema.ObjectId,
@@ -165,21 +165,24 @@ deptSchema.pre('save', async function(next) {
         const parentDept = await Dept.findById(this.parent);
         if(!parentDept) return next(new AppError(`Parent dept doesn't exist`, 404));
 
-        // If eduhub was not set, then set it from parent EduHub
-        if(this.eduHub !== null){
-            // Check if parent-dept is a  Dept or EduHub
-            // a) Dept 
-            if(parentDept.eduHub !== null){
-                // set this dept's eduHub to it's parent eduHub
-                this.eduHub = parentDept.eduHub;
-            }else{
-                // that means parent is actual EduHub
-                // so set this dept's eduHub to it's parent's _id
-                this.eduHub = parentDept._id;
-                // console.log(`parentDept._id=${parentDept._id}`);
-            }
-        }
+        this.eduHub =  parentDept.parent !== null ? parentDept.eduHub : parentDept._id ;
 
+        // If eduHub was not set, then set it from parent EduHub
+        // if(this.eduHub !== null){
+        //     // Check if parent-dept is a  Dept or EduHub
+        //     // a) Dept 
+        //     if(parentDept.eduHub !== null){
+        //         // set this dept's eduHub to it's parent eduHub
+        //         this.eduHub = parentDept.eduHub;
+        //     }else{
+        //         // that means parent is actual EduHub
+        //         // so set this dept's eduHub to it's parent's _id
+        //         this.eduHub = parentDept._id;
+        //         // console.log(`parentDept._id=${parentDept._id}`);
+        //     }
+        // } else if(this.eduHub === null){
+        //     // this.eduHub =  parentDept.parent !== null ? parentDept.eduHub : parentDept._id ;
+        // }
     } else {  // 2) EDUHUB
         //check if it's eduHub set...THEN set it NULL
         this.eduHub = null;
@@ -253,6 +256,24 @@ deptSchema.post('deleteOne', { document: true }, async function() {
     }
     console.log(`post-del: Dept [${this.name}] deleted.`);
 });
+
+deptSchema.methods.removeChildLink = async function(){
+    console.log(`Removing child=${this.name} from it's parent child list...`);
+    
+    if(!this.parent) return;
+
+    const parentDept = await Dept.findById(this.parent);
+    if(!parentDept) return new AppError(`Parent doesn't exist... child remove faild!`, 404);
+
+    const id_index = parentDept.children.indexOf(this._id);
+    if(id_index > -1){
+        parentDept.children.splice(id_index, 1);
+        parentDept.save();
+        // console.log(`post-del => id: ${this._id}, children(after removed): ${parentDept.children}`);
+    }
+
+    return;
+}
 
 const Dept = mongoose.model('Dept', deptSchema);
 
