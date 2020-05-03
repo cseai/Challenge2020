@@ -154,7 +154,7 @@ exports.updateDept = catchAsync(async (req, res, next) => {
             // console.log({parentObjSaved: obj});
         }
         */
-    } else if((dept.parent !== clearedData.parent) && dept.parent !== null && clearedData.parent !== null){
+    } else if((String(dept.parent) !== String(clearedData.parent)) && dept.parent !== null && clearedData !== null){
         // PROTECT/RESTRICT: BUG-C: DEPT -> DEPT [IF BOTH DEPT'S `eduHub` NOT SAME THEN PROTECT]
         
         // BUT ONE BUG REMAINING: 
@@ -163,10 +163,7 @@ exports.updateDept = catchAsync(async (req, res, next) => {
         const newParentDept = await Dept.findById(clearedData.parent);
         if(!newParentDept) return next(new AppError(`Parent doesn't exist. Dept updation failed!`, 404));
         // C1) IF dept.eduHub !== newParentDept.eduHub THEN PROTECT
-        console.log(`${typeof dept.eduHub } !== ${typeof newParentDept.eduHub }: ${dept.eduHub !== newParentDept.eduHub} && ${typeof newParentDept.eduHub } !== ${typeof null }: ${newParentDept.eduHub !== null} and total exp: ${(dept.eduHub !== newParentDept.eduHub) && (newParentDept.eduHub !== null)}`);
-        console.log(`${dept.eduHub} != ${newParentDept.eduHub}: ${dept.eduHub != newParentDept.eduHub} && ${newParentDept.eduHub} != null: ${newParentDept.eduHub != null} and total exp: ${(dept.eduHub !== newParentDept.eduHub) && (newParentDept.eduHub !== null)}`);
-        // console.log(`dept: ${dept}`);
-        if((dept.eduHub !== newParentDept.eduHub) && (newParentDept.eduHub !== null)){
+        if((String(dept.eduHub) !== String(newParentDept.eduHub)) && (newParentDept.eduHub !== null)){
             return next(new AppError(`Dept update failed! PROTECT/RESTRICT: BUG-C: DEPT -> DEPT [IF BOTH DEPT'S 'eduHub' NOT SAME THEN PROTECT]`, 401));
         }
 
@@ -204,13 +201,13 @@ exports.updateDept = catchAsync(async (req, res, next) => {
     // NOTE: save() call need because of parent update
     const updatedAndSavedDept = await dept.save();
 
-    console.log(`updatedAndSavedDept: ${updatedAndSavedDept}`);
+    // console.log(`updatedAndSavedDept: ${updatedAndSavedDept}`);
     if(!updatedAndSavedDept){
         // console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
         return next(new AppError('Dept update faild. Fix BUG..'));
     }
 
-    console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
+    // console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
 
     res.status(200).json({
         success: true,

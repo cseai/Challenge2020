@@ -165,7 +165,7 @@ deptSchema.pre('save', async function(next) {
         const parentDept = await Dept.findById(this.parent);
         if(!parentDept) return next(new AppError(`Parent dept doesn't exist`, 404));
 
-        this.eduHub =  parentDept.parent !== null ? parentDept.eduHub : parentDept._id ;
+        this.eduHub =  String(parentDept.parent) !== null ? parentDept.eduHub : parentDept._id ;
 
         // If eduHub was not set, then set it from parent EduHub
         // if(this.eduHub !== null){
