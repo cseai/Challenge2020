@@ -197,20 +197,28 @@ exports.updateDept = catchAsync(async (req, res, next) => {
         dept.removeChildLink();
     }
 
-	const updatedAndSavedDept = await dept.save();
-
-	console.log(`updatedAndSavedDept: ${updatedAndSavedDept}`);
-	if (!updatedAndSavedDept) {
-		// console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
-		return next(new AppError('Dept update faild. Fix BUG..'));
-	}
-
     // const updatedDept = await dept.update(clearedData); // deprecated
     // const updatedDept = await dept.updateOne(clearedData);
     const updatedDept = await dept.set(clearedData);
 
     // NOTE: save() call need because of parent update
     const updatedAndSavedDept = await dept.save();
+
+    console.log(`updatedAndSavedDept: ${updatedAndSavedDept}`);
+    if(!updatedAndSavedDept){
+        // console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
+        return next(new AppError('Dept update faild. Fix BUG..'));
+    }
+
+    console.log(`updatedDept: ${updatedDept} , clearedData: ${clearedData}, dept: ${dept}`);
+
+    res.status(200).json({
+        success: true,
+        msg: 'Department updated',
+        dept: updatedAndSavedDept
+    })
+});
+
 
 exports.deleteDept = catchAsync(async (req, res, next) => {
 	// await Dept.findByIdAndDelete(req.params.id);
