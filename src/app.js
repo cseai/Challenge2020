@@ -7,6 +7,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const testRoute = require('./routes/testRoute');
 const userRoute = require('./routes/userRoute');
 const deptRoute = require('./routes/deptRoute');
+const profileRoute = require('./routes/profileRoute');
 
 // 1) MIDDLEWARES
 // morgan for log when development
@@ -23,6 +24,7 @@ app.use('/api/v1/test', testRoute);
 app.use('/api/v1/users', userRoute);
 // dept router
 app.use('/api/v1/depts', deptRoute);
+app.use('/api/v1/profile', profileRoute);
 
 // route protecting
 app.all('*', (req, res, next) => {

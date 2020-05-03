@@ -1,6 +1,6 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+const User = require('../model/userModel');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 const { validationResult } = require('express-validator');

@@ -1,10 +1,10 @@
-.signin {
+/* .signin {
 	position: absolute;
 	width: 100vw;
 	height: 100vh;
-	/* background-color: rgba(255, 0, 0, 0.411); */
-}
-.signin__company {
+	/* background-color: rgb(255, 0, 0); 
+} */
+/* .signin__company {
 	position: absolute;
 	display: flex;
 	flex-direction: column;
@@ -13,7 +13,7 @@
 	align-items: center;
 	top: 4%;
 	left: 50%;
-}
+} */
 .signin__company__name {
 	position: absolute;
 	font-family: 'Roboto';

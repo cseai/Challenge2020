@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const AppError = require('./../utils/appError');
-const catchAsync = require('./../utils/catchAsync');
-
+// const AppError = require('./../utils/appError');
+// const catchAsync = require('./../utils/catchAsync');
 
 const userSchema = new mongoose.Schema({
 	username: {
@@ -16,14 +15,12 @@ const userSchema = new mongoose.Schema({
 		trim: true,
 		required: true,
 		unique: [true, 'User must have unique email'],
-		// https://stackoverflow.com/a/1373724/8520849
-		// match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
 		lowercase: true,
 	},
-	name: {
-		type: String,
-		trim: true,
-	},
+	// name: {
+	// 	type: String,
+	// 	trim: true,
+	// },
 	password: {
 		type: String,
 		required: [true, 'Please provide a password'],
@@ -72,6 +69,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 	return false;
 };
 
-const User = mongoose.model('User', userSchema);
+module.exports = User = mongoose.model('User', userSchema);
 
-module.exports = User;
+// https://stackoverflow.com/a/1373724/8520849
+// match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
