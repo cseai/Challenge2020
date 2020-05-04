@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
+// const catchAsync = require('../utils/catchAsync');
 
 
 // Department: represent Department (including EduHub itself) of EduHub
@@ -157,7 +157,7 @@ const deptSchema = new mongoose.Schema({
 
 
 deptSchema.pre('save', async function(next) {
-    console.log(`pre-save: ${this.username}`);
+    console.log(`pre-save: ${this.name}`);
 
     // 1) DEPT
     // 1A) If parent was set, then check is it exists or not and add this to parents children... else Error
@@ -165,29 +165,12 @@ deptSchema.pre('save', async function(next) {
         const parentDept = await Dept.findById(this.parent);
         if(!parentDept) return next(new AppError(`Parent dept doesn't exist`, 404));
 
-        this.eduHub =  String(parentDept.parent) !== null ? parentDept.eduHub : parentDept._id ;
+        this.eduHub =  parentDept.parent !== null ? parentDept.eduHub : parentDept._id ;
 
-        // If eduHub was not set, then set it from parent EduHub
-        // if(this.eduHub !== null){
-        //     // Check if parent-dept is a  Dept or EduHub
-        //     // a) Dept 
-        //     if(parentDept.eduHub !== null){
-        //         // set this dept's eduHub to it's parent eduHub
-        //         this.eduHub = parentDept.eduHub;
-        //     }else{
-        //         // that means parent is actual EduHub
-        //         // so set this dept's eduHub to it's parent's _id
-        //         this.eduHub = parentDept._id;
-        //         // console.log(`parentDept._id=${parentDept._id}`);
-        //     }
-        // } else if(this.eduHub === null){
-        //     // this.eduHub =  parentDept.parent !== null ? parentDept.eduHub : parentDept._id ;
-        // }
     } else {  // 2) EDUHUB
-        //check if it's eduHub set...THEN set it NULL
+        //set as EduHub
         this.eduHub = null;
         this.parent = null;
-        // return next(new AppError(`Department's Parent dept doesn't exist`, 404));
     }
 
     next();
@@ -195,7 +178,7 @@ deptSchema.pre('save', async function(next) {
 
 
 deptSchema.post('save', async function(doc, next) {
-    console.log(`post-save: doc=${doc.name}`);
+    console.log(`post-save: ${doc.name}`);
     // Check if dept has parent and then that parent's chiled is this dept
     if(doc.parent){
         const parentDept = await Dept.findById(doc.parent);
@@ -230,7 +213,6 @@ deptSchema.pre('deleteOne', { document: true }, async function(next) {
     // Runs when you call `doc.deleteOne()`
 
     // 1) If it has children... then configure child-dept first.
-    // console.log(`children: ${this.children}.`);
     if(this.children.length > 0){
         return next(new AppError('Dept could not be deleted if it has children. Please configure child-dept first.', 401));
     }
@@ -238,40 +220,40 @@ deptSchema.pre('deleteOne', { document: true }, async function(next) {
     next();
 });
 
-deptSchema.post('deleteOne', { document: true }, async function() {
+deptSchema.post('deleteOne', { document: true }, async function(next) {
     // Runs when you call `doc.deleteOne()`
 
     // 1) If it's had parent then remove it's id from parent-dept's children list
     if(this.parent !== null){
         const parentDept = await Dept.findById(this.parent);
-
-        // console.log(`post-del => id: ${this._id}, children(before removed): ${parentDept.children}`);
+        if(!parentDept){
+            return next(new AppError(`ParentDept of does not exist. When deleted one who had parnetID!`, 500));
+        }
 
         const id_index = parentDept.children.indexOf(this._id);
         if(id_index > -1){
             parentDept.children.splice(id_index, 1);
             parentDept.save();
-            // console.log(`post-del => id: ${this._id}, children(after removed): ${parentDept.children}`);
         }
     }
     console.log(`post-del: Dept [${this.name}] deleted.`);
 });
 
-deptSchema.methods.removeChildLink = async function(){
-    console.log(`Removing child=${this.name} from it's parent child list...`);
-    
-    if(!this.parent) return;
+deptSchema.methods.removeChildOfParentDept = async function(){
+    if(this.parent){
+        const parentDept = await Dept.findById(this.parent);
+        if(!parentDept) return new AppError(`Parent doesn't exist... child remove faild!`, 500);
 
-    const parentDept = await Dept.findById(this.parent);
-    if(!parentDept) return new AppError(`Parent doesn't exist... child remove faild!`, 404);
+        console.log(`Removing child=${this.name} from it's parent child list...`);
 
-    const id_index = parentDept.children.indexOf(this._id);
-    if(id_index > -1){
-        parentDept.children.splice(id_index, 1);
-        parentDept.save();
-        // console.log(`post-del => id: ${this._id}, children(after removed): ${parentDept.children}`);
+        const id_index = parentDept.children.indexOf(this._id);
+        if(id_index > -1){
+            parentDept.children.splice(id_index, 1);
+            parentDept.save();
+        }
+    }else{
+        return new AppError(`Parent doesn't exist of Dept: ${this.name}... child remove faild!`, 500);
     }
-
     return;
 }
 
