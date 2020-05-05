@@ -18,7 +18,7 @@ exports.getAllDepts = catchAsync(async (req, res, next) => {
 
 exports.getDept = catchAsync(async (req, res, next) => {
     const deselectStr = `-address -verification -createdAt -contacts -__v -id`;
-	const dept = await Dept.findById(req.params.id).populate({path: 'children parent eduHub', select: deselectStr });
+	const dept = await Dept.findById(req.params.id).populate({path: 'children parent eduHub memberGroup', select: deselectStr });
 	if (!dept) {
 		return next(new AppError(`Dept doesn't exists!`, 404));
 	}
@@ -49,14 +49,14 @@ exports.getAllEduHubs = catchAsync(async (req, res, next) => {
 exports.getEduHub = catchAsync(async (req, res, next) => {
     const deselectStr = `-address -verification -createdAt -contacts -__v -id`;
 
-    const dept = await Dept.findById(req.params.id).populate({path: 'children parent eduHub', select: deselectStr }).select(deselectStr);
+    const dept = await Dept.findById(req.params.id).populate({path: 'children parent eduHub memberGroup', select: deselectStr }).select(deselectStr);
     // const dept = await Dept.findById(req.params.id);
 	if(!dept){
 		return next(new AppError(`EduHub doesn't exists!`, 404));
     }
 
     if(dept.eduHub !== null){
-        const eduHub = await Dept.findById(dept.eduHub).populate({path: 'children parent eduHub', select: deselectStr}).select(deselectStr);
+        const eduHub = await Dept.findById(dept.eduHub).populate({path: 'children parent eduHub memberGroup', select: deselectStr}).select(deselectStr);
         // const eduHub = await Dept.findById(dept.eduHub);
         if(!eduHub){
             return next(new AppError(`EduHub doesn't exists!`, 404));

@@ -7,6 +7,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const testRoute = require('./routes/testRoute');
 const userRoute = require('./routes/userRoute');
 const deptRoute = require('./routes/deptRoute');
+const memberGroupRoute = require('./routes/memberGroupRoute');
 const profileRoute = require('./routes/profileRoute');
 
 // 1) MIDDLEWARES
@@ -22,9 +23,12 @@ app.use(express.json());
 app.use('/api/v1/test', testRoute);
 // user router
 app.use('/api/v1/users', userRoute);
+// profile router
+app.use('/api/v1/profile', profileRoute);
 // dept router
 app.use('/api/v1/depts', deptRoute);
-app.use('/api/v1/profile', profileRoute);
+// memberGroup router
+app.use('/api/v1/membergroups', memberGroupRoute);
 
 // route protecting
 app.all('*', (req, res, next) => {

@@ -243,6 +243,10 @@ const memberGroupSchema = {
             default: Date.now()
         }
     }],
+    active: {
+        type: Boolean,
+        default: true
+    },
     createdAt: {
         type: Date,
         default: Date.now()
@@ -365,6 +369,10 @@ const deptSchema = {
     },
     since: {
         type: Date // Note: The date when this dept established
+    },
+    active: {
+        type: Boolean,
+        default: true
     },
     createdAt: {
         type: Date,

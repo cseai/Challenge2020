@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const MemberGroup = require('./memberGroupModel');
 const AppError = require('../utils/appError');
 // const catchAsync = require('../utils/catchAsync');
 
@@ -87,6 +88,10 @@ const deptSchema = new mongoose.Schema({
     },
     since: {
         type: Date // Note: The date when this dept established
+    },
+    active: {
+        type: Boolean,
+        default: true
     },
     createdAt: {
         type: Date,
@@ -236,6 +241,17 @@ deptSchema.post('deleteOne', { document: true }, async function(next) {
             parentDept.save();
         }
     }
+
+    // 2) If it's had MemberGroup then delete/deactivate it
+    if(this.memberGroup){
+        const memberGroup = await MemberGroup.findById(this.memberGroup);
+        if(!memberGroup){
+            return next(new AppError(`Referenced MemberGroup of this Dept does not exist. Somthing went wrong!!!`, 500));
+        }
+        // Deactivate MemberGroup
+        await memberGroup.updateOne({active: false});
+    }
+
     console.log(`post-del: Dept [${this.name}] deleted.`);
 });
 
