@@ -1,46 +1,19 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import './Loginlight.css';
 import readingimage from './../img/undraw_book_lover_mkck.svg';
-import { login } from './../../actions/authAction';
+import { login } from '../../actions/authAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer';
-// import { ThemeProvider } from 'styled-components';
-// import DarkTheme from './../theme/Dark';
-// import LightTheme from './../theme/Light';
-// import { themeMode } from './../../actions/configAction';
 
 const LoginLight = ({ login, isAuthenticated }) => {
-	// const [darkMode, setDarkMode] = useState(true);
-	// // console.log(darkMode);
-	// useState(() => {
-	// 	setDarkMode((preMode) => !preMode);
-	// 	themeMode(window.localStorage.getItem('theme'));
-	// }, []);
-
-	// const changeTheme = () => {
-	// 	let theme;
-	// 	console.log('func ', darkMode);
-
-	// 	setDarkMode((preMode) => !preMode);
-
-	// 	if (darkMode) {
-	// 		window.localStorage.setItem('theme', 'dark');
-	// 		theme = 'dark';
-	// 	} else {
-	// 		window.localStorage.setItem('theme', 'light');
-	// 		theme = 'light';
-	// 	}
-	// 	// themeMode(theme);
-	// 	themeChange(theme);
-	// };
-
 	// from
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
+
 	const { email, password } = formData;
 	const onchange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -56,17 +29,19 @@ const LoginLight = ({ login, isAuthenticated }) => {
 
 	return (
 		<Fragment>
-			{/* <ThemeProvider theme={themeDark === 'light' ? LightTheme : DarkTheme}> */}
 			<SignIn>
 				<SigninCompany>
 					<SigninCompanyName>Edukos</SigninCompanyName>
 				</SigninCompany>
 				<div className='signin__main'>
-					<div className='signin__main___left'>
+					<div class='signin__main___left'>
 						<img className='signin__main___left-img-pos' src={readingimage} />
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className='signin__main___right'>
+						<div class='signin__main__right-notification'>
+							<span>find other user name and login agin please</span>
+						</div>
 						<div className='signin__main___right-avater'>
 							<img src={require('./../img/undraw_profile_pic_ic5t (1).svg')} />
 						</div>
@@ -133,14 +108,11 @@ const LoginLight = ({ login, isAuthenticated }) => {
 
 LoginLight.propTypes = {
 	login: PropTypes.func.isRequired,
-	// themeMode: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
-	// themeDark: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
-	// themeDark: state.config.darkMode,
 });
 
 export default connect(mapStateToProps, { login })(LoginLight);

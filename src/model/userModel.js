@@ -7,13 +7,13 @@ const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		trim: true,
-		required: true,
+		required: [true, 'Please provide a user name'],
 		unique: [true, 'User must have unique username'],
 	},
 	email: {
 		type: String,
 		trim: true,
-		required: true,
+		required: [true, 'Pleae provide a email'],
 		unique: [true, 'User must have unique email'],
 		lowercase: true,
 	},
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: [true, 'Please provide a password'],
-		minlength: 8,
+		minlength: [6, 'password length more than 6'],
 		select: false,
 	},
 	passwordChangedAt: Date, // Note: Need for secure authentication

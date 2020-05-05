@@ -38,14 +38,7 @@ exports.createProfile = catchAsync(async (req, res) => {
 	newProfile.contacts = [];
 	const newContact = { type, numbers };
 	newProfile.contacts.unshift(newContact);
-	// newProfile.contacts.type = {};
-	// newProfile.contacts.numbers = {};
-
-	// if (contactstype) newProfile.contacts.type = contactstype;
-	// if (numbers) newProfile.contacts.numbers = numbers;
-
-	// newProfile.contacts.numbers = [];
-
+	//address
 	newProfile.presentAddress = {};
 	if (country) newProfile.presentAddress.country = country;
 	if (zip) newProfile.presentAddress.zip = zip;
@@ -54,8 +47,8 @@ exports.createProfile = catchAsync(async (req, res) => {
 	if (place) newProfile.presentAddress.place = place;
 
 	// create new profile
-	// let profile = new Profile(newProfile);
-	// await profile.save();
+	let profile = new Profile(newProfile);
+	await profile.save();
 
 	res.status(200).json({
 		success: true,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const Dash = () => {
 	return (
@@ -9,4 +10,4 @@ const Dash = () => {
 	);
 };
 
-export default Dash;
+export default connect()(Dash);

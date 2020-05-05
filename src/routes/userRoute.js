@@ -10,18 +10,18 @@ router.post(
 	'/signup',
 	[
 		check('email', 'please enter a valid email').isEmail(),
-		check('username', 'please can not be empty').exists(),
-		check('password', 'password Required').exists(),
+		check('username', 'please can not be empty').not().isEmpty(),
+		check('password', 'password length more than 6').isLength({ min: 6 }),
 	],
 	authController.signup
 );
 router.post(
 	'/login',
-	[check('email', 'please enter a valid email').isEmail(), check('password', 'password Required').exists()],
+	[check('email', 'please enter a valid email').isEmail(), check('password', 'password Required').not().isEmpty()],
 	authController.login
 );
 
-router.route('/').get(userController.getAllUsers).post(userController.createUser);
+router.route('/').get(authController.protect, userController.getAllUsers).post(userController.createUser);
 
 router.route('/:id').get(userController.getUser).patch(userController.updateUser).delete(userController.deleteUser);
 

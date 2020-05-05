@@ -1,10 +1,10 @@
-/* .signin {
+.signin {
 	position: absolute;
 	width: 100vw;
 	height: 100vh;
-	/* background-color: rgb(255, 0, 0); 
-} */
-/* .signin__company {
+	/* background-color: rgba(255, 0, 0, 0.411); */
+}
+.signin__company {
 	position: absolute;
 	display: flex;
 	flex-direction: column;
@@ -13,7 +13,7 @@
 	align-items: center;
 	top: 4%;
 	left: 50%;
-} */
+}
 .signin__company__name {
 	position: absolute;
 	font-family: 'Roboto';
@@ -49,8 +49,8 @@
 .signin__main___left-img-pos {
 	left: 60px;
 	bottom: 30px;
-	max-height: 500px;
-	max-width: 550px;
+	max-height: 550px;
+	max-width: 700px;
 	position: relative;
 }
 /*######################### 2nd part #########################*/
@@ -70,19 +70,34 @@
 
 /* form */
 /* form image */
+.signin__main__right-notification {
+	width: 90%;
+	background-color: red;
+	text-align: center;
+	margin-bottom: 20px;
+	padding: 9px 0px;
+	min-height: 10px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+.signin__main__right-notification span {
+	text-align: center;
+	padding: 0 20px;
+	color: white;
+}
 .signin__main___right-avater {
-	height: 100px;
-	width: 90px;
+	height: 80px;
+	width: 70px;
 }
 .signin__main___right-signin {
 	font-family: 'Roboto';
-	font-weight: 400;
-	font-size: 20px;
+	font-weight: 300;
+	font-size: 16px;
 	color: #4cbea6;
 }
 /*  */
 .signin__main___right-form {
-	width: 85%;
+	width: 75%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

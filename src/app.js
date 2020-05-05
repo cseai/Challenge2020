@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan');
 
 const AppError = require('./utils/appError');
-const globalErrorHandler = require('./controllers/errorController');
+const globalErrorHandler = require('./utils/globalErrorHandle');
 const testRoute = require('./routes/testRoute');
 const userRoute = require('./routes/userRoute');
 const deptRoute = require('./routes/deptRoute');
@@ -31,9 +31,9 @@ app.use('/api/v1/depts', deptRoute);
 app.use('/api/v1/membergroups', memberGroupRoute);
 
 // route protecting
-app.all('*', (req, res, next) => {
-	next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
+// app.all('*', (req, res, next) => {
+// 	next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+// });
 
 app.use(globalErrorHandler);
 

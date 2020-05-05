@@ -11,10 +11,12 @@ const signToken = (id) => {
 	});
 };
 
-// @route    POST api/users/signup
+// @route    POST api/v1/users/signup
 // @desc     signup  user and get token
 // @access   Public
 exports.signup = catchAsync(async (req, res, next) => {
+	console.log('user signup '.red, req.body);
+
 	// check validator
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -32,15 +34,10 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 	const token = signToken(newUser._id);
 
-	res.status(201).json({
-		success: true,
-		msg: 'New User Created',
-		token,
-		user: newUser,
-	});
+	res.status(201).json({ token });
 });
 
-// @route    POST api/users
+// @route    POST api/v1/users/login
 // @desc     user login and get token
 // @access   Public
 exports.login = catchAsync(async (req, res, next) => {
@@ -54,12 +51,6 @@ exports.login = catchAsync(async (req, res, next) => {
 	}
 
 	const { email, password } = req.body;
-
-	// // 1) Check if email and password exist
-	// if (!email || !password) {
-	// 	return next(new AppError('Please provide email and password', 400));
-	// }
-
 	// 2) Check if user exists && passord is correct
 	const user = await User.findOne({ email }).select('+password');
 	if (!user || !(await user.correctPassword(password, user.password))) {
@@ -68,11 +59,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
 	// 3) If everything ok, send token to client
 	const token = signToken(user._id);
-	res.status(200).json({
-		success: true,
-		msg: 'User Loged In',
-		token: token,
-	});
+	res.status(200).json({ token });
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
