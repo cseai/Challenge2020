@@ -83,11 +83,10 @@ exports.getEduHub = catchAsync(async (req, res, next) => {
 });
 
 exports.createDept = catchAsync(async (req, res, next) => {
-	req.body.user = req.user._id;
+	const clearedData = {...req.body}
+	clearedData.user = req.user._id;
 
-	// console.log({body: req.body});
-
-	const newDept = await Dept.create(req.body);
+	const newDept = await Dept.create(clearedData);
 	if (!newDept) {
 		return next(new AppError(`Department creation failed!`));
 	}

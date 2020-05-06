@@ -58,7 +58,7 @@ exports.createMemberGroup = catchAsync(async (req, res, next) => {
     // }
 
     // IF MemberGroup of this Dept is already exist. DELETING THIS MemberGroup
-    if(dept.memberGroup && String(dept.memberGroup) !== newMemberGroup._id){
+    if(dept.memberGroup && String(dept.memberGroup) !== String(newMemberGroup._id)){
         // DELETE THIS NEWLY CREATED MEMBER GROUP
         console.log(`MemberGroup of this Dept is already exist. DELETING THIS MemberGroup!!!...`);
         await newMemberGroup.deleteOne();
@@ -80,8 +80,8 @@ exports.createMemberGroup = catchAsync(async (req, res, next) => {
 
 exports.addMembersAtMemberGroup = catchAsync(async (req, res, next) => {
     const memberGroup = await MemberGroup.findById(req.params.id);
-	if (!memberGroup) {
-		return next(new AppError(`MemberGroup doesn't exists!`, 404));
+	if (!memberGroup || !memberGroup.active) {
+		return next(new AppError(`MemberGroup doesn't exists or deactivated!`, 404));
     }
     
     const members = Array(...req.body.members);
@@ -101,6 +101,25 @@ exports.addMembersAtMemberGroup = catchAsync(async (req, res, next) => {
         }
 
         if(membersToAdd.length > 0){
+            // Now validate members that it can be added or be rejected acording to `EduHub` rules
+            const dept = await Dept.findById(memberGroup.dept);
+            if(!dept){
+                return next(new AppError(`MemberGroup's Dept does not exist. Something went wrong`, 500));
+            }
+            if(dept.parent !== null){
+                // Get parenDept's memberGroup
+                const parentMemberGroup = await MemberGroup.findOne({dept: dept.parent});
+                if(!parentMemberGroup){
+                    return next(new AppError(`Parent Dept's MemberGroup does not exist. Something went wrong`, 500));
+                }
+                // user can be added if same user is member of it's parent Dept's member... check it here
+                for(let index=0; membersToAdd.length > index; index++){
+                    if(!parentMemberGroup.members.includes(membersToAdd[index])){
+                        return next(new AppError(`Provided User (id:${membersToAdd[index]}) is not a member of ParentDept. Please provide valid userId.`, 401));
+                    }
+                }
+            }
+
             const addedCount = memberGroup.members.push(...membersToAdd);
             console.log(`Members addedCount:${addedCount}`);
             await memberGroup.save();

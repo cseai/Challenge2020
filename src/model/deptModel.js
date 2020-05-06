@@ -172,7 +172,10 @@ deptSchema.pre('save', async function(next) {
 
         this.eduHub =  parentDept.parent !== null ? parentDept.eduHub : parentDept._id ;
 
-    } else {  // 2) EDUHUB
+        // Categry all be same as parentDept
+        this.category = parentDept.category;
+    } 
+    else {  // 2) EDUHUB
         //set as EduHub
         this.eduHub = null;
         this.parent = null;
@@ -194,6 +197,15 @@ deptSchema.post('save', async function(doc, next) {
             const obj = await parentDept.save();
             // console.log({parentObjSaved: obj});
         }
+    }
+
+    // Check if it has a MemberGroup or not
+    if(!doc.memberGroup){
+        const memberGroup = await MemberGroup.create({dept: doc._id});
+        if(!memberGroup){
+            return next(new AppError(`Dept's MemberGroup creation faild!! Something went wrong!!`, 500));
+        }
+        await doc.updateOne({memberGroup: memberGroup._id});
     }
 
     next();
