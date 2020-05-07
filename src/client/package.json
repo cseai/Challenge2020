@@ -8,6 +8,7 @@
 		"@testing-library/user-event": "^7.2.1",
 		"axios": "^0.19.2",
 		"moment": "^2.24.0",
+		"node-sass": "^4.14.1",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-moment": "^0.9.7",
@@ -42,5 +43,11 @@
 			"last 1 safari version"
 		]
 	},
-	"proxy": "http://localhost:5000"
+	"proxy": "http://localhost:5000",
+	"devDependencies": {
+		"css-loader": "^3.5.3",
+		"html-webpack-plugin": "^4.3.0",
+		"style-loader": "^1.2.1",
+		"webpack": "^4.43.0"
+	}
 }
