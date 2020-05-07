@@ -46,7 +46,7 @@
 	width: 100%;
 }
 
-.signin__main___left-img-pos {
+.signin__main___left_img_pos {
 	left: 60px;
 	bottom: 30px;
 	max-height: 550px;
@@ -70,7 +70,7 @@
 
 /* form */
 /* form image */
-.signin__main__right-notification {
+.signin__main__right_notification {
 	width: 90%;
 	background-color: red;
 	text-align: center;
@@ -80,23 +80,23 @@
 	font-size: 16px;
 	border-radius: 10px;
 }
-.signin__main__right-notification span {
+.signin__main__right_notification span {
 	text-align: center;
 	padding: 0 20px;
 	color: white;
 }
-.signin__main___right-avater {
+.signin__main___right_avater {
 	height: 80px;
 	width: 70px;
 }
-.signin__main___right-signin {
+.signin__main___right_signin {
 	font-family: 'Roboto';
 	font-weight: 300;
 	font-size: 16px;
 	color: #4cbea6;
 }
 /*  */
-.signin__main___right-form {
+.signin__main___right_form {
 	width: 75%;
 	display: flex;
 	flex-direction: column;
@@ -115,7 +115,7 @@
 	overflow: hidden;
 }
 
-.logo-nm {
+.logo_nm {
 	display: inline;
 	justify-content: center;
 	text-align: center;
@@ -165,18 +165,18 @@
 	width: 100%;
 	border-bottom: 3px solid #4cbea6;
 	transform: translateX(-101%);
-	transition: all 0.3s ease;
+	transition: all 0.5s ease-in;
 }
 
-.content-name {
+.content_name {
 	font-size: 16px;
 	position: absolute;
-	bottom: 5px;
-	left: 35px;
+	bottom: 15px;
+	left: 40px;
 	transition: all 0.3s ease;
 	color: #bbbdbd;
 }
-.label-img {
+.label_img {
 	position: absolute;
 	bottom: 0px;
 	pointer-events: none;
@@ -187,26 +187,26 @@
 	top: 14px;
 }
 
-.svg-img {
+.svg_img {
 	height: 21px;
 	width: 21px;
 	fill: #4cbea6;
 }
 
-.form input:focus + .label-name .content-name,
-.form input:valid + .label-name .content-name {
-	transform: translateY(-90%);
-	font-size: 13px;
+.form input:focus + .label_name .content_name,
+.form input:valid + .label_name .content_name {
+	transform: translateY(-110%);
+	font-size: 10px;
 	color: #4cbea6;
 }
 
-.form input:focus + .label-name::after,
+.form input:focus + .label_name::after,
 .form input:valid + .label-name::after {
 	transform: translateX(0%);
 }
 
 /* btn */
-.signin-btn {
+.signin_btn {
 	margin-top: 13px;
 	outline: none;
 	border: none;
@@ -221,10 +221,10 @@
 	color: white;
 	cursor: pointer;
 }
-.create-link {
+.create_link {
 	padding-top: 10px;
 }
-.create-link a {
+.create_link a {
 	color: #4cbea6;
 	font-size: 14px;
 }
@@ -245,7 +245,7 @@
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
-.mobile-image {
+.mobile_image {
 	display: none;
 }
 
@@ -260,7 +260,7 @@
 		width: 100vw;
 		height: 100vh;
 	}
-	.mobile-image {
+	.mobile_image {
 		display: block;
 		position: absolute;
 		z-index: -2;
@@ -294,7 +294,7 @@
 		padding: 0px calc(10vh);
 		margin-right: 0;
 	}
-	.signin-btn {
+	.signin_btn {
 		margin-top: 15px;
 		outline: none;
 		border: none;
@@ -308,11 +308,11 @@
 		color: white;
 		cursor: pointer;
 	}
-	.login-name {
+	.login_name {
 		color: #4cbea6;
 		font-size: 40px;
 	}
-	.create-link a {
+	.create_link a {
 		color: rgb(218, 214, 0);
 		font-size: 14px;
 	}
@@ -331,7 +331,7 @@
 		width: 100vw;
 		height: 100vh;
 	}
-	.mobile-image {
+	.mobile_image {
 		display: block;
 		position: absolute;
 		z-index: -2;
@@ -365,7 +365,7 @@
 		padding: 0px calc(10vh);
 		margin-right: 0;
 	}
-	.signin-btn {
+	.signin_btn {
 		margin-top: 15px;
 		outline: none;
 		border: none;
@@ -379,11 +379,11 @@
 		color: white;
 		cursor: pointer;
 	}
-	.login-name {
+	.login_name {
 		color: #4cbea6;
 		font-size: 40px;
 	}
-	.create-link a {
+	.create_link a {
 		color: rgb(218, 214, 0);
 		font-size: 14px;
 	}

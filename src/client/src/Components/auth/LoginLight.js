@@ -1,11 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import './Loginlight.css';
+import './GetLoginlight.css';
 import readingimage from './../img/undraw_book_lover_mkck.svg';
 import { login } from '../../actions/authAction';
+import { setAlert } from './../../actions/alertAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer';
+import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer.js';
+import Alert from './../Layout/Alert';
 
 const LoginLight = ({ login, isAuthenticated }) => {
 	// from
@@ -19,6 +21,9 @@ const LoginLight = ({ login, isAuthenticated }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		if (!password || !email) {
+			setAlert(`email and password cant empty`, 'danger');
+		}
 		login(email, password);
 		// console.log(email, password);
 	};
@@ -39,9 +44,10 @@ const LoginLight = ({ login, isAuthenticated }) => {
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className='signin__main___right'>
-						<div class='signin__main__right-notification'>
+						{/* <div class='signin__main__right-notification'>
 							<span>find other user name and login agin please</span>
-						</div>
+						</div> */}
+						<Alert />
 						<div className='signin__main___right-avater'>
 							<img src={require('./../img/undraw_profile_pic_ic5t (1).svg')} />
 						</div>

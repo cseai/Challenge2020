@@ -5,8 +5,8 @@ import store from './store';
 import './App.css';
 import LoginLight from './Components/auth/LoginLight';
 import Register from './Components/auth/Register';
-import NewsBoard from './Components/NewsBoard/NewsBoard';
-import Dash from './Components/NewsBoard/Dash';
+import NewsBoard from './Components/Layout/NewsBoard/NewsBoard';
+import Dash from './Components/Layout/NewsBoard/Dash';
 import setAuthToken from './utils/setAuthToken';
 
 if (localStorage.token) {

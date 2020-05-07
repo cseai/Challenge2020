@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setAlert } from './../actions/alertAction';
 // import setAuthToken from '../utils/setAuthToken';
 import { LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_SUCCESS, REGISTER_FAIL } from './types';
 
@@ -22,19 +23,20 @@ export const login = (email, password) => async (dispatch) => {
 			type: LOGIN_SUCCESS,
 			payload: res.data,
 		});
+		// dispatch()
 	} catch (err) {
 		dispatch({
 			type: LOGIN_FAIL,
 		});
 		const errors = err.response.data.errors;
-		console.log(err);
+		console.log(errors);
 
-		// if (errors) {
-		// 	errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-		// }
-		// dispatch({
-		// 	type: LOGIN_FAIL,
-		// });
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+		}
+		dispatch({
+			type: LOGIN_FAIL,
+		});
 	}
 };
 
