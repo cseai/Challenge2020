@@ -72,6 +72,65 @@ memberGroupSchema.post('save', async function(doc, next) {
     next();
 });
 
+
+/*
+memberGroupSchema.methods.removeDescendentsMembers = async function(removedMembers, level, tree){
+    console.log(`removedMembers=${removedMembers}`);
+
+    // Get Dept
+    const dept = await Dept.findById(this.dept);
+    if(!dept){
+        return new AppError(`Dept not found!... Something went wrong`, 500);
+    }
+
+    // Generating Tree
+    let tab = ``;
+    for(let i=1; i<=level; i++){
+        tab = tab + `----`;
+    }
+    tree = tree + `\n` + `${level+tab}:${dept.name}`
+    level = level + 1;
+
+
+    for(let index=0; index < dept.children.length; index++){
+        const newRemovedMembers = [];
+        // Get childDept
+        const childDept = await Dept.findById(dept.children[index]);
+        if(!childDept){
+            return new AppError(`ChildDept not found!...Something went wrong`, 500);
+        }
+
+        // Get childDept's memberGroup
+        if(!childDept.memberGroup){
+            return new AppError(`ChildDept's memberGroupId not found!...Something went wrong`, 500);
+        }
+        const memberGroup = await MemberGroup.findById(childDept.memberGroup);
+        if(!memberGroup){
+            return new AppError(`ChildDept's memberGroup not found!...Something went wrong`, 500);
+        }
+
+        // Check removedMembers exist or not in this memberGroup's members list
+        for(let i=0; i < removedMembers.length; i++){
+            let id_index = memberGroup.members.indexOf(removedMembers[i]);
+            if(id_index > -1){
+                // Remove this member
+                // memberGroup.members.splice(id_index, 1);
+
+                // store to remove from descendents
+                newRemovedMembers.push(removedMembers[i]);
+            }
+        }
+
+        if(newRemovedMembers.length > 0){
+            // forward to descendent
+            tree = await childDept.removeDescendentsMembers(newRemovedMembers, level, tree);
+        }
+    }
+    return tree;
+}
+*/
+
+
 const MemberGroup = mongoose.model('MemberGroup', memberGroupSchema);
 
 module.exports = MemberGroup;

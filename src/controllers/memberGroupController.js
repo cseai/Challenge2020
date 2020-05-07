@@ -143,21 +143,25 @@ exports.removeMembersAtMemberGroup = catchAsync(async (req, res, next) => {
     }
 
     const members = req.body.members;
+    const removedMembers = [];
     if(members && members.length > 0){
         // count how many removed
-        let removeCount = 0;
+        // let removeCount = 0;
 
         for(let index=0; members.length > index; index++){
             let id_index = memberGroup.members.indexOf(members[index]);
             if(id_index > -1){
                 memberGroup.members.splice(id_index, 1);
-                removeCount += 1;
+                // removeCount += 1;
+                removedMembers.push(members[index]);
             }
         }
 
         // IF Any User Removed THEN save the MemberGroup
-        if(removeCount > 0){
+        if(removedMembers.length > 0){
             await memberGroup.save();
+            const result = await memberGroup.removeDescendentsMembers(removedMembers=removedMembers, level=0, tree='');
+            console.log(`result=${result}`);
         }
         else{
             console.log(`No Members to remove or already removed.`);

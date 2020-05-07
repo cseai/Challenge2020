@@ -285,6 +285,80 @@ deptSchema.methods.removeChildOfParentDept = async function(){
     return;
 }
 
+
+deptSchema.methods.traverseTree = async function(level, tree){
+    let tab = ``;
+    for(let i=1; i<=level; i++){
+        tab = tab + `----`;
+    }
+    tree = tree + `\n` + `${level+tab}:${this.name}`
+    // console.log(`${level+tab}:${this.name}`);
+
+    level = level + 1;
+
+    for(let index=0; index < this.children.length; index++){
+        console.log(`l=${level} & i=${index}:${this.children[index]._id}`);
+        const dept = await Dept.findById(this.children[index]._id);
+        // console.log(`dept:${dept.name}`);
+        tree = await dept.traverseTree(level, tree);
+    }
+    return tree;
+}
+
+
+deptSchema.methods.removeDescendentsMembers = async function(removedMembers, level, tree){
+    console.log(`removedMembers=${removedMembers}`);
+
+    // Generating Tree
+    let tab = ``;
+    for(let i=1; i<=level; i++){
+        tab = tab + `----`;
+    }
+    tree = tree + `\n` + `${level+tab}:${this.name}`
+    level = level + 1;
+
+
+    for(let index=0; index < this.children.length; index++){
+        const newRemovedMembers = [];
+        // Get childDept
+        const childDept = await Dept.findById(this.children[index]);
+        if(!childDept){
+            return new AppError(`ChildDept not found!...Something went wrong`, 500);
+        }
+
+        // Get childDept's memberGroup
+        if(!childDept.memberGroup){
+            return new AppError(`ChildDept's memberGroupId not found!...Something went wrong`, 500);
+        }
+        const memberGroup = await MemberGroup.findById(childDept.memberGroup);
+        if(!memberGroup){
+            return new AppError(`ChildDept's memberGroup not found!...Something went wrong`, 500);
+        }
+
+        // Check removedMembers exist or not in this memberGroup's members list
+        for(let i=0; i < removedMembers.length; i++){
+            let id_index = memberGroup.members.indexOf(removedMembers[i]);
+            if(id_index > -1){
+                // Remove this member
+                memberGroup.members.splice(id_index, 1);
+
+                // store to remove from descendents
+                newRemovedMembers.push(removedMembers[i]);
+            }
+        }
+
+        if(newRemovedMembers.length > 0){
+            // Save memberGroup
+            await memberGroup.save();
+            
+            // forward to descendent
+            tree = await childDept.removeDescendentsMembers(newRemovedMembers, level, tree);
+        }
+    }
+    return tree;
+}
+
+
 const Dept = mongoose.model('Dept', deptSchema);
 
 module.exports = Dept;
