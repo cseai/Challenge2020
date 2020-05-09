@@ -40,7 +40,7 @@ const deptSchema = new mongoose.Schema({
         ref: 'User', // FK # User who created this dept
         required: [true, 'Dept must have an user']
     },
-    controllers: [{ // NOTE: Only admin,moderator,woner belongs here
+    controllers: [{ // NOTE: Only admin,moderator,owner belongs here
         user: {
             type: mongoose.Schema.ObjectId,
             ref: 'User',
@@ -52,7 +52,7 @@ const deptSchema = new mongoose.Schema({
         },
         active: {
             type: Boolean,
-            default: false
+            default: true
         }
     }],
     memberGroup: {
@@ -201,7 +201,12 @@ deptSchema.post('save', async function(doc, next) {
 
     // Check if it has a MemberGroup or not
     if(!doc.memberGroup){
-        const memberGroup = await MemberGroup.create({dept: doc._id});
+        //Create a MemberGroup and add owner-user to MemberGroup
+        if(!doc.controllers[0].role || doc.controllers[0].role !== 'owner'){
+            return next(new AppError(`Dept's OWNER doesn't exist!! Something went VERY wrong!!`, 500));
+        }
+        const ownerUser = doc.controllers[0].user;
+        const memberGroup = await MemberGroup.create({dept: doc._id, members: [ownerUser]});
         if(!memberGroup){
             return next(new AppError(`Dept's MemberGroup creation faild!! Something went wrong!!`, 500));
         }
@@ -296,8 +301,29 @@ deptSchema.methods.traverseTree = async function(level, tree){
 
     level = level + 1;
 
+    // DO SOMETHIN HERE IF NEED
+    // START
+    // configure controllers and membergroup for owner user
+    
+    const ownerUser = this.user;
+    const controllers = [{
+        user: ownerUser,
+        role: 'owner',
+        active: true
+    }]
+    
+    const memberGroup = await MemberGroup.findById(this.memberGroup);
+    if(!memberGroup.members.includes(ownerUser)){
+        memberGroup.members.push(ownerUser);
+        const mg = await memberGroup.save();
+    }
+    // IMPORTANT: it will remove all previous controllers and set only owner controller
+    await this.updateOne({controllers: controllers});
+    
+    // END
+
     for(let index=0; index < this.children.length; index++){
-        console.log(`l=${level} & i=${index}:${this.children[index]._id}`);
+        // console.log(`l=${level} & i=${index}:${this.children[index]._id}`);
         const dept = await Dept.findById(this.children[index]._id);
         // console.log(`dept:${dept.name}`);
         tree = await dept.traverseTree(level, tree);

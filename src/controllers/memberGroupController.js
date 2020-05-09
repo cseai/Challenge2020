@@ -1,6 +1,6 @@
 const MemberGroup = require('../model/memberGroupModel');
-const Dept = require('../model/deptModel');
-const User = require('../model/userModel');
+// const Dept = require('../model/deptModel');
+// const User = require('../model/userModel');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
@@ -19,7 +19,7 @@ exports.getAllMemberGroups = catchAsync(async (req, res, next) => {
 });
 
 exports.getMemberGroup = catchAsync(async (req, res, next) => {
-    const memberGroup = await MemberGroup.findById(req.params.id).populate({path: 'dept', select: `_id name eduHub controllers`});
+    const memberGroup = await MemberGroup.findById(req.params.mgId).populate({path: 'dept', select: `_id name eduHub controllers`});
 	if (!memberGroup) {
 		return next(new AppError(`MemberGroup doesn't exists!`, 404));
 	}
@@ -30,6 +30,9 @@ exports.getMemberGroup = catchAsync(async (req, res, next) => {
 	});
 });
 
+
+// Do Not Use these three route...It will be handled by Dept Route
+/*
 exports.createMemberGroup = catchAsync(async (req, res, next) => {
     const clearedData = {...req.body};
     if(!clearedData.dept){
@@ -79,7 +82,7 @@ exports.createMemberGroup = catchAsync(async (req, res, next) => {
 });
 
 exports.addMembersAtMemberGroup = catchAsync(async (req, res, next) => {
-    const memberGroup = await MemberGroup.findById(req.params.id);
+    const memberGroup = await MemberGroup.findById(req.params.mgId);
 	if (!memberGroup || !memberGroup.active) {
 		return next(new AppError(`MemberGroup doesn't exists or deactivated!`, 404));
     }
@@ -137,7 +140,7 @@ exports.addMembersAtMemberGroup = catchAsync(async (req, res, next) => {
 });
 
 exports.removeMembersAtMemberGroup = catchAsync(async (req, res, next) => {
-    const memberGroup = await MemberGroup.findById(req.params.id);
+    const memberGroup = await MemberGroup.findById(req.params.mgId);
 	if (!memberGroup) {
 		return next(new AppError(`MemberGroup doesn't exists!`, 404));
     }
@@ -177,7 +180,7 @@ exports.removeMembersAtMemberGroup = catchAsync(async (req, res, next) => {
 
 
 exports.deleteMemberGroup = catchAsync(async (req, res, next) => {
-    const delMemberGroup = await MemberGroup.findById(req.params.id);
+    const delMemberGroup = await MemberGroup.findById(req.params.mgId);
 	if (!delMemberGroup) {
 		return next(new AppError(`MemberGroup doesn't exist which want to delete!`, 404));
 	}
@@ -195,3 +198,4 @@ exports.deleteMemberGroup = catchAsync(async (req, res, next) => {
 		msg: 'MemberGroup deleted',
 	});
 });
+*/

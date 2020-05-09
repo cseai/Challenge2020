@@ -18,10 +18,13 @@ exports.getAllDepts = catchAsync(async (req, res, next) => {
 });
 
 exports.getDept = catchAsync(async (req, res, next) => {
-	const deselectStr = `-address -verification -createdAt -contacts -__v -id`;
-	const dept = await Dept.findById(req.params.id).populate({
-		path: 'children parent eduHub memberGroup',
-		select: deselectStr,
+	const selectForRefDepts = `_id name`;
+	const dept = await Dept.findById(req.params.deptId).populate({
+		path: 'children parent eduHub',
+		select: selectForRefDepts,
+	}).populate({
+		path: `memberGroup`,
+		select: `_id, members`
 	});
 	if (!dept) {
 		return next(new AppError(`Dept doesn't exists!`, 404));
@@ -37,7 +40,9 @@ exports.getAllEduHubs = catchAsync(async (req, res, next) => {
 	// EXECUTE QUERY
 	const query = { ...req.query };
 	query.eduHub = null;
-	query.fields = `-address,-verification,-createdAt,-contacts,-__v,-id`;
+	if(!query.fields){
+		query.fields = `-address,-verification,-createdAt,-contacts,-__v,-id`;
+	}
 	// const features = new APIFeatures(Dept.find(), query).filter().sort().limitFields().paginate();
 	const features = new APIFeatures(Dept.find(), query).filter().sort().limitFields().paginate();
 	const eduHubs = await features.query;
@@ -51,21 +56,17 @@ exports.getAllEduHubs = catchAsync(async (req, res, next) => {
 });
 
 exports.getEduHub = catchAsync(async (req, res, next) => {
-	const deselectStr = `-address -verification -createdAt -contacts -__v -id`;
+	// const selectForRefDepts = `_id name`;
 
-	const dept = await Dept.findById(req.params.id)
-		.populate({ path: 'children parent eduHub memberGroup', select: deselectStr })
-		.select(deselectStr);
-	// const dept = await Dept.findById(req.params.id);
+	const dept = await Dept.findById(req.params.deptId);
+	
 	if (!dept) {
 		return next(new AppError(`EduHub doesn't exists!`, 404));
 	}
 
 	if (dept.eduHub !== null) {
-		const eduHub = await Dept.findById(dept.eduHub)
-			.populate({ path: 'children parent eduHub memberGroup', select: deselectStr })
-			.select(deselectStr);
-		// const eduHub = await Dept.findById(dept.eduHub);
+		const eduHub = await Dept.findById(dept.eduHub);
+		
 		if (!eduHub) {
 			return next(new AppError(`EduHub doesn't exists!`, 404));
 		}
@@ -85,8 +86,16 @@ exports.getEduHub = catchAsync(async (req, res, next) => {
 
 exports.createDept = catchAsync(async (req, res, next) => {
 	const clearedData = {...req.body}
-	clearedData.user = req.user._id;
 
+	// IMPORTANT: Set `user` (who create) and owner-controller at `controllers`
+	clearedData.user = req.user._id;
+	clearedData.controllers = [{
+		user: req.user._id,
+		role: `owner`,
+		active: true
+	}]
+
+	// Create Dept
 	const newDept = await Dept.create(clearedData);
 	if (!newDept) {
 		return next(new AppError(`Department creation failed!`));
@@ -107,7 +116,7 @@ exports.updateDept = catchAsync(async (req, res, next) => {
     - always validate data before update
     */
 
-	const dept = await Dept.findById(req.params.id);
+	const dept = await Dept.findById(req.params.deptId);
 	if (!dept) {
 		return next(new AppError(`Department doesn't exist!`, 404));
 	}
@@ -128,6 +137,12 @@ exports.updateDept = catchAsync(async (req, res, next) => {
 	}
 	if (clearedData.children) {
 		clearedData.children = dept.children;
+	}
+	if(clearedData.controllers){
+		clearedData.controllers = dept.controllers;
+	}
+	if(clearedData.memberGroup){
+		clearedData.memberGroup = dept.memberGroup;
 	}
 
 	// IF WANT TO MODIFY PARENT BUT NOT NULL
@@ -173,7 +188,7 @@ exports.updateDept = catchAsync(async (req, res, next) => {
 	}
 
 	// Get updated Dept
-	const deptUpdated = await Dept.findById(req.params.id);
+	const deptUpdated = await Dept.findById(req.params.deptId);
 	if (!deptUpdated) {
 		return next(new AppError(`Department doesn't exist!`, 404));
 	}
@@ -187,8 +202,8 @@ exports.updateDept = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteDept = catchAsync(async (req, res, next) => {
-	// await Dept.findByIdAndDelete(req.params.id);
-	const delDept = await Dept.findById(req.params.id);
+	// await Dept.findByIdAndDelete(req.params.deptId);
+	const delDept = await Dept.findById(req.params.deptId);
 	if (!delDept) {
 		return next(new AppError(`Dept doesn't exist which want to delete!`, 404));
 	}
@@ -204,7 +219,7 @@ exports.deleteDept = catchAsync(async (req, res, next) => {
 
 
 exports.traverseTree = catchAsync(async (req, res, next) => {
-	const dept = await Dept.findById(req.params.id);
+	const dept = await Dept.findById(req.params.deptId);
 	if(!dept){
 		return next(new AppError(`Dept does not exist!`, 404));
 	}
@@ -221,7 +236,7 @@ exports.traverseTree = catchAsync(async (req, res, next) => {
 
 });
 
-
+// Members
 exports.addMembers = catchAsync(async (req, res, next) => {
 	const members = Array(...req.body.members);
 	if(!members || members.length < 1){
@@ -313,6 +328,19 @@ exports.removeMembers = catchAsync(async (req, res, next) => {
 
     const removedMembers = [];
     if(members && members.length > 0){
+		// IMPORTANT: Check if these members are controllers or not...IF controllers THEN REJECT
+		let controllers = [];
+		for(let i = 0; i < dept.controllers.length; i++){
+			// Store string id
+			controllers.push(String(dept.controllers[i].user));
+		}
+		for(let i = 0; i < members.length; i++){
+			// compare with string id
+			if(controllers.includes(String(members[i]))){
+				return next(new AppError(`Members can not be removed because this (${members[i]}) exists in 'controllers' section. Remove member from 'controller' first!`, 401));
+			}
+		}
+
 		// Remove member from Dept's MemberGroup
         for(let index=0; members.length > index; index++){
             let id_index = memberGroup.members.indexOf(members[index]);
@@ -335,7 +363,125 @@ exports.removeMembers = catchAsync(async (req, res, next) => {
 
 	res.status(200).json({
 		success: true,
-		msg: 'Get MemberGroup',
+		msg: 'Members',
 		members: memberGroup.members
+	});
+});
+
+
+// Controllers
+exports.addControllers = catchAsync(async (req, res, next) => {
+	const controllers = Array(...req.body.controllers);
+	if(!controllers || controllers.length < 1){
+		return next(new AppError(`'controllers' field is empty!...Please provide valid controllers.`, 401));
+	}
+
+	// Get Dept
+	const dept = await Dept.findById(req.params.deptId);
+	if(!dept || !dept.active){
+		return next(new AppError(`Dept does not exists or deactivated!`, 404));
+	}
+
+	// Get MemberGroup
+	if(!dept.memberGroup){
+		return next(new AppError(`Dept's MemberGroup does not exist. Something went wrong`, 500));
+	}
+    const memberGroup = await MemberGroup.findById(dept.memberGroup);
+	if (!memberGroup || !memberGroup.active) {
+		return next(new AppError(`MemberGroup doesn't exists or deactivated!`, 404));
+    }
+    
+    if(controllers && controllers.length > 0){
+        let controllersToAdd = [];
+        for(let index=0; controllers.length > index; index++){
+			// Only if controller is a member in MemberGroup then add otherwise reject it
+            if(memberGroup.members.includes(controllers[index].user)){
+                controllersToAdd.push(controllers[index]);
+            }
+        }
+
+        if(controllersToAdd.length > 0){
+			// Now validate controllers that is it already exists or not
+			// IMPORTANT: Check if these members are controllers or not...IF controllers THEN REJECT
+			let controllersAddedCount = 0;
+			let controllersUser = [];
+			for(let i = 0; i < dept.controllers.length; i++){
+				// store as String id
+				controllersUser.push(String(dept.controllers[i].user));
+			}
+			for(let i = 0; i < controllersToAdd.length; i++){
+				// compare with String id
+				if(!controllersUser.includes(String(controllersToAdd[i].user))){
+					dept.controllers.push(controllersToAdd[i]);
+					controllersAddedCount += 1;
+				}
+			}
+
+			if(controllersAddedCount > 0){
+				// Save Dept using .save()
+				await dept.save();
+				console.log(`Controllers addedCount:${controllersAddedCount}`);
+			} else{
+				console.log(`No controllers to add or already exist!`);
+			}
+        }
+        else{
+			// IMPORTANT: means trying to add non member controllers... So throw error
+			return next(new AppError(`Controllers can not be added because this/these controllers not member of MemberGroup. Add them to MemberGroup first!`, 401));
+        }
+    }
+
+	res.status(200).json({
+		success: true,
+		msg: 'Controllers of Dept',
+		controllers: dept.controllers
+	});
+});
+
+
+exports.removeControllers = catchAsync(async (req, res, next) => {
+	// Expecting Array of userId (controller's userId)
+	const controllers = Array(...req.body.controllers);
+	if(!controllers || controllers.length < 1){
+		return next(new AppError(`'controllers' field is empty!...Please provide valid controllers userId.`, 401));
+	}
+
+	// Get Dept
+	const dept = await Dept.findById(req.params.deptId);
+	if(!dept || !dept.active){
+		return next(new AppError(`Dept does not exists or deactivated!`, 404));
+	}
+
+    if(controllers && controllers.length > 0){
+		// Remove controller from Dept's controllers
+		let controllersRemovedCount = 0;
+        for(let rc_index = 0; controllers.length > rc_index; rc_index++){
+			for(let dc_index = 0; dept.controllers.length > dc_index; dc_index++){
+				if(String(controllers[rc_index]) === String(dept.controllers[dc_index].user)){
+					// IMPORTANT: Protect from ownership deletion
+					if(String(dept.controllers[dc_index].role) === 'owner'){
+						return next(new AppError(`Owner can not be removed. Update the ownership first at controllers section.`, 401));
+					}
+					dept.controllers.splice(dc_index, 1);
+					controllersRemovedCount += 1;
+					break;
+				}
+			}
+        }
+
+        // IF Any Controller Removed THEN Save the Dept
+        if(controllersRemovedCount > 0){
+			// use .save()
+            await dept.save();
+        }
+        else{
+            console.log(`No controller to remove or already removed.`);
+        }
+    }
+
+	res.status(200).json({
+		success: true,
+		msg: 'Dept Controllers',
+		controllers: dept.controllers
 	});
 });
