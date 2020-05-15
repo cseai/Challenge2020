@@ -87,6 +87,15 @@ exports.getEduHub = catchAsync(async (req, res, next) => {
 exports.createDept = catchAsync(async (req, res, next) => {
 	const clearedData = {...req.body}
 
+	// IMPORTANT: CHECK IS IT EduHub or Department
+	/*
+	- If EduHub that means `parent` was given in req.body and
+	- so, check the requested user is a member of given parent's member
+	- otherwise reject.
+	- BEST PRACTISE CHECK IT FIRST FRONT-END AND ALSO CHECK IT PRE-SAVE()
+	- If parent was not given then it is EduHub and then it's ok
+	*/
+
 	// IMPORTANT: Set `user` (who create) and owner-controller at `controllers`
 	clearedData.user = req.user._id;
 	clearedData.controllers = [{
@@ -224,7 +233,8 @@ exports.traverseTree = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Dept does not exist!`, 404));
 	}
 	// Test of Tree Traversing
-	const tree = await dept.traverseTree(0, `Tree of Department ${dept.name}-${dept.username}`);
+	let treeMap = [];
+	const tree = await dept.traverseTree(0, `Tree of Department ${dept.name}-${dept.username}`, treeMap);
 
 	console.log(tree);
 

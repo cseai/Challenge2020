@@ -165,11 +165,29 @@ deptSchema.pre('save', async function(next) {
     console.log(`pre-save: ${this.name}`);
 
     // 1) DEPT
-    // 1A) If parent was set, then check is it exists or not and add this to parents children... else Error
+    // 1A) If parent was set, then check is it exists or not and add this to parents children
+    // and check req.user is a member of parentDept also otherwise reject... else Error
     if(this.parent){
         const parentDept = await Dept.findById(this.parent);
         if(!parentDept) return next(new AppError(`Parent dept doesn't exist`, 404));
 
+        // IMPORTANT: CHECK IS IT EduHub or Department
+        /*
+        - If EduHub that means `parent` was given in req.body and
+        - so, check the requested user is a member of given parent's member
+        - otherwise reject.
+        - If parent was not given then it is EduHub and then it's ok
+        - IT'S BATTER TO CHECK IT AT CONTROLLER SECTION...BECAUSE EVERYTIME IT SAVE() THIS WILL CALL...
+        - AND ALSO CHECK IT HERE OTHERWISE IT CAN BE VALNARABLE SITUATION
+        */
+        const parentMemberGroup = await MemberGroup.findById(parentDept.memberGroup);
+        if(!parentMemberGroup) return next(new AppError(`Parent dept's MemberGroup doesn't exist. Something went wrong.`, 500));
+
+        if(!parentMemberGroup.members.includes(this.user)){
+            return next(new AppError(`Requested user is not a member of Parent dept. (Please validate it front-end site.). Permission denied`, 401));
+        }
+
+        // Set eduHub
         this.eduHub =  parentDept.parent !== null ? parentDept.eduHub : parentDept._id ;
 
         // Categry all be same as parentDept
@@ -291,7 +309,7 @@ deptSchema.methods.removeChildOfParentDept = async function(){
 }
 
 
-deptSchema.methods.traverseTree = async function(level, tree){
+deptSchema.methods.traverseTree = async function(level, tree, treeMap){
     let tab = ``;
     for(let i=1; i<=level; i++){
         tab = tab + `----`;
@@ -299,12 +317,16 @@ deptSchema.methods.traverseTree = async function(level, tree){
     tree = tree + `\n` + `${level+tab}:${this.name}`
     // console.log(`${level+tab}:${this.name}`);
 
+
+    // treeMap.push(this.name);
+    // console.log(`L=${level}, and Map= ${treeMap}`)
+
     level = level + 1;
 
     // DO SOMETHIN HERE IF NEED
     // START
     // configure controllers and membergroup for owner user
-    
+    /*
     const ownerUser = this.user;
     const controllers = [{
         user: ownerUser,
@@ -319,14 +341,20 @@ deptSchema.methods.traverseTree = async function(level, tree){
     }
     // IMPORTANT: it will remove all previous controllers and set only owner controller
     await this.updateOne({controllers: controllers});
-    
+    */
+
+    // Generate JSON-Tree Map
+
+
+
+
     // END
 
     for(let index=0; index < this.children.length; index++){
         // console.log(`l=${level} & i=${index}:${this.children[index]._id}`);
         const dept = await Dept.findById(this.children[index]._id);
         // console.log(`dept:${dept.name}`);
-        tree = await dept.traverseTree(level, tree);
+        tree = await dept.traverseTree(level, tree, treeMap);
     }
     return tree;
 }
