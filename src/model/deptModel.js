@@ -309,18 +309,27 @@ deptSchema.methods.removeChildOfParentDept = async function(){
 }
 
 
-deptSchema.methods.traverseTree = async function(level, tree, treeMap){
+deptSchema.methods.traverseTree = async function(level, treeStr, objRef, hubDeptListRef){
+    /*
+    NOTE:
+    - `level` and `treeStr` are 'call-by-value' parameter
+    - `objRef` is 'call-by-referance' parameter
+    */
+
+    // treeStr
     let tab = ``;
-    for(let i=1; i<=level; i++){
-        tab = tab + `----`;
-    }
-    tree = tree + `\n` + `${level+tab}:${this.name}`
-    // console.log(`${level+tab}:${this.name}`);
+    for(let i=1; i<=level; i++) tab = tab + `----`;
+    treeStr = treeStr + `\n` + `${level+tab}:${this.name}`
 
+    // hubDeptListRef
+    hubDeptListRef.push({
+		level: level,
+		name: this.name,
+		username: this.username,
+		id: this._id
+    });
 
-    // treeMap.push(this.name);
-    // console.log(`L=${level}, and Map= ${treeMap}`)
-
+    // INCREMENT LEVEL
     level = level + 1;
 
     // DO SOMETHIN HERE IF NEED
@@ -342,21 +351,26 @@ deptSchema.methods.traverseTree = async function(level, tree, treeMap){
     // IMPORTANT: it will remove all previous controllers and set only owner controller
     await this.updateOne({controllers: controllers});
     */
-
-    // Generate JSON-Tree Map
-
-
-
-
     // END
 
+    // TRAVARSE CHILDREN
     for(let index=0; index < this.children.length; index++){
-        // console.log(`l=${level} & i=${index}:${this.children[index]._id}`);
         const dept = await Dept.findById(this.children[index]._id);
-        // console.log(`dept:${dept.name}`);
-        tree = await dept.traverseTree(level, tree, treeMap);
+
+        // create obj for passing referance
+        const childObj = {
+            level: level,
+            name: dept.name,
+            username: dept.username,
+            id: dept._id,
+            children: Array()
+        };
+
+        objRef.children.push(childObj);
+
+        treeStr = await dept.traverseTree(level, treeStr, childObj, hubDeptListRef);
     }
-    return tree;
+    return treeStr;
 }
 
 
@@ -412,6 +426,46 @@ deptSchema.methods.removeDescendentsMembers = async function(removedMembers, lev
     return tree;
 }
 
+
+// generateHubTree
+deptSchema.methods.generateHubTree = async function(level, objRef, hubDeptListRef){
+    /*
+    NOTE:
+    - `level` is 'call-by-value' parameter
+    - `objRef` and `hubDeptListRef` are 'call-by-referance' parameter
+    */
+
+    // hubDeptListRef
+    hubDeptListRef.push({
+		level: level,
+		name: this.name,
+		username: this.username,
+		id: this._id
+    });
+
+    // INCREMENT LEVEL
+    level = level + 1;
+
+    let status = true;
+    // TRAVARSE CHILDREN
+    for(let index=0; index < this.children.length; index++){
+        const dept = await Dept.findById(this.children[index]._id);
+
+        // create obj for passing referance
+        const childObj = {
+            level: level,
+            name: dept.name,
+            username: dept.username,
+            id: dept._id,
+            children: Array()
+        };
+
+        objRef.children.push(childObj);
+
+        status = await dept.generateHubTree(level, childObj, hubDeptListRef);
+    }
+    return status;
+}
 
 const Dept = mongoose.model('Dept', deptSchema);
 

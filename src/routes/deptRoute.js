@@ -7,6 +7,8 @@ router.route('/:deptId/eduhub/').get(authController.protect, deptController.getE
 
 router.route('/:deptId/tree').get(authController.protect, deptController.traverseTree);
 
+router.route('/:deptId/hubtree').get(authController.protect, deptController.getOrCreateHubTree);
+
 router.route('/:deptId/addmembers').patch(authController.protect, deptController.addMembers);
 router.route('/:deptId/removemembers').patch(authController.protect, deptController.removeMembers);
 

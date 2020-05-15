@@ -1,5 +1,6 @@
 const Dept = require('../model/deptModel');
 const MemberGroup = require('../model/memberGroupModel');
+const HubTree = require('../model/hubTreeModel');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
@@ -232,19 +233,68 @@ exports.traverseTree = catchAsync(async (req, res, next) => {
 	if(!dept){
 		return next(new AppError(`Dept does not exist!`, 404));
 	}
-	// Test of Tree Traversing
-	let treeMap = [];
-	const tree = await dept.traverseTree(0, `Tree of Department ${dept.name}-${dept.username}`, treeMap);
 
-	console.log(tree);
+	// Test of Tree Traversing
+	let hubTreeObj = {
+		level: 0,
+		name: dept.name,
+		username: dept.username,
+		id: dept._id,
+		children: Array()
+	};
+	let hubDeptList = [];
+	const treeStr = await dept.traverseTree(0, `Tree of Department ${dept.name}-${dept.username}`, hubTreeObj, hubDeptList);
+
+	console.log(treeStr);
 
 	res.status(200).json({
 		success: true,
 		msg: 'Get Dept Tree',
-		tree
+		treeStr,
+		hubTreeObj,
+		hubDeptList
 	});
 
 });
+
+exports.getOrCreateHubTree = catchAsync(async (req, res, next) => {
+	const dept = await Dept.findById(req.params.deptId);
+	if(!dept){
+		return next(new AppError(`Dept does not exist!`, 404));
+	}
+
+	const eduHubId = dept.parent !== null ? dept.eduHub : dept._id ;
+
+	let hubTree = await HubTree.findOne({hub: eduHubId});
+	if(!hubTree){
+		// EduHub Tree Traversing
+		let hubTreeObj = {
+			level: 0,
+			name: dept.name,
+			username: dept.username,
+			id: dept._id,
+			children: Array()
+		};
+		let hubDeptList = [];
+		const eduHub = await Dept.findById(eduHubId); 
+		const status = await eduHub.generateHubTree(0, hubTreeObj, hubDeptList);
+		console.log(`status: ${status}`);
+
+		// create HubTree
+		hubTree = await HubTree.create({
+			hub: eduHub._id,
+			tree: hubTreeObj,
+			list: hubDeptList
+		});
+	}
+
+	res.status(200).json({
+		success: true,
+		msg: 'HubTree got',
+		hubTree
+	});
+});
+
 
 // Members
 exports.addMembers = catchAsync(async (req, res, next) => {
