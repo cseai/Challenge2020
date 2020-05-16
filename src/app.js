@@ -8,6 +8,7 @@ const testRoute = require('./routes/testRoute');
 const userRoute = require('./routes/userRoute');
 const deptRoute = require('./routes/deptRoute');
 const memberGroupRoute = require('./routes/memberGroupRoute');
+const hubTreeRoute = require('./routes/hubTreeRoute');
 const profileRoute = require('./routes/profileRoute');
 
 // 1) MIDDLEWARES
@@ -29,6 +30,8 @@ app.use('/api/v1/profile', profileRoute);
 app.use('/api/v1/depts', deptRoute);
 // memberGroup router
 app.use('/api/v1/membergroups', memberGroupRoute);
+// hubTree router
+app.use('/api/v1/hubtrees', hubTreeRoute);
 
 // route protecting
 // app.all('*', (req, res, next) => {

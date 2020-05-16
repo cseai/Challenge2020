@@ -185,6 +185,25 @@ Response:
 Actions:
 - Always response by returning `EduHub` although if provided `DeptId` is not an `EduHub`.
 
+### GET | Get HubTree
+```bash
+    {{URL}}api/v1/depts/:deptId/hubtree
+```
+Params:
+- deptId : `DeptId`. If it is not `EduHub` then it will automatically response with it's `EduHub`'s `HubTree`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `hubTree`: `Object` [HubTree]
+
+Actions:
+- Always response by returning `HubTree` although if provided `DeptId` is not an `EduHub`.
+- If it is first request for an `EduHub` or threre is no `HubTree` refering to this `EduHub` then it will create and return that newly created `HubTree`
+- Every `EduHub` can have only one `HubTree`
+- `HubTree` is only for `EduHub` not for `Department`
+
+
 ### POST | Create Dept
 ```bash
     {{URL}}api/v1/depts
@@ -312,3 +331,18 @@ MemberGroup is the part of Dept section. It's represent the Dept's `memberGroup`
 ```
 Params:
 - mgId : `MemberGroupId`
+
+# HubTree API
+HubTree is the part of EduHub section. It's represent the EduHub's hierarchy structure for quickly access the whole EduHub's Tree structure.
+
+## GET | Get All HubTrees
+```bash
+    {{URL}}api/v1/hubtrees/
+```
+
+## GET | Get HubTree
+```bash
+    {{URL}}api/v1/hubtrees/:hubTreeId/
+```
+Params:
+- hubTreeId : `HubTreeId`
