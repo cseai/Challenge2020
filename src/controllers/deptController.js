@@ -552,6 +552,19 @@ exports.removeControllers = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Dept does not exists or deactivated!`, 404));
 	}
 
+	// IMPORTANT: Check Requested User is a `controller` of this Dept or not...if not then REJECT
+	let isReqUserController = false;
+	for(let i = 0; i < dept.controllers.length; i++){
+		// compare with String id
+		if(String(dept.controllers[i].user) === String(req.user._id)){
+			isReqUserController = true;
+			break;
+		}
+	}
+	if(!isReqUserController){
+		return next(new AppError(`Requested user must be a controller to add new controller. Permission denied`, 401));
+	}
+
     if(controllers && controllers.length > 0){
 		// Remove controller from Dept's controllers
 		let controllersRemovedCount = 0;
@@ -614,10 +627,10 @@ exports.createLibrary = catchAsync(async (req, res, next) => {
 	// Copy data
 	const clearedData = {...req.body}
 
-	// Set admin-controller at `controllers`
+	// Set superadmin-controller at `controllers`
 	clearedData.controllers = [{
 		user: req.user._id,
-		role: `admin`,
+		role: `superadmin`,
 		active: true
 	}]
 	// IMPORTANT: Set `dept` and `memberGroup`

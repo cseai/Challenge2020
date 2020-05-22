@@ -13,7 +13,7 @@ const authController = require('../controllers/authController');
 // router.route('/:deptId/removemembers').patch(authController.protect, deptController.removeMembers);
 
 router.route('/:libraryId/addcontrollers').patch(authController.protect, libraryController.addControllers);
-// router.route('/:deptId/removecontrollers').patch(authController.protect, deptController.removeControllers);
+router.route('/:libraryId/removecontrollers').patch(authController.protect, libraryController.removeControllers);
 
 router.route('/')
     .get(authController.protect, libraryController.getAllLibraries)

@@ -87,7 +87,7 @@ const librarySchema = new mongoose.Schema({
         },
         role: {
             type: String,
-            enum: ['admin', 'moderator', 'librarian', 'staff'],
+            enum: ['superadmin', 'admin', 'moderator', 'librarian', 'staff'],
             default: 'librarian',
         },
         active: {

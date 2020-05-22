@@ -168,3 +168,65 @@ exports.addControllers = catchAsync(async (req, res, next) => {
 		controllers: library.controllers
 	});
 });
+
+exports.removeControllers = catchAsync(async (req, res, next) => {
+	// Expecting Array of userId (controller's userId)
+	const controllers = Array(...req.body.controllers);
+	if(!controllers || controllers.length < 1){
+		return next(new AppError(`'controllers' field is empty!...Please provide valid controllers userId.`, 401));
+	}
+
+	// Get Library
+	const library = await Library.findById(req.params.libraryId);
+	if(!library || !library.active){
+		return next(new AppError(`Library does not exists or deactivated!`, 404));
+	}
+
+
+	// IMPORTANT: Check Requested User is a `controller` of this Library or not...if not then REJECT
+	let isReqUserController = false;
+	for(let i = 0; i < library.controllers.length; i++){
+		// compare with String id
+		if(String(library.controllers[i].user) === String(req.user._id)){
+			isReqUserController = true;
+			break;
+		}
+	}
+	if(!isReqUserController){
+		return next(new AppError(`Requested user must be a controller to add new controller. Permission denied`, 401));
+	}
+
+
+    if(controllers && controllers.length > 0){
+		// Remove controller from Library's controllers
+		let controllersRemovedCount = 0;
+        for(let rc_index = 0; controllers.length > rc_index; rc_index++){
+			for(let lc_index = 0; library.controllers.length > lc_index; lc_index++){
+				if(String(controllers[rc_index]) === String(library.controllers[lc_index].user)){
+					// IMPORTANT: Protect from ownership deletion
+					if(String(library.controllers[lc_index].role) === 'superadmin'){
+						return next(new AppError(`Superadmin can not be removed. Update the ownership first at controllers section.`, 401));
+					}
+					library.controllers.splice(lc_index, 1);
+					controllersRemovedCount += 1;
+					break;
+				}
+			}
+        }
+
+        // IF Any Controller Removed THEN Save the Library
+        if(controllersRemovedCount > 0){
+			// use .save()
+            await library.save();
+        }
+        else{
+            console.log(`No controller to remove or already removed.`);
+        }
+    }
+
+	res.status(200).json({
+		success: true,
+		msg: 'Library Controllers',
+		controllers: library.controllers
+	});
+});
