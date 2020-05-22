@@ -1,0 +1,38 @@
+
+/* ####################### header ################## */
+header {
+	position: fixed;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	padding: 13px 10% !important;
+	background-color: #4cbea6;
+	color: white !important;
+	font-size: 20px !important;
+	width: 100%;
+	z-index: 1;
+}
+.logo {
+	cursor: pointer;
+}
+.nav {
+}
+.nav__links {
+	list-style: none;
+}
+
+.nav__links li {
+	display: inline-block;
+	padding: 0px 20px;
+}
+
+.nav__links li a {
+	color: white;
+	font-style: none;
+	text-decoration: none;
+	transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover {
+	color: #d46464;
+}

@@ -38,6 +38,14 @@ app.use('/api/v1/hubtrees', hubTreeRoute);
 // 	next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 // });
 
+// for the heroku
+if(process.env.NODE_ENV==='production'){
+	app.use(express.static('client/build'));
+	app.get('*',(req,res)=>{
+		res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+	})
+} 
+
 app.use(globalErrorHandler);
 
 module.exports = app;

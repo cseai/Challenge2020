@@ -29,18 +29,30 @@
 }
 
 .landing__page_box_signin{
+    cursor: pointer;
     background: var(--color--primary);
     padding: 10px 32px;
     margin-right: 5px;
     border-radius: 5px;
+    animation: singin;
 }
 
 .landing__page_box_signup{
+    cursor: pointer;
     background: var(--color--primary);
     padding: 10px 24px;
     margin-left: 5px;
     border-radius: 5px;
 }
+.landing__page_box_signin:hover {
+    box-shadow:0px 3px 5px 0px rgba(13, 201, 123, 0.815);
+}
+
+
+.landing__page_box_signup:hover{
+    box-shadow:0px 3px 5px 0px rgba(13, 201, 123, 0.815);
+}
+
 a{
     text-decoration: none;
     color: white;

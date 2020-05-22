@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 const Dash = () => {
 	return (
-		<div>
-			login/register <Link to='/login'>login</Link><Link to='/register'>register</Link>
-		</div>
+		<Fragment>
+			
+		</Fragment>
 	);
 };
 
