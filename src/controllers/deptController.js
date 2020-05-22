@@ -1,5 +1,6 @@
 const Dept = require('../model/deptModel');
 const MemberGroup = require('../model/memberGroupModel');
+const Library = require('../model/libraryModel');
 const HubTree = require('../model/hubTreeModel');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('./../utils/appError');
@@ -212,14 +213,13 @@ exports.updateDept = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteDept = catchAsync(async (req, res, next) => {
-	// await Dept.findByIdAndDelete(req.params.deptId);
 	const delDept = await Dept.findById(req.params.deptId);
 	if (!delDept) {
 		return next(new AppError(`Dept doesn't exist which want to delete!`, 404));
 	}
 
+	// IMPORTANT: Consedering deleting Dept...can be deactivate...think later
 	const status = await delDept.deleteOne();
-	// console.log(`delete-status: ${status}`);
 
 	res.status(200).json({
 		success: true,
@@ -384,20 +384,47 @@ exports.removeMembers = catchAsync(async (req, res, next) => {
     const memberGroup = await MemberGroup.findById(dept.memberGroup);
 	if (!memberGroup || !memberGroup.active) {
 		return next(new AppError(`MemberGroup doesn't exists or deactivated!`, 404));
-    }
+	}
+	
 
     const removedMembers = [];
     if(members && members.length > 0){
-		// IMPORTANT: Check if these members are controllers or not...IF controllers THEN REJECT
-		let controllers = [];
+		// Get Library of Dept if exist
+		let isLibraryExist = false;
+		let library;
+		if(dept.library){
+			library = await Library.findById(dept.library);
+			if(!library){
+				return next(new AppError(`Dept's libray id exist but Library does not exist. Something went wrong.`, 500));
+			}
+			isLibraryExist = true;
+		}
+
+		// Copy Library controllers userId
+		let libraryControllers = [];
+		if(isLibraryExist){
+			for(let i = 0; i < library.controllers.length; i++){
+				// Store string id
+				libraryControllers.push(String(library.controllers[i].user));
+			}
+		}
+
+		// Copy Dept controllers userId
+		let deptControllers = [];
 		for(let i = 0; i < dept.controllers.length; i++){
 			// Store string id
-			controllers.push(String(dept.controllers[i].user));
+			deptControllers.push(String(dept.controllers[i].user));
 		}
+
+		// IMPORTANT: Check if these members are controllers or not...IF controllers (either Dept's or Library's controllers) THEN REJECT
 		for(let i = 0; i < members.length; i++){
 			// compare with string id
-			if(controllers.includes(String(members[i]))){
-				return next(new AppError(`Members can not be removed because this (${members[i]}) exists in 'controllers' section. Remove member from 'controller' first!`, 401));
+			if(deptControllers.includes(String(members[i]))){
+				return next(new AppError(`Members can not be removed because this (${members[i]}) exists in Dept's 'controllers' section. Remove member from 'controllers' first!`, 401));
+			}
+			// compare with string id
+			if(isLibraryExist && libraryControllers.includes(String(members[i]))){
+				return next(new AppError(`Members can not be removed because this (${members[i]}) exists in Library's 'controllers' section. Remove member from 'controllers' first!`, 401));
 			}
 		}
 
@@ -406,8 +433,8 @@ exports.removeMembers = catchAsync(async (req, res, next) => {
             let id_index = memberGroup.members.indexOf(members[index]);
             if(id_index > -1){
                 memberGroup.members.splice(id_index, 1);
-                removedMembers.push(members[index]);
-            }
+				removedMembers.push(members[index]);
+			}
         }
 
         // IF Any User Removed THEN save the MemberGroup
@@ -440,6 +467,19 @@ exports.addControllers = catchAsync(async (req, res, next) => {
 	const dept = await Dept.findById(req.params.deptId);
 	if(!dept || !dept.active){
 		return next(new AppError(`Dept does not exists or deactivated!`, 404));
+	}
+
+	// IMPORTANT: Check Requested User is a `controller` of this Dept or not...if not then REJECT
+	let isReqUserController = false;
+	for(let i = 0; i < dept.controllers.length; i++){
+		// compare with String id
+		if(String(dept.controllers[i].user) === String(req.user._id)){
+			isReqUserController = true;
+			break;
+		}
+	}
+	if(!isReqUserController){
+		return next(new AppError(`Requested user must be a controller to add new controller. Permission denied`, 401));
 	}
 
 	// Get MemberGroup
@@ -543,5 +583,60 @@ exports.removeControllers = catchAsync(async (req, res, next) => {
 		success: true,
 		msg: 'Dept Controllers',
 		controllers: dept.controllers
+	});
+});
+
+
+exports.createLibrary = catchAsync(async (req, res, next) => {
+	// Get Dept
+	const dept = await Dept.findById(req.params.deptId);
+	if(!dept){
+		return next(new AppError(`Dept does not exist`, 404));
+	}
+
+	// Check Library already exist or not
+	if(dept.library){
+		return next(new AppError(`Dept's Library already exist`, 401));
+	}
+
+	// Check req.user is a Controller of Dept or not
+	let reqUserIsController = false;
+	for(let controller_index = 0; controller_index < dept.controllers.length; controller_index++){
+		if(String(dept.controllers[controller_index].user) === String(req.user._id)){
+			reqUserIsController = true;
+			break;
+		}
+	}
+	if(!reqUserIsController){
+		return next(new AppError(`Requested user must be controller of Dept to create a Library.`, 401));
+	}
+
+	// Copy data
+	const clearedData = {...req.body}
+
+	// Set admin-controller at `controllers`
+	clearedData.controllers = [{
+		user: req.user._id,
+		role: `admin`,
+		active: true
+	}]
+	// IMPORTANT: Set `dept` and `memberGroup`
+	clearedData.dept = dept._id;
+	clearedData.memberGroup = dept.memberGroup;
+
+	// Create Library
+	const newLibrary = await Library.create(clearedData);
+	if (!newLibrary) {
+		return next(new AppError(`Library creation failed!`));
+	}
+
+	// Update Dept's `library` after creating Library
+	// BETTER: DO IT PRE-SAVE METHOD AT LIBRARY
+	await dept.update({library: newLibrary._id});
+
+	res.status(201).json({
+		success: true,
+		msg: 'New Library created',
+		library: newLibrary,
 	});
 });

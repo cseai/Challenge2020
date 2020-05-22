@@ -1,35 +1,32 @@
 const mongoose = require('mongoose');
 
-// Library: Library is a broad concept in this project # A Library can be part of Dept/Org etc.
-const librarySchema = new mongoose.Schema({
-    dept: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Dept',
-        unique: true,
-        required: true
-    },
+// Author: Author of Book or...(consider later)
+const authorSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Library must have a name']
+        required: [true, 'Author must have a name'],
     },
-    username: {
+    nicname: {
+        type: String
+        // Note: remove it if you think unnecessary
+    },
+    verified: {
+        type: Boolean,
+        default: false
+        // Note: How can be verified... think later
+    },
+    realUser: {
+        // If Author is a `User` too
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
+    gender: {
         type: String,
-        unique: [true, 'Library username must be unique']
-        // Note: set random unique username when it first create
+        enum: ['male', 'female', 'other'],
+        required: [true, 'Author gender is required field']
     },
-    coverImage: {
-        type: String,
-        // TODO: design it
-    },
-    profileImage: {
-        type: String,
-        // TODO: design it
-    },
-    since: {
-        type: Date // Note: The date when this dept established
-    },
-    shortDescription: {
-        type: String, // Note: Short Description about this dept.
+    bio: {
+        type: String
     },
     contacts: [{
         method: {
@@ -75,31 +72,14 @@ const librarySchema = new mongoose.Schema({
         // GeoJSON
         type: {
             type: String,
-            enum: ['Point'],
-            default: 'Point'
+            default: 'Point',
+            enum: ['Point']
         },
         coordinates: [Number],
     },
-    controllers: [{ // NOTE: Only librarian who controle library belongs here
-        user: {
-            type: mongoose.Schema.ObjectId,
-            ref: 'User',
-        },
-        role: {
-            type: String,
-            enum: ['admin', 'moderator', 'librarian', 'staff'],
-            default: 'librarian',
-        },
-        active: {
-            type: Boolean,
-            default: true
-        }
-    }],
-    memberGroup: {
-        // Same as Dept's `memberGroup`... and always ref same `MemberGroup` for Dept and Library
+    createdBy: {
         type: mongoose.Schema.ObjectId,
-        ref: 'MemberGroup' // FK # discussion required
-        // NOTE: It should redesign to maintain Transactions... discussion required
+        ref: 'User'
     },
     active: {
         type: Boolean,
@@ -112,15 +92,15 @@ const librarySchema = new mongoose.Schema({
     },
     updatedAt: {
         type: Date,
-        // TODO: Auto update
-    },
-    // Note: add more if necessary
+        // TODO: Make it autoupdate
+    }
 },
 {
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });
 
-const Library = mongoose.model('Library', librarySchema);
 
-module.exports = Library;
+const Author = mongoose.model('Author', authorSchema);
+
+module.exports = Author;

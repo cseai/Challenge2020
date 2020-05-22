@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const MemberGroup = require('./memberGroupModel');
+const Library = require('./libraryModel');
 const AppError = require('../utils/appError');
-// const catchAsync = require('../utils/catchAsync');
 
 
 // Department: represent Department (including EduHub itself) of EduHub
@@ -285,6 +285,16 @@ deptSchema.post('deleteOne', { document: true }, async function(next) {
         }
         // Deactivate MemberGroup
         await memberGroup.updateOne({active: false});
+    }
+
+    // 3) If it's had Library then delete/deactivate it
+    if(this.library){
+        const library = await Library.findById(this.library);
+        if(!library){
+            return next(new AppError(`Referenced Library of this Dept does not exist. Somthing went wrong!!!`, 500));
+        }
+        // Deactivate MemberGroup
+        await library.updateOne({active: false});
     }
 
     console.log(`post-del: Dept [${this.name}] deleted.`);

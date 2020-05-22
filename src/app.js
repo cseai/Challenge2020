@@ -10,6 +10,7 @@ const deptRoute = require('./routes/deptRoute');
 const memberGroupRoute = require('./routes/memberGroupRoute');
 const hubTreeRoute = require('./routes/hubTreeRoute');
 const profileRoute = require('./routes/profileRoute');
+const libraryRoute = require('./routes/libraryRoute');
 
 // 1) MIDDLEWARES
 // morgan for log when development
@@ -32,6 +33,8 @@ app.use('/api/v1/depts', deptRoute);
 app.use('/api/v1/membergroups', memberGroupRoute);
 // hubTree router
 app.use('/api/v1/hubtrees', hubTreeRoute);
+// library router
+app.use('/api/v1/libraries', libraryRoute);
 
 // route protecting
 // app.all('*', (req, res, next) => {
