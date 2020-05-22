@@ -5,7 +5,7 @@ import { login } from '../../actions/authAction';
 import { setAlert } from './../../actions/alertAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer.js';
 import Alert from './../Layout/Alert';
 
@@ -95,7 +95,7 @@ const LoginLight = ({ login, isAuthenticated }) => {
 							<input type='submit' className='signin-btn' value='Sign in' />
 							<div className='height:20%'></div>
 							<div className='create-link'>
-								<a href='signup.html'>create an account</a>
+								<Link to='/register'>create an account</Link>
 							</div>
 						</form>
 						<div className='poweredby'>

@@ -5,8 +5,9 @@
 	margin-bottom: 20px;
 	padding: 9px 0px;
 	min-height: 10px;
-	font-size: 16px;
+	font-size: 12px;
 	border-radius: 10px;
+	font-weight: 300;
 }
 .msg {
 	text-align: center;
@@ -21,6 +22,7 @@
 	margin-bottom: 20px;
 	padding: 9px 0px;
 	min-height: 10px;
-	font-size: 16px;
+	font-size: 12px;
 	border-radius: 10px;
+	font-weight: 300;
 }

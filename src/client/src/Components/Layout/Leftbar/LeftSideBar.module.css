@@ -1,0 +1,110 @@
+/* ############ left ############ */
+.left__part {
+	/* margin-right: 10px; */
+	padding: 0px 10px 0px 0px !important;
+}
+
+.left__part__data {
+	position: fixed;
+	min-height: 70vh;
+	background-color: var(--color--primary-back);
+	border-radius: 10px;
+	box-shadow: 1px 1px 0px 0px #eee;
+	min-width: 224px;
+}
+
+.left__part__data__links {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-top: 15px;
+}
+.left__part__data__links__link {
+	/* background: red; */
+	height: 60px;
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding: 20px;
+	/* padding-top: 15px; */
+	color: var(--color--primary-light-2);
+	font-size: 24px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	transition: all 0.3s ease-in 0s;
+}
+.left__part__data__links__link:hover {
+	background-color: #57ceb49c;
+	border-radius: 25px;
+	color: white !important;
+	font-size: 38px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+/* .left__part__data__links__link:first-child {
+	padding-top: 10px;
+} */
+.left__part__data__link_img {
+	width: 35px;
+	height: 35px;
+	transition: all 0.3s ease 0s;
+}
+.left__part__data__link_img:hover {
+	/* display: none; */
+	width: 40px;
+	height: 40px;
+}
+.left__part__data__link_a {
+	text-decoration: none;
+	padding-left: 16px;
+	/* color: var(--color--primary-light-2) !important; */
+	font-size: 24px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+.left__part__data__link_a:hover {
+	color: white !important;
+}
+
+
+
+/* ############ responsive ################## */
+/* big screen desktops/laptops,  --> xl */
+@media only screen and (min-width: 1200px) {
+	.left__part {
+		flex: 0 0 25% !important;
+		max-width: 25% !important;
+	}
+	.left__part__data__links {
+		min-width: 250px;
+	}
+}
+/* most tablets in landscape, many desktops/laptops  --> lg*/
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.left__part {
+		flex: 0 0 25% !important;
+		max-width: 25% !important;
+	}
+	
+}
+/*larger smartphones in landscape, most tablets in portrait, some small laptops  --> md*/
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+	.container {
+		max-width: 990px !important;
+	}
+	.left__part {
+		flex: 0 0 10% !important;
+		width: 10% !important;
+	}
+
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+}
+/* Extra small devices (portrait phones, less than 576px) */
+@media only screen and (max-width: 575.98px) {
+}

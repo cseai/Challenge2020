@@ -29,7 +29,7 @@ export const login = (email, password) => async (dispatch) => {
 			type: LOGIN_FAIL,
 		});
 		const errors = err.response.data.errors;
-		console.log(errors);
+		// console.log(errors);
 
 		if (errors) {
 			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -64,17 +64,15 @@ export const register = ({ username, email, password }) => async (dispatch) => {
 			payload: res.data,
 		});
 	} catch (err) {
+	
+		const errors = err.response.data.errors;
+		// console.log(err);
+
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+		}
 		dispatch({
 			type: REGISTER_FAIL,
 		});
-		const errors = err.response.data.errors;
-		console.log(err);
-
-		// if (errors) {
-		// 	errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-		// }
-		// dispatch({
-		// 	type: LOGIN_FAIL,
-		// });
 	}
 };

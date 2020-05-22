@@ -1,0 +1,82 @@
+
+/* ############ right ############ */
+
+.right__part {
+	padding: 0px 0px 0px 10px !important;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+.right__part__data {
+	position: fixed;
+	min-width: 230px;
+	min-height: 320px;
+	background-color: var(--color--primary-back);
+	border-radius: 10px;
+	box-shadow: 1px 1px 0px 0px #eee;
+}
+.right__part__data__links {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: start;
+}
+.right__part__data__link {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding: 15px 0px 5px 25px;
+	border-bottom: 4px solid #e7edf3;
+	width: 100%;
+}
+.right__part__data__link:last-child {
+	content: '';
+	border-bottom: none;
+}
+.right__part__data__link_img {
+	width: 28px;
+	height: 28px;
+}
+
+.right__part__data__link_a {
+	color: var(--color--primary-light-2) !important;
+	padding-left: 15px;
+	font-size: 15px;
+	font-weight: 300;
+	font-family: inherit;
+	text-decoration: none;
+}
+
+/* ############ responsive ################## */
+/* big screen desktops/laptops,  --> xl */
+@media only screen and (min-width: 1200px) {
+	.right__part {
+		flex: 0 0 25% !important;
+		width: 25% !important;
+	}
+}
+/* most tablets in landscape, many desktops/laptops  --> lg*/
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+	.right__part {
+		flex: 0 0 25% !important;
+		width: 25% !important;
+	}
+}
+/*larger smartphones in landscape, most tablets in portrait, some small laptops  --> md*/
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+	.container {
+		max-width: 990px !important;
+	}
+	.right__part {
+		flex: 0 0 25% !important;
+		width: 25% !important;
+	}
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+}
+/* Extra small devices (portrait phones, less than 576px) */
+@media only screen and (max-width: 575.98px) {
+}
