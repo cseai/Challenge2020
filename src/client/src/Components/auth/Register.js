@@ -6,6 +6,7 @@ import AvaterImg from './../img/undraw_profile_pic_ic5t (1).svg';
 import { register } from '../../actions/authAction';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Alert from './../Layout/Alert';
 
 const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 	const [formData, setFormData] = useState({
@@ -35,9 +36,10 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className={Style.signin__main___right}>
-						<div className={Style.signin__main__right_notification}>
+						<Alert/>
+						{/* <div className={Style.signin__main__right_notification}>
 							<span>{msg} </span>
-						</div>
+						</div> */}
 						<div className={Style.signin__main___right_avater}>
 							<img src={AvaterImg} />
 						</div>

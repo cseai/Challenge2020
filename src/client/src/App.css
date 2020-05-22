@@ -6,6 +6,8 @@
 	--color--primary-dark-1: #545b5e;
 	--color--primary-dark-2: #f2f3f3;
 	--color--primary-dark-3: #dae0e0;
+	/*  */
+	--color--primary-back: #f5f8fa;
 }
 
 * {
@@ -23,6 +25,7 @@ html {
 	box-sizing: border-box;
 	font-size: 62.5%;
 }
+
 
 body {
 	font-family: 'Roboto', sans-serif;
