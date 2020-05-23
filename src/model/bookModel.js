@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
     library: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Library'
+        ref: 'Library',
+        required: true
     },
     title: {
         type: String,
@@ -12,8 +13,9 @@ const bookSchema = new mongoose.Schema({
     },
     authors: [{
         type: mongoose.Schema.ObjectId,
-        ref: 'Author'
-    }],
+        ref: 'Author',
+        required: true
+        }],
     edition: {
         type: String
     },
@@ -33,7 +35,7 @@ const bookSchema = new mongoose.Schema({
     },
     isbn: {
         type: String,
-        required: [true, 'Book must have an isbn number']
+        // required: [true, 'Book must have an isbn number']
         // Note: need customization later -> uniqe or not
     },
     publisher: {

@@ -11,6 +11,7 @@ const memberGroupRoute = require('./routes/memberGroupRoute');
 const hubTreeRoute = require('./routes/hubTreeRoute');
 const profileRoute = require('./routes/profileRoute');
 const libraryRoute = require('./routes/libraryRoute');
+const authorRoute = require('./routes/authorRoute');
 
 // 1) MIDDLEWARES
 // morgan for log when development
@@ -35,6 +36,8 @@ app.use('/api/v1/membergroups', memberGroupRoute);
 app.use('/api/v1/hubtrees', hubTreeRoute);
 // library router
 app.use('/api/v1/libraries', libraryRoute);
+// author router
+app.use('/api/v1/authors', authorRoute);
 
 // route protecting
 // app.all('*', (req, res, next) => {

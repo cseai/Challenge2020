@@ -1,22 +1,21 @@
 const router = require('express').Router();
 const libraryController = require('../controllers/libraryController');
 const authController = require('../controllers/authController');
-
-// router.route('/eduhubs/').get(authController.protect, deptController.getAllEduHubs);
-// router.route('/:deptId/eduhub/').get(authController.protect, deptController.getEduHub);
-
-// router.route('/:deptId/tree').get(authController.protect, deptController.traverseTree);
-
-// router.route('/:deptId/hubtree').get(authController.protect, deptController.getOrCreateHubTree);
-
-// router.route('/:deptId/addmembers').patch(authController.protect, deptController.addMembers);
-// router.route('/:deptId/removemembers').patch(authController.protect, deptController.removeMembers);
+const bookController = require('../controllers/bookController');
 
 router.route('/:libraryId/addcontrollers').patch(authController.protect, libraryController.addControllers);
 router.route('/:libraryId/removecontrollers').patch(authController.protect, libraryController.removeControllers);
 
 router.route('/')
     .get(authController.protect, libraryController.getAllLibraries)
+
+router.route('/:libraryId/books')
+    .get(authController.protect, bookController.getAllBooks)
+    .post(authController.protect, libraryController.createBook);
+
+router.route('/:libraryId/books/:bookId')
+    .get(authController.protect, bookController.getBook)
+    .patch(authController.protect, bookController.updateBook);
 
 router.route('/:libraryId')
     .get(authController.protect, libraryController.getLibrary)
