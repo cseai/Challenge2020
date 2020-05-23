@@ -1,21 +1,22 @@
 import React, { Fragment } from 'react';
 import Styles from './NavBar.module.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 const NavBar = props => {
     const guestLink=(
         <ul className={Styles.nav__links}>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Dev</a></li>
-            <li><a href="#">React</a></li>
+            <li><Link  to="/">Home</Link ></li>
+            <li><Link  to="/">Services</Link ></li>
+            <li><Link  to="/">Dev</Link ></li>
+            <li><Link  to="/">React</Link ></li>
         </ul>
     )
-    const loginLink={
+    // const loginLink={
 
-    }
+    // }
     return (
         <Fragment>
             <header className="container-fluid">

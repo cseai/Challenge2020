@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import Style from './Register.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKey,faEnvelope,faUser } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import LeftImage from './../img/undraw_true_friends_c94g.svg';
 import AvaterImg from './../img/undraw_profile_pic_ic5t (1).svg';
@@ -32,16 +34,14 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 				</div>
 				<div className={Style.signin__main}>
 					<div className={Style.signin__main___left}>
-						<img className={Style.signin__main___left_img_pos} src={LeftImage} />
+						<img className={Style.signin__main___left_img_pos} src={LeftImage} alt="for good" />
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className={Style.signin__main___right}>
 						<Alert/>
-						{/* <div className={Style.signin__main__right_notification}>
-							<span>{msg} </span>
-						</div> */}
+						
 						<div className={Style.signin__main___right_avater}>
-							<img src={AvaterImg} />
+							<img src={AvaterImg} alt="for good" />
 						</div>
 						<div className={Style.signin__main___right_signin}>
 							<h1>Sign Up</h1>
@@ -51,24 +51,25 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 								<input
 									type='text'
 									name='username'
-									autocomplete='off'
-									required
 									value={username}
 									onChange={(e) => onchange(e)}
+									id="username"
+									required
+									autoComplete='off'
 								/>
 								<label for='username' className={Style.label_name}>
-									<span className={Style.content_name}>user name</span>
+									<span  className={Style.content_name}>user name</span>
 								</label>
-								{/*<div className='label-img'>
-									{/* <img src={require('./../img/icomoon/SVG/mail-add.svg')} /> 
-								</div>{' '}
-								*/}
+								<div className='label-img'>
+									<FontAwesomeIcon icon={faUser} color="#4cbea6" size="2x"/>
+								</div>
+								
 							</div>
 							<div className={Style.form}>
 								<input
 									type='text'
 									name='email'
-									autocomplete='off'
+									autoComplete='off'
 									required
 									value={email}
 									onChange={(e) => onchange(e)}
@@ -76,17 +77,15 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 								<label for='email' className={Style.label_name}>
 									<span className={Style.content_name}>email</span>
 								</label>
-								{/* <div className='label-img'>
-									<svg className='svg-img'>
-										<use xlink:href='./../img/icomoon/sprite.svg#icon-envelope'></use>
-									</svg>
-								</div> */}
+								<div className='label-img'>
+									<FontAwesomeIcon icon={faEnvelope} color="#4cbea6" size="2x"/>									
+								</div>
 							</div>
 							<div className={Style.form}>
 								<input
 									type='password'
 									name='password'
-									autocomplete='off'
+									autoComplete='new-password'
 									required
 									value={password}
 									onChange={(e) => onchange(e)}
@@ -94,11 +93,9 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 								<label for='password' className={Style.label_name}>
 									<span className={Style.content_name}>password</span>
 								</label>
-								{/* <div className='label-img'>
-									<svg className='svg-img'>
-										<use xlink:href='./../img/icomoon/sprite.svg#icon-key-fill'></use>
-									</svg>
-								</div> */}
+								<div className='label-img'>
+									<FontAwesomeIcon icon={faKey} color="#4cbea6" size="2x"/>
+								</div>
 							</div>
 							<input type='submit' className={Style.signin_btn} value='Sign Up' />
 							<div className='height:20%'></div>
@@ -110,7 +107,7 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 							<span>Powered By</span>
 							<h5>Pizzu</h5>
 						</div>
-						<img className={Style.mobile_image} src={require('./../img/undraw_true_friends_c94g.svg')} />
+						<img className={Style.mobile_image} src={require('./../img/undraw_true_friends_c94g.svg')} alt="for good" />
 					</div>
 				</div>
 			</div>

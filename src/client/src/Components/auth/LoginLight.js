@@ -1,5 +1,7 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import './GetLoginlight.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKey,faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import readingimage from './../img/undraw_book_lover_mkck.svg';
 import { login } from '../../actions/authAction';
 import { setAlert } from './../../actions/alertAction';
@@ -40,22 +42,19 @@ const LoginLight = ({ login, isAuthenticated }) => {
 				</SigninCompany>
 				<div className='signin__main'>
 					<div class='signin__main___left'>
-						<img className='signin__main___left-img-pos' src={readingimage} />
+						<img className='signin__main___left-img-pos' src={readingimage} alt="for good"/>
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className='signin__main___right'>
-						{/* <div class='signin__main__right-notification'>
-							<span>find other user name and login agin please</span>
-						</div> */}
 						<Alert />
 						<div className='signin__main___right-avater'>
-							<img src={require('./../img/undraw_profile_pic_ic5t (1).svg')} />
+							<img src={require('./../img/undraw_profile_pic_ic5t (1).svg')} alt="for good" />
 						</div>
 						<div className='signin__main___right-signin'>
 							<h1>Sign in</h1>
 						</div>
 						<form className='signin__main___right-form' onSubmit={(e) => onSubmit(e)}>
-							{/* <!-- <div className="form-main"> --> */}
+						
 							<div className='form'>
 								<input
 									type='text'
@@ -69,9 +68,7 @@ const LoginLight = ({ login, isAuthenticated }) => {
 									<span className='content-name'>email</span>
 								</label>
 								<div className='label-img'>
-									{/* <svg className='svg-img'>
-										<use xlinkHref={require('./../img/icomoon/sprite.svg#icon-key-fill')}></use>
-									</svg> */}
+									<FontAwesomeIcon icon={faEnvelope} color="#4cbea6" size="2x"/>
 								</div>
 							</div>
 							<div className='form'>
@@ -86,12 +83,9 @@ const LoginLight = ({ login, isAuthenticated }) => {
 									<span className='content-name'>password</span>
 								</label>
 								<div className='label-img'>
-									{/* <svg className='svg-img'>
-										<use xlinkHref='./../img/icomoon/sprite.svg#icon-key-fill'></use>
-									</svg> */}
+									<FontAwesomeIcon icon={faKey} size="2x" color="#4cbea6" />
 								</div>
 							</div>
-							{/* <!-- </div> --> */}
 							<input type='submit' className='signin-btn' value='Sign in' />
 							<div className='height:20%'></div>
 							<div className='create-link'>
@@ -102,12 +96,10 @@ const LoginLight = ({ login, isAuthenticated }) => {
 							<span>Powered By</span>
 							<h5>Pizzu</h5>
 						</div>
-						{/* <button onClick={() => changeTheme()}>theme</button> */}
-						<img className='mobile-image' src='./../img/undraw_book_lover_mkck.svg' />
+						<img className='mobile-image' src={require('./../img/undraw_book_lover_mkck.svg')}  alt="for good"/>
 					</div>
 				</div>
 			</SignIn>
-			{/* </ThemeProvider> */}
 		</Fragment>
 	);
 };

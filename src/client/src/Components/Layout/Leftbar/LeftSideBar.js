@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Styles from './LeftSideBar.module.css';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 
 const LeftSideBar = props => {
     return (
@@ -11,36 +12,37 @@ const LeftSideBar = props => {
                         <img
                             className={Styles.left__part__data__link_img}
                             src={require("./../icon/account_balance-24px.svg")}
+                            alt="for good  "
                         />
-                        <a className={Styles.left__part__data__link_a} >Home</a>
+                        <Link  to="/" className={Styles.left__part__data__link_a}  >Home</Link >
                     </div>
                     <div className={Styles.left__part__data__links__link}>
-                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")} />
-                        <a className={Styles.left__part__data__link_a}>Dept of CSE</a>
+                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")}   alt="  for good" />
+                        <Link  to="/" className={Styles.left__part__data__link_a}  >Dept of CSE</Link >
                     </div>
                     <div className={Styles.left__part__data__links__link}>
-                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")} />
-                        <a className={Styles.left__part__data__link_a}>Dept</a>
+                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")}   alt=" for good" />
+                        <Link  to="/" className={Styles.left__part__data__link_a} >Dept</Link >
                     </div>
                     <div className={Styles.left__part__data__links__link}>
-                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")} />
-                        <a className={Styles.left__part__data__link_a}>Dept</a>
+                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")}   alt=" for good" />
+                        <Link  to="/" className={Styles.left__part__data__link_a} >Dept</Link >
                     </div>
                     <div className={Styles.left__part__data__links__link}>
-                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")} />
-                        <a className={Styles.left__part__data__link_a}>Dept</a>
+                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")}   alt=" for good" />
+                        <Link  to="/" className={Styles.left__part__data__link_a} >Dept</Link >
                     </div>
                     <div className={Styles.left__part__data__links__link}>
-                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")}/>
-                        <a className={Styles.left__part__data__link_a}>Dept</a>
+                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")}  alt=" for good" />
+                        <Link  to="/" className={Styles.left__part__data__link_a} >Dept</Link >
                     </div>
                     <div className={Styles.left__part__data__links__link}>
-                        <img className={Styles.left__part__data__link_img}  src={require("./../icon/clipboard-list.svg")} />
-                        <a className={Styles.left__part__data__link_a}>Dept</a>
+                        <img className={Styles.left__part__data__link_img}  src={require("./../icon/clipboard-list.svg")}  alt=" for good" />
+                        <Link  to="/" className={Styles.left__part__data__link_a} >Dept</Link >
                     </div>
                     <div className={Styles.left__part__data__links__link}>
-                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")}/>
-                        <a className={Styles.left__part__data__link_a}>Dept</a>
+                        <img className={Styles.left__part__data__link_img} src={require("./../icon/clipboard-list.svg")} alt=" for good" />
+                        <Link  to="/" className={Styles.left__part__data__link_a} >Dept</Link >
                     </div>
                 </div>
 			</div>
