@@ -12,7 +12,7 @@ const resourceScema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['magagin', 'software', 'hardware', 'other'],
+        enum: ['magazine', 'software', 'hardware', 'other'],
         required: [true, 'Resource must have a category']
     },
     accessionNumber: {
