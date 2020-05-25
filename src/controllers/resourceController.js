@@ -6,10 +6,10 @@ const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 
 exports.getAllResources = catchAsync(async (req, res, next) => {
-    // EXECUTE QUERY
-    // TODOS: filter resources in this library only
-	// const features = req.params.libraryId ? new APIFeatures(Resource.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Resource.find(), req.query).filter().sort().limitFields().paginate();
-	const features = new APIFeatures(Resource.find(), req.query).filter().sort().limitFields().paginate();
+    // NOTE: This is general route for Resources or Resources of a specific Library
+	
+    // Note: Filter resource in a specific library if libraryId provided (Library/Resources route)...Else general query for Resource
+	const features = req.params.libraryId ? new APIFeatures(Resource.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Resource.find(), req.query).filter().sort().limitFields().paginate();
 	const resources = await features.query;
 
 	// SEND RESPONSE
@@ -21,21 +21,11 @@ exports.getAllResources = catchAsync(async (req, res, next) => {
 });
 
 exports.getResource = catchAsync(async (req, res, next) => {
-    const selectForRefResources = `_id name`;
-    // TODOS: filter resource in this library only
-    // const resourceQuery = req.params.libraryId ? Resource.find({library: req.params.libraryId}) : Resource.findById(req.params.resourceId);
-    const resourceQuery = Resource.findById(req.params.resourceId);
-    const resource = await resourceQuery.populate({
-		path: 'library',
-		select: selectForRefResources,
-	});
-
-    /*
-	const resource = await Resource.findById(req.params.resourceId).populate({
-		path: 'library',
-		select: selectForRefResources,
-	});
-    */
+    // NOTE: This is general route for Resources or Resources of a specific Library
+	
+    // Note: Filter resource in a specific library if libraryId provided (Library/Resources route)...Else general query for Resource
+	const resourceQuery = req.params.libraryId ? Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId}) : Resource.findById(req.params.resourceId);
+    const resource = await resourceQuery;
 	if (!resource) {
 		return next(new AppError(`Resource doesn't exists!`, 404));
     }
@@ -70,8 +60,8 @@ exports.updateResource = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
 	}
     
-	// Get resource
-	const resource = await Resource.findById(req.params.resourceId);
+	// Get resource of this library
+	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
 	if(!resource){
 		return next(new AppError(`Resource does not exist`, 404));
 	}
@@ -103,7 +93,7 @@ exports.updateResource = catchAsync(async (req, res, next) => {
 	await resource.update(clearedData);
 
 	// Get updated Resource
-	const resourceUpdated = await Resource.findById(req.params.resourceId);
+	const resourceUpdated = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
 	if (!resourceUpdated) {
 		return next(new AppError(`Resource doesn't exist!`, 404));
 	}
@@ -138,11 +128,11 @@ exports.addDeptsAtResource = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
 	}
     
-	// Get resource
-	const resource = await Resource.findById(req.params.resourceId);
+	// Get resource of this library
+	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
 	if(!resource){
 		return next(new AppError(`Resource does not exist`, 404));
-    }
+	}
     
     if(clearedData.depts && clearedData.depts.length > 0){
         // Check depts are valid or not
@@ -199,11 +189,11 @@ exports.removeDeptsFromResource = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
 	}
     
-	// Get resource
-	const resource = await Resource.findById(req.params.resourceId);
+	// Get resource of this library
+	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
 	if(!resource){
 		return next(new AppError(`Resource does not exist`, 404));
-    }
+	}
     
     if(clearedData.depts && clearedData.depts.length > 0){
         // Check depts are valid or not
@@ -258,11 +248,11 @@ exports.addTagsAtResource = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
 	}
     
-	// Get resource
-	const resource = await Resource.findById(req.params.resourceId);
+	// Get resource of this library
+	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
 	if(!resource){
 		return next(new AppError(`Resource does not exist`, 404));
-    }
+	}
     
     if(clearedData.tags && clearedData.tags.length > 0){
         // Check tags are valid or not
@@ -315,11 +305,11 @@ exports.removeTagsFromResource = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
 	}
     
-	// Get resource
-	const resource = await Resource.findById(req.params.resourceId);
+	// Get resource of this library
+	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
 	if(!resource){
 		return next(new AppError(`Resource does not exist`, 404));
-    }
+	}
     
     if(clearedData.tags && clearedData.tags.length > 0){
         // Check tags are valid or not

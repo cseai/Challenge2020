@@ -6,10 +6,10 @@ const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 
 exports.getAllBooks = catchAsync(async (req, res, next) => {
-    // EXECUTE QUERY
-    // TODOS: filter books in this library only
-	// const features = req.params.libraryId ? new APIFeatures(Book.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Book.find(), req.query).filter().sort().limitFields().paginate();
-	const features = new APIFeatures(Book.find(), req.query).filter().sort().limitFields().paginate();
+    // NOTE: This is general route for Books or Books of a specific Library
+	
+    // Note: Filter book in a specific library if libraryId provided (Library/Books route)...Else general query for Book
+	const features = req.params.libraryId ? new APIFeatures(Book.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Book.find(), req.query).filter().sort().limitFields().paginate();
 	const books = await features.query;
 
 	// SEND RESPONSE
@@ -21,27 +21,11 @@ exports.getAllBooks = catchAsync(async (req, res, next) => {
 });
 
 exports.getBook = catchAsync(async (req, res, next) => {
-    const selectForRefBooks = `_id name`;
-    // TODOS: filter book in this library only
-    // const bookQuery = req.params.libraryId ? Book.find({library: req.params.libraryId}) : Book.findById(req.params.bookId);
-    const bookQuery = Book.findById(req.params.bookId);
-    const book = await bookQuery.populate({
-		path: 'library',
-		select: selectForRefBooks,
-	}).populate({
-		path: `authors`,
-		select: `_id, name`
-    });
-
-    /*
-	const book = await Book.findById(req.params.bookId).populate({
-		path: 'library',
-		select: selectForRefBooks,
-	}).populate({
-		path: `authors`,
-		select: `_id, name`
-    });
-    */
+	// NOTE: This is general route for Books or Books of a specific Library
+	
+    // Note: Filter book in a specific library if libraryId provided (Library/Books route)...Else general query for Book
+    const bookQuery = req.params.libraryId ? Book.findOne({library: req.params.libraryId, _id: req.params.bookId}) : Book.findById(req.params.bookId);
+    const book = await bookQuery;
 	if (!book) {
 		return next(new AppError(`Book doesn't exists!`, 404));
     }
@@ -76,8 +60,8 @@ exports.updateBook = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get book
-	const book = await Book.findById(req.params.bookId);
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
 	if(!book){
 		return next(new AppError(`Book does not exist`, 404));
 	}
@@ -112,7 +96,7 @@ exports.updateBook = catchAsync(async (req, res, next) => {
 	await book.update(clearedData);
 
 	// Get updated Book
-	const bookUpdated = await Book.findById(req.params.bookId);
+	const bookUpdated = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
 	if (!bookUpdated) {
 		return next(new AppError(`Book doesn't exist!`, 404));
 	}
@@ -147,11 +131,11 @@ exports.addDeptsAtBook = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get book
-	const book = await Book.findById(req.params.bookId);
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
 	if(!book){
 		return next(new AppError(`Book does not exist`, 404));
-    }
+	}
     
     if(clearedData.depts && clearedData.depts.length > 0){
         // Check depts are valid or not
@@ -208,11 +192,11 @@ exports.removeDeptsFromBook = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get book
-	const book = await Book.findById(req.params.bookId);
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
 	if(!book){
 		return next(new AppError(`Book does not exist`, 404));
-    }
+	}
     
     if(clearedData.depts && clearedData.depts.length > 0){
         // Check depts are valid or not
@@ -267,11 +251,11 @@ exports.addTagsAtBook = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get book
-	const book = await Book.findById(req.params.bookId);
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
 	if(!book){
 		return next(new AppError(`Book does not exist`, 404));
-    }
+	}
     
     if(clearedData.tags && clearedData.tags.length > 0){
         // Check tags are valid or not
@@ -324,11 +308,11 @@ exports.removeTagsFromBook = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get book
-	const book = await Book.findById(req.params.bookId);
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
 	if(!book){
 		return next(new AppError(`Book does not exist`, 404));
-    }
+	}
     
     if(clearedData.tags && clearedData.tags.length > 0){
         // Check tags are valid or not
