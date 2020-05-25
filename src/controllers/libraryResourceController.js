@@ -6,10 +6,10 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllResources = catchAsync(async (req, res, next) => {
-    // NOTE: This is general route for Resources or Resources of a specific Library
+    // NOTE: This is Resources of a specific Library
 	
-    // Note: Filter resource in a specific library if libraryId provided (Library/Resources route)...Else general query for Resource
-	const features = req.params.libraryId ? new APIFeatures(Resource.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Resource.find(), req.query).filter().sort().limitFields().paginate();
+	// Filter resource in a specific library
+	const features = new APIFeatures(Resource.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate();
 	const resources = await features.query;
 
 	// SEND RESPONSE
@@ -21,10 +21,10 @@ exports.getAllResources = catchAsync(async (req, res, next) => {
 });
 
 exports.getResource = catchAsync(async (req, res, next) => {
-    // NOTE: This is general route for Resources or Resources of a specific Library
+    // NOTE: This is Resources of a specific Library
 	
-    // Note: Filter resource in a specific library if libraryId provided (Library/Resources route)...Else general query for Resource
-	const resourceQuery = req.params.libraryId ? Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId}) : Resource.findById(req.params.resourceId);
+	// Filter resource in a specific library
+	const resourceQuery = Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
     const resource = await resourceQuery;
 	if (!resource) {
 		return next(new AppError(`Resource doesn't exists!`, 404));

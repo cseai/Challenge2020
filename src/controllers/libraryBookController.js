@@ -6,10 +6,10 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllBooks = catchAsync(async (req, res, next) => {
-    // NOTE: This is general route for Books or Books of a specific Library
+    // NOTE: This is Books of a specific Library
 	
-    // Note: Filter book in a specific library if libraryId provided (Library/Books route)...Else general query for Book
-	const features = req.params.libraryId ? new APIFeatures(Book.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Book.find(), req.query).filter().sort().limitFields().paginate();
+	// Filter book in a specific library
+	const features = new APIFeatures(Book.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate();
 	const books = await features.query;
 
 	// SEND RESPONSE
@@ -21,10 +21,10 @@ exports.getAllBooks = catchAsync(async (req, res, next) => {
 });
 
 exports.getBook = catchAsync(async (req, res, next) => {
-	// NOTE: This is general route for Books or Books of a specific Library
+	// NOTE: This is Books of a specific Library
 	
-    // Note: Filter book in a specific library if libraryId provided (Library/Books route)...Else general query for Book
-    const bookQuery = req.params.libraryId ? Book.findOne({library: req.params.libraryId, _id: req.params.bookId}) : Book.findById(req.params.bookId);
+	// Filter book in a specific library
+	const bookQuery = Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
     const book = await bookQuery;
 	if (!book) {
 		return next(new AppError(`Book doesn't exists!`, 404));
