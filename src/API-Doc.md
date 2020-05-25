@@ -543,6 +543,24 @@ Params:
 - libraryId: `libraryId`
 - resourceId: `resourceId`
 
+# Library / Trx API
+*Library / Trx* is a section of *Library*. This route maintains *Trxs* of this *Library*.
+
+## GET | Get All Trxs of Library
+```bash
+    {{URL}}api/v1/libraries/:libraryId/trxs
+```
+Params:
+- libraryId: `libraryId`
+
+## GET | Get Trx of Library
+```bash
+    {{URL}}api/v1/libraries/:libraryId/trxs/:trxId
+```
+Params:
+- libraryId: `libraryId`
+- trxId: `trxId`
+
 # Author API
 *Author* is the writter of *Book*.
 

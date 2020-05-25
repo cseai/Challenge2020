@@ -3,6 +3,7 @@ const libraryController = require('../controllers/libraryController');
 const authController = require('../controllers/authController');
 const bookController = require('../controllers/bookController');
 const resourceController = require('../controllers/resourceController');
+const libraryTrxController = require('../controllers/libraryTrxController');
 
 // Library
 router.route('/:libraryId/addcontrollers').patch(authController.protect, libraryController.addControllers);
@@ -37,7 +38,14 @@ router.route('/:libraryId/resources/:resourceId/adddepts').patch(authController.
 router.route('/:libraryId/resources/:resourceId/removedepts').patch(authController.protect, resourceController.removeDeptsFromResource);
 router.route('/:libraryId/resources/:resourceId/addtags').patch(authController.protect, resourceController.addTagsAtResource);
 router.route('/:libraryId/resources/:resourceId/removetags').patch(authController.protect, resourceController.removeTagsFromResource);
-        
+
+// Library/Trx
+router.route('/:libraryId/trxs')
+    .get(authController.protect, libraryTrxController.getAllTrxs);
+
+router.route('/:libraryId/trxs/:trxId')
+    .get(authController.protect, libraryTrxController.getTrx);
+
 // Library
 router.route('/:libraryId')
     .get(authController.protect, libraryController.getLibrary)
