@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const libraryController = require('../controllers/libraryController');
 const authController = require('../controllers/authController');
-const bookController = require('../controllers/bookController');
-const resourceController = require('../controllers/resourceController');
+const libraryBookController = require('../controllers/libraryBookController');
+const libraryResourceController = require('../controllers/libraryResourceController');
 const libraryTrxController = require('../controllers/libraryTrxController');
 
 // Library
@@ -13,31 +13,31 @@ router.route('/')
 
 // Library/Book
 router.route('/:libraryId/books')
-    .get(authController.protect, bookController.getAllBooks)
+    .get(authController.protect, libraryBookController.getAllBooks)
     .post(authController.protect, libraryController.createBook);
 
 router.route('/:libraryId/books/:bookId')
-    .get(authController.protect, bookController.getBook)
-    .patch(authController.protect, bookController.updateBook);
+    .get(authController.protect, libraryBookController.getBook)
+    .patch(authController.protect, libraryBookController.updateBook);
 
-router.route('/:libraryId/books/:bookId/adddepts').patch(authController.protect, bookController.addDeptsAtBook);
-router.route('/:libraryId/books/:bookId/removedepts').patch(authController.protect, bookController.removeDeptsFromBook);
-router.route('/:libraryId/books/:bookId/addtags').patch(authController.protect, bookController.addTagsAtBook);
-router.route('/:libraryId/books/:bookId/removetags').patch(authController.protect, bookController.removeTagsFromBook);
+router.route('/:libraryId/books/:bookId/adddepts').patch(authController.protect, libraryBookController.addDeptsAtBook);
+router.route('/:libraryId/books/:bookId/removedepts').patch(authController.protect, libraryBookController.removeDeptsFromBook);
+router.route('/:libraryId/books/:bookId/addtags').patch(authController.protect, libraryBookController.addTagsAtBook);
+router.route('/:libraryId/books/:bookId/removetags').patch(authController.protect, libraryBookController.removeTagsFromBook);
       
 // Library/Resource
 router.route('/:libraryId/resources')
-    .get(authController.protect, resourceController.getAllResources)
+    .get(authController.protect, libraryResourceController.getAllResources)
     .post(authController.protect, libraryController.createResource);
 
 router.route('/:libraryId/resources/:resourceId')
-    .get(authController.protect, resourceController.getResource)
-    .patch(authController.protect, resourceController.updateResource);
+    .get(authController.protect, libraryResourceController.getResource)
+    .patch(authController.protect, libraryResourceController.updateResource);
 
-router.route('/:libraryId/resources/:resourceId/adddepts').patch(authController.protect, resourceController.addDeptsAtResource);
-router.route('/:libraryId/resources/:resourceId/removedepts').patch(authController.protect, resourceController.removeDeptsFromResource);
-router.route('/:libraryId/resources/:resourceId/addtags').patch(authController.protect, resourceController.addTagsAtResource);
-router.route('/:libraryId/resources/:resourceId/removetags').patch(authController.protect, resourceController.removeTagsFromResource);
+router.route('/:libraryId/resources/:resourceId/adddepts').patch(authController.protect, libraryResourceController.addDeptsAtResource);
+router.route('/:libraryId/resources/:resourceId/removedepts').patch(authController.protect, libraryResourceController.removeDeptsFromResource);
+router.route('/:libraryId/resources/:resourceId/addtags').patch(authController.protect, libraryResourceController.addTagsAtResource);
+router.route('/:libraryId/resources/:resourceId/removetags').patch(authController.protect, libraryResourceController.removeTagsFromResource);
 
 // Library/Trx
 router.route('/:libraryId/trxs')

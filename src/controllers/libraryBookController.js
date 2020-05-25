@@ -1,43 +1,43 @@
-const Resource = require('../model/resourceModel');
-const Library = require('../model/libraryModel');
+const Book = require('../model/bookModel');
 const Dept = require('../model/deptModel');
+const Library = require('../model/libraryModel');
 const APIFeatures = require('../utils/apiFeatures');
-const AppError = require('./../utils/appError');
-const catchAsync = require('./../utils/catchAsync');
+const AppError = require('../utils/appError');
+const catchAsync = require('../utils/catchAsync');
 
-exports.getAllResources = catchAsync(async (req, res, next) => {
-    // NOTE: This is general route for Resources or Resources of a specific Library
+exports.getAllBooks = catchAsync(async (req, res, next) => {
+    // NOTE: This is general route for Books or Books of a specific Library
 	
-    // Note: Filter resource in a specific library if libraryId provided (Library/Resources route)...Else general query for Resource
-	const features = req.params.libraryId ? new APIFeatures(Resource.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Resource.find(), req.query).filter().sort().limitFields().paginate();
-	const resources = await features.query;
+    // Note: Filter book in a specific library if libraryId provided (Library/Books route)...Else general query for Book
+	const features = req.params.libraryId ? new APIFeatures(Book.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate() : new APIFeatures(Book.find(), req.query).filter().sort().limitFields().paginate();
+	const books = await features.query;
 
 	// SEND RESPONSE
 	res.status(200).json({
 		success: true,
-		results: resources.length,
-		resources,
+		results: books.length,
+		books,
 	});
 });
 
-exports.getResource = catchAsync(async (req, res, next) => {
-    // NOTE: This is general route for Resources or Resources of a specific Library
+exports.getBook = catchAsync(async (req, res, next) => {
+	// NOTE: This is general route for Books or Books of a specific Library
 	
-    // Note: Filter resource in a specific library if libraryId provided (Library/Resources route)...Else general query for Resource
-	const resourceQuery = req.params.libraryId ? Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId}) : Resource.findById(req.params.resourceId);
-    const resource = await resourceQuery;
-	if (!resource) {
-		return next(new AppError(`Resource doesn't exists!`, 404));
+    // Note: Filter book in a specific library if libraryId provided (Library/Books route)...Else general query for Book
+    const bookQuery = req.params.libraryId ? Book.findOne({library: req.params.libraryId, _id: req.params.bookId}) : Book.findById(req.params.bookId);
+    const book = await bookQuery;
+	if (!book) {
+		return next(new AppError(`Book doesn't exists!`, 404));
     }
     
 	return res.status(200).json({
 		success: true,
-		msg: 'Get Resource',
-		resource,
+		msg: 'Get Book',
+		book,
 	});
 });
 
-exports.updateResource = catchAsync(async (req, res, next) => {
+exports.updateBook = catchAsync(async (req, res, next) => {
 	// Copy or generate cleared data
     const clearedData = { ...req.body };
     
@@ -57,55 +57,58 @@ exports.updateResource = catchAsync(async (req, res, next) => {
 		}
 	}
 	if(!isReqUserController){
-		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
+		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get resource of this library
-	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
-	if(!resource){
-		return next(new AppError(`Resource does not exist`, 404));
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
+	if(!book){
+		return next(new AppError(`Book does not exist`, 404));
 	}
 
 	// IMPORTANT: Protect un-updatable data
 	if(clearedData.library){
-		clearedData.library = resource.library;
+		clearedData.library = book.library;
 	}
 	if(clearedData.user){
-		clearedData.user = resource.user;
+		clearedData.user = book.user;
+    }
+    if(clearedData.authors){
+		clearedData.authors = book.authors;
     }
 	if(clearedData.depts){
-		clearedData.depts = resource.depts;
+		clearedData.depts = book.depts;
     }
     if(clearedData.tags){
-		clearedData.tags = resource.tags;
+		clearedData.tags = book.tags;
     }
     if(clearedData.status){
-		clearedData.status = resource.status;
+		clearedData.status = book.status;
 	}
 	if(clearedData.active){
-		clearedData.active = resource.active
+		clearedData.active = book.active
 	}
 	if(clearedData.createdAt){
-		clearedData.createdAt = resource.createdAt;
+		clearedData.createdAt = book.createdAt;
 	}
 
-	// Update resource
-	await resource.update(clearedData);
+	// Update book
+	await book.update(clearedData);
 
-	// Get updated Resource
-	const resourceUpdated = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
-	if (!resourceUpdated) {
-		return next(new AppError(`Resource doesn't exist!`, 404));
+	// Get updated Book
+	const bookUpdated = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
+	if (!bookUpdated) {
+		return next(new AppError(`Book doesn't exist!`, 404));
 	}
 
     res.status(200).json({
         success: true,
-        msg: 'Resource updated',
-        resource: resourceUpdated,
+        msg: 'Book updated',
+        book: bookUpdated,
     });
 });
 
-exports.addDeptsAtResource = catchAsync(async (req, res, next) => {
+exports.addDeptsAtBook = catchAsync(async (req, res, next) => {
     // Copy or generate cleared data
     const clearedData = { ...req.body };
     
@@ -125,13 +128,13 @@ exports.addDeptsAtResource = catchAsync(async (req, res, next) => {
 		}
 	}
 	if(!isReqUserController){
-		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
+		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get resource of this library
-	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
-	if(!resource){
-		return next(new AppError(`Resource does not exist`, 404));
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
+	if(!book){
+		return next(new AppError(`Book does not exist`, 404));
 	}
     
     if(clearedData.depts && clearedData.depts.length > 0){
@@ -142,17 +145,17 @@ exports.addDeptsAtResource = catchAsync(async (req, res, next) => {
             if(!dept){
 		        return next(new AppError(`Dept does not exist. Please provide valid DeptId.`, 404));
             }
-            // Check dept already exist in Resource's depts or not
-            if(resource.depts.includes(clearedData.depts[dept_index])){
-		        return next(new AppError(`Dept already exist in Resource's depts. Please provide valid DeptId.`, 401));
+            // Check dept already exist in Book's depts or not
+            if(book.depts.includes(clearedData.depts[dept_index])){
+		        return next(new AppError(`Dept already exist in Book's depts. Please provide valid DeptId.`, 401));
             }
             deptsToAdd.push(clearedData.depts[dept_index]);
         }
 
         // Add depts if there are deptsToAdd
         if(deptsToAdd.length > 0){
-            resource.depts = [...resource.depts, ...deptsToAdd];
-            await resource.save();
+            book.depts = [...book.depts, ...deptsToAdd];
+            await book.save();
         }
     }
     else{
@@ -161,12 +164,12 @@ exports.addDeptsAtResource = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        msg: 'Depts added to Resource',
-        resource,
+        msg: 'Depts added to Book',
+        book,
     });
 });
 
-exports.removeDeptsFromResource = catchAsync(async (req, res, next) => {
+exports.removeDeptsFromBook = catchAsync(async (req, res, next) => {
     // Copy or generate cleared data
     const clearedData = { ...req.body };
     
@@ -186,29 +189,29 @@ exports.removeDeptsFromResource = catchAsync(async (req, res, next) => {
 		}
 	}
 	if(!isReqUserController){
-		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
+		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get resource of this library
-	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
-	if(!resource){
-		return next(new AppError(`Resource does not exist`, 404));
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
+	if(!book){
+		return next(new AppError(`Book does not exist`, 404));
 	}
     
     if(clearedData.depts && clearedData.depts.length > 0){
         // Check depts are valid or not
         let deptsRemovedCounted = 0;
         for(let dept_index=0; dept_index < clearedData.depts.length; dept_index++){
-            let id_index = resource.depts.indexOf(clearedData.depts[dept_index]);
+            let id_index = book.depts.indexOf(clearedData.depts[dept_index]);
             if(id_index > -1){
-                resource.depts.splice(id_index, 1);
+                book.depts.splice(id_index, 1);
 				deptsRemovedCounted += 1;
 			}
         }
 
-        // IF Any Dept Removed THEN save the Resource
+        // IF Any Dept Removed THEN save the Book
         if(deptsRemovedCounted > 0){
-            await resource.save();
+            await book.save();
         }
         else{
             console.log(`No depts to remove or already removed.`);
@@ -220,12 +223,12 @@ exports.removeDeptsFromResource = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        msg: 'Depts removed to Resource',
-        resource,
+        msg: 'Depts removed to Book',
+        book,
     });
 });
 
-exports.addTagsAtResource = catchAsync(async (req, res, next) => {
+exports.addTagsAtBook = catchAsync(async (req, res, next) => {
     // Copy or generate cleared data
     const clearedData = { ...req.body };
     
@@ -245,30 +248,30 @@ exports.addTagsAtResource = catchAsync(async (req, res, next) => {
 		}
 	}
 	if(!isReqUserController){
-		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
+		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get resource of this library
-	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
-	if(!resource){
-		return next(new AppError(`Resource does not exist`, 404));
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
+	if(!book){
+		return next(new AppError(`Book does not exist`, 404));
 	}
     
     if(clearedData.tags && clearedData.tags.length > 0){
         // Check tags are valid or not
         let tagsToAdd = [];
         for(let tag_index=0; tag_index < clearedData.tags.length; tag_index++){
-            // Check tag already exist in Resource's tags or not
-            if(resource.tags.includes(clearedData.tags[tag_index])){
-		        return next(new AppError(`Tag already exist in Resource's tags. Please provide valid Tag.`, 401));
+            // Check tag already exist in Book's tags or not
+            if(book.tags.includes(clearedData.tags[tag_index])){
+		        return next(new AppError(`Tag already exist in Book's tags. Please provide valid Tag.`, 401));
             }
             tagsToAdd.push(clearedData.tags[tag_index]);
         }
 
         // Add tags if there are tagsToAdd
         if(tagsToAdd.length > 0){
-            resource.tags = [...resource.tags, ...tagsToAdd];
-            await resource.save();
+            book.tags = [...book.tags, ...tagsToAdd];
+            await book.save();
         }
     }
     else{
@@ -277,12 +280,12 @@ exports.addTagsAtResource = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        msg: 'Tags added to Resource',
-        resource,
+        msg: 'Tags added to Book',
+        book,
     });
 });
 
-exports.removeTagsFromResource = catchAsync(async (req, res, next) => {
+exports.removeTagsFromBook = catchAsync(async (req, res, next) => {
     // Copy or generate cleared data
     const clearedData = { ...req.body };
     
@@ -302,29 +305,29 @@ exports.removeTagsFromResource = catchAsync(async (req, res, next) => {
 		}
 	}
 	if(!isReqUserController){
-		return next(new AppError(`Requested user must be a controller to update Resource Information. Permission denied`, 401));
+		return next(new AppError(`Requested user must be a controller to update Book Information. Permission denied`, 401));
 	}
     
-	// Get resource of this library
-	const resource = await Resource.findOne({library: req.params.libraryId, _id: req.params.resourceId});
-	if(!resource){
-		return next(new AppError(`Resource does not exist`, 404));
+	// Get book of this library
+	const book = await Book.findOne({library: req.params.libraryId, _id: req.params.bookId});
+	if(!book){
+		return next(new AppError(`Book does not exist`, 404));
 	}
     
     if(clearedData.tags && clearedData.tags.length > 0){
         // Check tags are valid or not
         let tagsRemovedCounted = 0;
         for(let tag_index=0; tag_index < clearedData.tags.length; tag_index++){
-            let id_index = resource.tags.indexOf(clearedData.tags[tag_index]);
+            let id_index = book.tags.indexOf(clearedData.tags[tag_index]);
             if(id_index > -1){
-                resource.tags.splice(id_index, 1);
+                book.tags.splice(id_index, 1);
 				tagsRemovedCounted += 1;
 			}
         }
 
-        // IF Any tag Removed THEN save the Resource
+        // IF Any tag Removed THEN save the Book
         if(tagsRemovedCounted > 0){
-            await resource.save();
+            await book.save();
         }
         else{
             console.log(`No tags to remove or already removed.`);
@@ -336,7 +339,7 @@ exports.removeTagsFromResource = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        msg: 'Tags removed to Resource',
-        resource,
+        msg: 'Tags removed to Book',
+        book,
     });
 });
