@@ -10,7 +10,7 @@ const catchAsync = require('../utils/catchAsync');
 // ALL TRANSACTION
 exports.getAllTrxs = catchAsync(async (req, res, next) => {
     // NOTE: This is Trxs of a specific Library
-	
+	console.log(req.params.libraryId);
     // Filter trx in a specific library
 	const features = new APIFeatures(Trx.find({ library: req.params.libraryId }), req.query).filter().sort().limitFields().paginate();
 	const trxs = await features.query;
