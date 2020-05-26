@@ -248,7 +248,7 @@ exports.returnBookTrx = catchAsync(async (req, res, next) => {
 	await book.save();
 
 	// Send Response
-	return res.status(201).json({
+	return res.status(200).json({
 		success: true,
 		msg: 'Trx updated.',
 		trx,
