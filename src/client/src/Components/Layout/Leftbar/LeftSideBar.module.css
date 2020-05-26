@@ -30,7 +30,7 @@
 	align-items: center;
 	padding: 20px;
 	/* padding-top: 15px; */
-	color: var(--color--primary-light-2);
+	color: var(--color--primary-light-2) !important;
 	font-size: 24px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
@@ -60,7 +60,7 @@
 .left__part__data__link_a {
 	text-decoration: none;
 	padding-left: 16px;
-	/* color: var(--color--primary-light-2) !important; */
+	color: var(--color--primary-light-2) !important;
 	font-size: 24px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
