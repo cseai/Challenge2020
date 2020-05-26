@@ -46,6 +46,15 @@ router.route('/:libraryId/trxs')
 router.route('/:libraryId/trxs/:trxId')
     .get(authController.protect, libraryTrxController.getTrx);
 
+// Library/BookTrx
+router.route('/:libraryId/booktrxs')
+    .get(authController.protect, libraryTrxController.getAllBookTrxs)
+    .post(authController.protect, libraryTrxController.borrowBookTrx);
+
+router.route('/:libraryId/booktrxs/:trxId')
+    .get(authController.protect, libraryTrxController.getBookTrx)
+    .patch(authController.protect, libraryTrxController.returnBookTrx);
+
 // Library
 router.route('/:libraryId')
     .get(authController.protect, libraryController.getLibrary)
