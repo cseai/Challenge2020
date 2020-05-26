@@ -289,3 +289,52 @@ exports.createBook = catchAsync(async (req, res, next) => {
 		book: newBook,
 	});
 });
+
+exports.createResource = catchAsync(async (req, res, next) => {
+	// Get Library
+	const library = await Library.findById(req.params.libraryId);
+	if(!library){
+		return next(new AppError(`Library does not exist`, 404));
+	}
+
+	// Check req.user is a Controller of Library or not
+	let reqUserIsController = false;
+	for(let controller_index = 0; controller_index < library.controllers.length; controller_index++){
+		if(String(library.controllers[controller_index].user) === String(req.user._id)){
+			reqUserIsController = true;
+			break;
+		}
+	}
+	if(!reqUserIsController){
+		return next(new AppError(`Requested user must be controller of Library to create a Resource.`, 401));
+	}
+
+	// Copy data
+	const clearedData = {...req.body}
+
+	// Check if `depts` is provides then is it valid or not
+	if(clearedData.depts){
+		for(let index=0; index < clearedData.depts.length; index++){
+			const dept = await Dept.findById(clearedData.depts[index]);
+			if(!dept){
+				return next(new AppError(`Dept does not exist. Please provide valid depts.`, 404));
+			}
+		}
+	}
+
+	// Set user at Resource
+	clearedData.user = req.user._id;
+	clearedData.library = library._id;
+
+	// Create Resource
+	const newResource = await Resource.create(clearedData);
+	if (!newResource) {
+		return next(new AppError(`Resource creation failed!`));
+	}
+
+	res.status(201).json({
+		success: true,
+		msg: 'New Resource created',
+		resource: newResource,
+	});
+});
