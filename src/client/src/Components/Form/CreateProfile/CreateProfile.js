@@ -26,6 +26,7 @@ const CreateProfile = () => {
     const onSubmit=e=>{
         e.preventDefault();
         console.log(formData);
+        
     }
 
     return (
