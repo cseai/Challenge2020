@@ -112,27 +112,27 @@ Query Params:
 - `limit`: [`Pagination`] number of items in a single page
 
 Fields:
-- `username`:
-- `name`:
-- `eduHub`:
-- `parent`:
-- `children`:
-- `category`:
-- `user`:
-- `controllers`:
-- `memberGroup`:
-- `address`:
-- `since`:
-- `active`:
-- `createdAt`:
-- `updatedAt`:
-- `contacts`:
-- `coverImage`:
-- `profileImage`:
-- `shortDescription`:
-- `verification`:
-- `calender`:
-- `library`:
+- `username`: Dept's Username
+- `name`: Dept's name
+- `eduHub`: `EduHubId` if it is not a EduHub. Otherwise `null`.
+- `parent`: `ParentId` if it is not a EduHub. Otherwise `null`.
+- `children`: `Array` of child `DeptId`.
+- `category`: *Category* of Dept ['university', 'college', 'school', 'eduHub']
+- `user`: `UserId` who created this Dept.
+- `controllers`: `Array` of *Controllers* User `Object` 
+- `memberGroup`: `MemberGroupId` that stores member information of a Dept
+- `address`: Adress `Object`
+- `since`: `Date` when this Dept established
+- `active`: `Boolean`
+- `createdAt`: `Date`, when this Document created.
+- `updatedAt`: `Date`, when this Document updated.
+- `contacts`: `Array` of *Contact* `Object`
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `shortDescription`: `String`, about this Dept.
+- `verification`: Verification `Object`
+- `calender`: `CalenderId`, ref to *Calender* of this Dept if exist
+- `library`: `LibraryId`, ref to *Library* of this Dept if exist
 
 Response:
 - `success`: `Boolean` [true]
@@ -148,6 +148,28 @@ Error:
 ```
 Params:
 - deptId : `DeptId`
+
+Fields:
+- `username`: Dept's Username
+- `name`: Dept's name
+- `eduHub`: `EduHubId` if it is not a EduHub. Otherwise `null`.
+- `parent`: `ParentId` if it is not a EduHub. Otherwise `null`.
+- `children`: `Array` of child `DeptId`.
+- `category`: *Category* of Dept ['university', 'college', 'school', 'eduHub']
+- `user`: `UserId` who created this Dept.
+- `controllers`: `Array` of *Controllers* User `Object` 
+- `memberGroup`: `MemberGroupId` that stores member information of a Dept
+- `address`: Adress `Object`
+- `since`: `Date` when this Dept established
+- `active`: `Boolean`
+- `contacts`: `Array` of *Contact* `Object`
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `shortDescription`: `String`, about this Dept.
+- `verification`: Verification `Object`
+- `calender`: `CalenderId`, ref to *Calender* of this Dept if exist
+- `library`: `LibraryId`, ref to *Library* of this Dept if exist
+
 
 Response:
 - `success`: `Boolean` [true]
@@ -165,6 +187,28 @@ Query Params:
 - `page`: [`Pagination`] page number
 - `limit`: [`Pagination`] number of items in a single page
 
+Fields:
+- `username`: Dept's Username
+- `name`: Dept's name
+- `eduHub`: `null`.
+- `parent`: `null`.
+- `children`: `Array` of child `DeptId`.
+- `category`: *Category* of Dept ['university', 'college', 'school', 'eduHub']
+- `user`: `UserId` who created this Dept.
+- `controllers`: `Array` of *Controllers* User `Object` 
+- `memberGroup`: `MemberGroupId` that stores member information of a Dept
+- `address`: Adress `Object`
+- `since`: `Date` when this Dept established
+- `active`: `Boolean`
+- `contacts`: `Array` of *Contact* `Object`
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `shortDescription`: `String`, about this Dept.
+- `verification`: Verification `Object`
+- `calender`: `CalenderId`, ref to *Calender* of this Dept if exist
+- `library`: `LibraryId`, ref to *Library* of this Dept if exist
+
+
 Response:
 - `success`: `Boolean` [true]
 - `results`: `Number` [Number of items]
@@ -176,6 +220,28 @@ Response:
 ```
 Params:
 - deptId : `DeptId`. If it is not `EduHub` then it will automatically response with it's `EduHub`
+
+Fields:
+- `username`: Dept's Username
+- `name`: Dept's name
+- `eduHub`: `null`.
+- `parent`: `null`.
+- `children`: `Array` of child `DeptId`.
+- `category`: *Category* of Dept ['university', 'college', 'school', 'eduHub']
+- `user`: `UserId` who created this Dept.
+- `controllers`: `Array` of *Controllers* User `Object` 
+- `memberGroup`: `MemberGroupId` that stores member information of a Dept
+- `address`: Adress `Object`
+- `since`: `Date` when this Dept established
+- `active`: `Boolean`
+- `contacts`: `Array` of *Contact* `Object`
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `shortDescription`: `String`, about this Dept.
+- `verification`: Verification `Object`
+- `calender`: `CalenderId`, ref to *Calender* of this Dept if exist
+- `library`: `LibraryId`, ref to *Library* of this Dept if exist
+
 
 Response:
 - `success`: `Boolean` [true]
