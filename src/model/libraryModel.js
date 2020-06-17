@@ -26,10 +26,10 @@ const librarySchema = new mongoose.Schema({
         // TODO: design it
     },
     since: {
-        type: Date // Note: The date when this dept established
+        type: Date // Note: The date when this library established
     },
     shortDescription: {
-        type: String, // Note: Short Description about this dept.
+        type: String, // Note: Short Description about this library.
     },
     contacts: [{
         method: {

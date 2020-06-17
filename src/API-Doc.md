@@ -311,6 +311,22 @@ Other Fields:
 - `since`: `Date` [Established Date]
 - `shortDescription`: `String` [Short Description]
 
+Fields:
+- `dept`: `DeptId`
+- `name`: `String`, name of the library.
+- `username`: `String` *unique*, library username
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `since`: `Date`, the date when this library established.
+- `shortDescription`: `String`, Short Description about this library.
+- `contacts`: `Array` of *Contact* `Object`.
+- `address`: Address `Object`
+- `controllers`: `Array` of *Controllers* `Object`
+- `memberGroup`: `MemberGroupId`
+- `active`: `Boolean` [true or false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
 Response:
 - `success`: `Boolean` [true]
 - `msg`: `String`
@@ -330,14 +346,15 @@ Params:
 - deptId: `DeptId`
 
 Fields:
-- `username`:
-- `name`:
-- `parent`:
-- `category`:
-- `address`:
-- `since`:
-- `contacts`:
-- `shortDescription`:
+- `username`: Dept's Username
+- `name`: Dept's name
+- `category`: *Category* of Dept ['university', 'college', 'school', 'eduHub'] can be update when it is `EduHub`. Otherwise restricted.
+- `address`: Adress `Object`
+- `since`: `Date` when this Dept established
+- `contacts`: `Array` of *Contact* `Object`
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `shortDescription`: `String`, about this Dept.
 
 Actions:
 - There are some restriction to perform update operation. 1) `Dept` can not be updated to `EduHub`; 2) `EduHub` can not be updated to `Dept`; and 3) `Dept` can not be moved from one `EduHub` to another `EduHub`, means `Dept` can change it's position within same `EduHub`.
@@ -353,6 +370,11 @@ Params:
 Required Fields:
 - `members`: `Array` of `userId`
 
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`, message
+- `members`: `Array` of `UserId`
+
 Actions and Conditions:
 - `members` must be the `members` of `parentDept` (if it is a `Dept`)
 - `members` must be valid `userId`
@@ -367,6 +389,11 @@ Params:
 Required Fields:
 - `members`: `Array` of `userId`
 
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`, message
+- `members`: `Array` of `UserId`
+
 Actions and Conditions:
 - `members` must be the `members` of this `Dept`. Otherwise it will be rejected.
 - `members` must be valid `userId`
@@ -378,6 +405,11 @@ Actions and Conditions:
 ```
 Params:
 - deptId: `DeptId`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`, message
+- `controllers`: `Array` of *controllers* `Object`
 
 Required Fields:
 - `controllers`: `Array` of `Object` with propertie `user`: `userId`, `role`: choise=[`admin`, `moderator` or `owner`] and `active`: [Optional, default `true`] with value `true` or `false`
@@ -394,6 +426,11 @@ Params:
 
 Required Fields:
 - `controllers`: `Array` of `userId`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`, message
+- `controllers`: `Array` of *controllers* `Object`
 
 Actions and Conditions:
 - `controllers` must be the `controler` of this `Dept`. Otherwise it will be rejected.
@@ -417,6 +454,24 @@ MemberGroup is the part of Dept section. It's represent the Dept's `memberGroup`
 ```bash
     {{URL}}api/v1/membergroups/
 ```
+Query Params:
+- `sort`: Sort memberGroups according to given field name
+- `fields`: Return pecific fields of MemberGroups's [inclusive | eclusive ]
+- `page`: [`Pagination`] page number
+- `limit`: [`Pagination`] number of items in a single page
+
+Fields:
+- `dept`: Dept `Object` with some limited field
+- `members`: `Array` of `UserId` represents member of Dept.
+- `active`: `Boolean` [true or false]
+
+Response:
+- `success`: `Boolean` [true]
+- `results`: `Number` [Number of items]
+- `memberGroups`: `Array` [MemberGroups]
+
+Error:
+- `success`: `Boolean` [false]
 
 ## GET | Get MemberGroup
 ```bash
@@ -425,6 +480,19 @@ MemberGroup is the part of Dept section. It's represent the Dept's `memberGroup`
 Params:
 - mgId : `MemberGroupId`
 
+Fields:
+- `dept`: Dept `Object` with some limited field
+- `members`: `Array` of `UserId` represents member of Dept.
+- `active`: `Boolean` [true or false]
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `memberGroup`: MemberGroups `Object`
+
+Error:
+- `success`: `Boolean` [false]
+
 # HubTree API
 HubTree is the part of EduHub section. It's represent the EduHub's hierarchy structure for quickly access the whole EduHub's Tree structure.
 
@@ -432,6 +500,23 @@ HubTree is the part of EduHub section. It's represent the EduHub's hierarchy str
 ```bash
     {{URL}}api/v1/hubtrees/
 ```
+Query Params:
+- `sort`: Sort hubTrees according to given field name
+- `fields`: Return pecific fields of HubTree's [inclusive | eclusive ]
+- `page`: [`Pagination`] page number
+- `limit`: [`Pagination`] number of items in a single page
+
+Fields:
+- `hub`: `DeptId`
+- `tree`: *Mixed* type `Object` represent EduHub *Hierarchy*.
+- `list`: `Array` of Dept `Object` represnts level by level
+- `active`: `Boolean`
+- `createdAt`: `Date`, when instance is created.
+
+Response:
+- `success`: `Boolean` [true]
+- `results`: `Number` [Number of items]
+- `hubTrees`: `Array` [HubTrees]
 
 ## GET | Get HubTree
 ```bash
@@ -440,6 +525,17 @@ HubTree is the part of EduHub section. It's represent the EduHub's hierarchy str
 Params:
 - hubTreeId : `HubTreeId`
 
+Fields:
+- `hub`: `DeptId`
+- `tree`: *Mixed* type `Object` represent EduHub *Hierarchy*.
+- `list`: `Array` of Dept `Object` represnts level by level
+- `active`: `Boolean`
+- `createdAt`: `Date`, when instance is created.
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`, message
+- `hubTree`: `Object` [HubTrees]
 
 # Library API
 *Library* is another main section of *EduHub*. `Library` belongs to a `Dept`. Dept can create Library if needed. Members of Library are same as Dept. They refer same `MemberGroup`.
