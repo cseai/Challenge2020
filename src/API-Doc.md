@@ -546,12 +546,60 @@ Libray has `Book`, `Resource`, `Author` and `Transaction` facilities.
     {{URL}}api/v1/libraries
 ```
 
+Query Params:
+- `sort`: Sort Libraries according to given field name
+- `fields`: Return pecific fields of Libraries's [inclusive | eclusive ]
+- `page`: [`Pagination`] page number
+- `limit`: [`Pagination`] number of items in a single page
+
+Fields:
+- `dept`: `DeptId`
+- `name`: `String`, name of the library.
+- `username`: `String` *unique*, library username
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `since`: `Date`, the date when this library established.
+- `shortDescription`: `String`, Short Description about this library.
+- `contacts`: `Array` of *Contact* `Object`.
+- `address`: Address `Object`
+- `controllers`: `Array` of *Controllers* `Object`
+- `memberGroup`: `MemberGroupId`
+- `active`: `Boolean` [true or false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `results`: `Number` [Number of items]
+- `libraries`: `Array` [Libraries]
+
 ## GET | Get Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId
 ```
 Params:
 - libraryId: `libraryId`
+
+Fields:
+- `dept`: *populated* Dept `Object`
+- `name`: `String`, name of the library.
+- `username`: `String` *unique*, library username
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `since`: `Date`, the date when this library established.
+- `shortDescription`: `String`, Short Description about this library.
+- `contacts`: `Array` of *Contact* `Object`.
+- `address`: Address `Object`
+- `controllers`: `Array` of *Controllers* `Object`
+- `memberGroup`: *populated* MemberGroup `Object`
+- `active`: `Boolean` [true or false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `library`: Library `Object`
 
 ## PATCH | Update Library
 ```bash
@@ -560,12 +608,35 @@ Params:
 Params:
 - libraryId: `libraryId`
 
+Fields Can be Updated:
+- `name`: `String`, name of the library.
+- `username`: `String` *unique*, library username
+- `coverImage`: `String`, image url
+- `profileImage`: `String`, image url
+- `since`: `Date`, the date when this library established.
+- `shortDescription`: `String`, Short Description about this library.
+- `contacts`: `Array` of *Contact* `Object`.
+- `address`: Address `Object`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `library`: Updated Library `Object`
+
 ## PATCH | Add Library Controllers
 ```bash
     {{URL}}api/v1/libraries/:libraryId/addcontrollers
 ```
 Params:
 - libraryId: `libraryId`
+
+Required Fields:
+- `controllers`: `Array` of *Controller* `Object`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `controllers`: Updated Library Controllers `Array`
 
 ## PATCH | Remove Library Controllers
 ```bash
@@ -574,6 +645,13 @@ Params:
 Params:
 - libraryId: `libraryId`
 
+Required Fields:
+- `controllers`: `Array` of *Controller's* `UserId`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `controllers`: Updated Library Controllers `Array`
 
 # Library / Book API
 *Library / Book* is a section of *Library*. This route maintains *Books* of this *Library*.
@@ -584,6 +662,33 @@ Params:
 ```
 Params:
 - libraryId: `libraryId`
+
+Fields:
+- `library`: `libraryId`
+- `title`: `String`, title of the book.
+- `authors`: `Array` of `AuthorId`
+- `edition`: `String`, book edition
+- `pagination`: `String`, book pagination
+- `accessionNumber`: `String`, book accessionNumber
+- `callNumber`: `String`, book callNumber
+- `copyNumber`: `String`, book copyNumber
+- `isbn`: `String`, book isbn
+- `publisher`: `String`, book publisher
+- `description`: `String`, book description
+- `language`: `String`, in which language the book is written
+- `publicationDate`: `Date`, 
+- `lastRevisionDate`:
+- `price`:
+- `barcode`:
+- `image`:
+- `depts`:
+- `tags`:
+- `user`:
+- `status`:
+- `infoProvided`:
+- `active`:
+- `createdAt`:
+- `updatedAt`:
 
 ## GET | Get Book of Library
 ```bash
