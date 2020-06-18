@@ -1220,3 +1220,157 @@ Response:
 - `success`: `Boolean` [true]
 - `msg`: `String`
 - `author`: Updated Author `Object`
+
+# Library / Admin Panel API
+*Libray Admin Panel* is the admin cotrol section of a Library.
+
+## GET | Get Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe
+```
+
+## PATCH | Update Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe
+```
+
+## PATCH | Add Library Controllers
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/addcontrollers
+```
+
+## PATCH | Remove Library Controllers
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/removecontrollers
+```
+
+## GET | Get All Books of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/books?fields=title,_id,library&sort=-createdAt
+```
+
+## GET | Get Book of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/books/5ecb5dda892ea52554f536db
+```
+
+## POST | Create Book for Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ecbc92059aa410b5899e5eb/books
+```
+
+## PATCH | Update Book of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/books/5ecb5dda892ea52554f536db
+```
+
+## PATCH | Add Depts at Book of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/books/5ecb5dda892ea52554f536db/adddepts
+```
+
+## PATCH | Remove Depts from Book of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/books/5ec904674fc89b340c967ddd/removedepts
+```
+
+## PATCH | Add Tags at Book of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/books/5ec904674fc89b340c967ddd/addtags
+```
+
+## PATCH | Remove Tags from Book of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/books/5ec904674fc89b340c967ddd/removetags
+```
+
+## GET | Get All Resources of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources
+```
+
+## GET | Get Resource of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources/5ecbd7ef2032ae166caf2250
+```
+
+## POST | Create Resource for Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources
+```
+
+## PATCH | Update Resource of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources/5eca58e2787dc93d54ec96f8
+```
+
+## PATCH | Add Depts at Resource of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources/5ecb60b4892ea52554f536dc/adddepts
+```
+
+## PATCH | Remove Depts from Resource of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources/5eca58e2787dc93d54ec96f8/removedepts
+```
+
+## PATCH | Add Tags at Resource of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources/5eca58e2787dc93d54ec96f8/addtags
+```
+
+## PATCH | Remove Tags from Resource of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resources/5eca58e2787dc93d54ec96f8/removetags
+```
+
+## GET | Get All Trxs of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/trxs
+```
+
+## GET | Get Trx of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/trxs/5ecd42b1f98429029c2171c7
+```
+
+## GET | Get All BookTrxs of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/booktrxs
+```
+
+## GET | Get BookTrx of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/booktrxs/5eccfaacc1e7f41f1cff9aee
+```
+
+## POST | Create BorrowBookTrx for Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/booktrxs
+```
+
+## PATCH | Return BookTrx of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/booktrxs/5eccfaacc1e7f41f1cff9aee
+```
+
+## GET | Get All ResourceTrxs of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resourcetrxs
+```
+
+## GET | Get ResourceTrx of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resourcetrxs/5ecd42b1f98429029c2171c7
+```
+
+## POST | Create BorrowResourceTrx for Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resourcetrxs
+```
+
+## PATCH | Return ResourceTrx of Library
+```bash
+    {{URL}}api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/resourcetrxs/5ecd42b1f98429029c2171c7
+```
+
