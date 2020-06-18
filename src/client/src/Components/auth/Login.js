@@ -1,15 +1,18 @@
 import React, { Fragment, useState } from 'react';
 import './GetLoginlight.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey,faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import readingimage from './../img/undraw_book_lover_mkck.svg';
-import { login } from '../../actions/authAction';
-import { setAlert } from './../../actions/alertAction';
 import { connect } from 'react-redux';
+// icon
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKey, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import readingimage from './../img/undraw_book_lover_mkck.svg';
+import ThemeChanger from './../theme/ThemeChanger/ThemeChanger';
+// redux
+import { login } from '../../actions/authAction';
+import { setAlert } from '../../actions/alertAction';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer.js';
-import Alert from './../Layout/Alert';
+import Alert from '../Layout/Alert';
 
 const LoginLight = ({ login, isAuthenticated }) => {
 	// from
@@ -27,12 +30,12 @@ const LoginLight = ({ login, isAuthenticated }) => {
 			setAlert(`email and password cant empty`, 'danger');
 		}
 		login(email, password);
-		// console.log(email, password);
 	};
-
+	//redirected if user authenticated
 	if (isAuthenticated) {
 		return <Redirect to='/home' />;
 	}
+	// theme provider
 
 	return (
 		<Fragment>
@@ -40,21 +43,22 @@ const LoginLight = ({ login, isAuthenticated }) => {
 				<SigninCompany>
 					<SigninCompanyName>Edukos</SigninCompanyName>
 				</SigninCompany>
+				<ThemeChanger />
+
 				<div className='signin__main'>
 					<div class='signin__main___left'>
-						<img className='signin__main___left-img-pos' src={readingimage} alt="for good"/>
+						<img className='signin__main___left-img-pos' src={readingimage} alt='for good' />
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className='signin__main___right'>
 						<Alert />
 						<div className='signin__main___right-avater'>
-							<img src={require('./../img/undraw_profile_pic_ic5t (1).svg')} alt="for good" />
+							<img src={require('./../img/undraw_profile_pic_ic5t (1).svg')} alt='for good' />
 						</div>
 						<div className='signin__main___right-signin'>
 							<h1>Sign in</h1>
 						</div>
 						<form className='signin__main___right-form' onSubmit={(e) => onSubmit(e)}>
-						
 							<div className='form'>
 								<input
 									type='text'
@@ -68,7 +72,7 @@ const LoginLight = ({ login, isAuthenticated }) => {
 									<span className='content-name'>email</span>
 								</label>
 								<div className='label-img'>
-									<FontAwesomeIcon icon={faEnvelope} color="#4cbea6" size="2x"/>
+									<FontAwesomeIcon icon={faEnvelope} color='#4cbea6' size='2x' />
 								</div>
 							</div>
 							<div className='form'>
@@ -83,7 +87,7 @@ const LoginLight = ({ login, isAuthenticated }) => {
 									<span className='content-name'>password</span>
 								</label>
 								<div className='label-img'>
-									<FontAwesomeIcon icon={faKey} size="2x" color="#4cbea6" />
+									<FontAwesomeIcon icon={faKey} size='2x' color='#4cbea6' />
 								</div>
 							</div>
 							<input type='submit' className='signin-btn' value='Sign in' />
@@ -96,7 +100,11 @@ const LoginLight = ({ login, isAuthenticated }) => {
 							<span>Powered By</span>
 							<h5>Pizzu</h5>
 						</div>
-						<img className='mobile-image' src={require('./../img/undraw_book_lover_mkck.svg')}  alt="for good"/>
+						<img
+							className='mobile-image'
+							src={require('./../img/undraw_book_lover_mkck.svg')}
+							alt='for good'
+						/>
 					</div>
 				</div>
 			</SignIn>
