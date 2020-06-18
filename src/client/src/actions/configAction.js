@@ -1,9 +1,9 @@
 import { DARK_MODE } from './types';
 
-export const themeMode = (value) => (dispatch) => {
+export function themeMode(value) {
 	console.log('value from action ', typeof value);
-	dispatch({
+	return {
 		type: DARK_MODE,
 		payload: value,
-	});
-};
+	};
+}

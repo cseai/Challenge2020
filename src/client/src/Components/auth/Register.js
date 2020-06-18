@@ -1,7 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import Style from './Register.module.css';
+import { SignIn } from './LightContainer.js';
+import ThemeChanger from './../theme/ThemeChanger/ThemeChanger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey,faEnvelope,faUser } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import LeftImage from './../img/undraw_true_friends_c94g.svg';
 import AvaterImg from './../img/undraw_profile_pic_ic5t (1).svg';
@@ -28,20 +30,21 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 	}
 	return (
 		<Fragment>
-			<div className={Style.signin}>
+			<SignIn>
 				<div className={Style.signin__company}>
 					<div className={Style.signin__company__name}>Edukos</div>
 				</div>
+				<ThemeChanger />
 				<div className={Style.signin__main}>
 					<div className={Style.signin__main___left}>
-						<img className={Style.signin__main___left_img_pos} src={LeftImage} alt="for good" />
+						<img className={Style.signin__main___left_img_pos} src={LeftImage} alt='for good' />
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className={Style.signin__main___right}>
-						<Alert/>
-						
+						<Alert />
+
 						<div className={Style.signin__main___right_avater}>
-							<img src={AvaterImg} alt="for good" />
+							<img src={AvaterImg} alt='for good' />
 						</div>
 						<div className={Style.signin__main___right_signin}>
 							<h1>Sign Up</h1>
@@ -53,17 +56,16 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 									name='username'
 									value={username}
 									onChange={(e) => onchange(e)}
-									id="username"
+									id='username'
 									required
 									autoComplete='off'
 								/>
 								<label for='username' className={Style.label_name}>
-									<span  className={Style.content_name}>user name</span>
+									<span className={Style.content_name}>user name</span>
 								</label>
 								<div className='label-img'>
-									<FontAwesomeIcon icon={faUser} color="#4cbea6" size="2x"/>
+									<FontAwesomeIcon icon={faUser} color='#4cbea6' size='2x' />
 								</div>
-								
 							</div>
 							<div className={Style.form}>
 								<input
@@ -78,7 +80,7 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 									<span className={Style.content_name}>email</span>
 								</label>
 								<div className='label-img'>
-									<FontAwesomeIcon icon={faEnvelope} color="#4cbea6" size="2x"/>									
+									<FontAwesomeIcon icon={faEnvelope} color='#4cbea6' size='2x' />
 								</div>
 							</div>
 							<div className={Style.form}>
@@ -94,7 +96,7 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 									<span className={Style.content_name}>password</span>
 								</label>
 								<div className='label-img'>
-									<FontAwesomeIcon icon={faKey} color="#4cbea6" size="2x"/>
+									<FontAwesomeIcon icon={faKey} color='#4cbea6' size='2x' />
 								</div>
 							</div>
 							<input type='submit' className={Style.signin_btn} value='Sign Up' />
@@ -107,10 +109,14 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 							<span>Powered By</span>
 							<h5>Pizzu</h5>
 						</div>
-						<img className={Style.mobile_image} src={require('./../img/undraw_true_friends_c94g.svg')} alt="for good" />
+						<img
+							className={Style.mobile_image}
+							src={require('./../img/undraw_true_friends_c94g.svg')}
+							alt='for good'
+						/>
 					</div>
 				</div>
-			</div>
+			</SignIn>
 		</Fragment>
 	);
 };

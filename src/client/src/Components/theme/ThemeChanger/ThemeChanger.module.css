@@ -1,0 +1,36 @@
+.theme__changer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	position: absolute;
+	align-items: center;
+	top: 84vh;
+	left: 2vw;
+	transform: translate(10px, 10px);
+	z-index: 22;
+}
+.toggleChange {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	position: absolute;
+	align-items: center;
+	top: 84vh;
+	z-index: 20;
+}
+
+.theme__changer_dark {
+	padding: 10px;
+	background-color: white;
+}
+
+.theme__changer_light {
+	padding: 10px;
+	background-color: black;
+	margin-bottom: 3px;
+}
+.theme__changer_toggle {
+	padding: 5px;
+}
+.toggle {
+}

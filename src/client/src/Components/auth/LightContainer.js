@@ -4,7 +4,7 @@ export const SignIn = styled.div`
 	position: absolute;
 	width: 100vw;
 	height: 100vh;
-	background-color: #fff;
+	background: ${(props) => props.theme.colors.background};
 `;
 
 export const SigninCompany = styled.div`
