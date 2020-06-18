@@ -663,6 +663,12 @@ Response:
 Params:
 - libraryId: `libraryId`
 
+Query Params:
+- `sort`: Sort objects according to given field name
+- `fields`: Return pecific fields of object's [inclusive | eclusive ]
+- `page`: [`Pagination`] page number
+- `limit`: [`Pagination`] number of items in a single page
+
 Fields:
 - `library`: `libraryId`
 - `title`: `String`, title of the book.
@@ -676,19 +682,24 @@ Fields:
 - `publisher`: `String`, book publisher
 - `description`: `String`, book description
 - `language`: `String`, in which language the book is written
-- `publicationDate`: `Date`, 
-- `lastRevisionDate`:
-- `price`:
-- `barcode`:
-- `image`:
-- `depts`:
-- `tags`:
-- `user`:
-- `status`:
-- `infoProvided`:
-- `active`:
-- `createdAt`:
-- `updatedAt`:
+- `publicationDate`: `Date`, publicationDate
+- `lastRevisionDate`: `Date`, last lastRevisionDate
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `barcode`: `String`, barcode of the book
+- `image`: `String`, image url
+- `depts`: `Array` of `DeptId`
+- `tags`: `Array` of `String`
+- `user`: `UserId`, who created this book first.
+- `status`: `String` of choice fields: ['available', 'unavailable']
+- `infoProvided`: `Number`, range [0, 100], representing how much book information given.
+- `active`: `Boolean`, [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `results`: `Number` [Number of items]
+- `books`: `Array` [Books]
 
 ## GET | Get Book of Library
 ```bash
@@ -698,12 +709,69 @@ Params:
 - libraryId: `libraryId`
 - bookId: `bookId`
 
+Fields:
+- `library`: `libraryId`
+- `title`: `String`, title of the book.
+- `authors`: `Array` of `AuthorId`
+- `edition`: `String`, book edition
+- `pagination`: `String`, book pagination
+- `accessionNumber`: `String`, book accessionNumber
+- `callNumber`: `String`, book callNumber
+- `copyNumber`: `String`, book copyNumber
+- `isbn`: `String`, book isbn
+- `publisher`: `String`, book publisher
+- `description`: `String`, book description
+- `language`: `String`, in which language the book is written
+- `publicationDate`: `Date`, publicationDate
+- `lastRevisionDate`: `Date`, last lastRevisionDate
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `barcode`: `String`, barcode of the book
+- `image`: `String`, image url
+- `depts`: `Array` of `DeptId`
+- `tags`: `Array` of `String`
+- `user`: `UserId`, who created this book first.
+- `status`: `String` of choice fields: ['available', 'unavailable']
+- `infoProvided`: `Number`, range [0, 100], representing how much book information given.
+- `active`: `Boolean`, [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `book`: Book `Object`
+
 ## POST | Create Book for Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/books
 ```
 Params:
 - libraryId: `libraryId`
+
+Required Fields:
+- `title`: `String`, title of the book.
+- `authors`: `Array` of `AuthorId`
+
+Optional Fields:
+- `edition`: `String`, book edition
+- `pagination`: `String`, book pagination
+- `accessionNumber`: `String`, book accessionNumber
+- `callNumber`: `String`, book callNumber
+- `copyNumber`: `String`, book copyNumber
+- `isbn`: `String`, book isbn
+- `publisher`: `String`, book publisher
+- `description`: `String`, book description
+- `language`: `String`, in which language the book is written
+- `publicationDate`: `Date`, publicationDate
+- `lastRevisionDate`: `Date`, last lastRevisionDate
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `depts`: `Array` of `DeptId`
+- `tags`: `Array` of `String`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `book`: Created Book `Object`
 
 ## PATCH | Update Book of Library
 ```bash
@@ -713,6 +781,28 @@ Params:
 - libraryId: `libraryId`
 - bookId: `bookId`
 
+Updatable Fields:
+- `title`: `String`, title of the book.
+- `edition`: `String`, book edition
+- `pagination`: `String`, book pagination
+- `accessionNumber`: `String`, book accessionNumber
+- `callNumber`: `String`, book callNumber
+- `copyNumber`: `String`, book copyNumber
+- `isbn`: `String`, book isbn
+- `publisher`: `String`, book publisher
+- `description`: `String`, book description
+- `language`: `String`, in which language the book is written
+- `publicationDate`: `Date`, publicationDate
+- `lastRevisionDate`: `Date`, last lastRevisionDate
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `barcode`: `String`, barcode of the book
+- `image`: `String`, image url
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `book`: Updated Book `Object`
+
 ## PATCH | Add Depts at Book of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/books/:bookId/adddepts
@@ -720,6 +810,14 @@ Params:
 Params:
 - libraryId: `libraryId`
 - bookId: `bookId`
+
+Required Fields:
+- `depts`: `Array` of `DeptId`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `book`: Updated Book `Object`
 
 ## PATCH | Remove Depts from Book of Library
 ```bash
@@ -729,6 +827,14 @@ Params:
 - libraryId: `libraryId`
 - bookId: `bookId`
 
+Required Fields:
+- `depts`: `Array` of `DeptId`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `book`: Updated Book `Object`
+
 ## PATCH | Add Tags at Book of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/books/:bookId/addtags
@@ -737,6 +843,14 @@ Params:
 - libraryId: `libraryId`
 - bookId: `bookId`
 
+Required Fields:
+- `tags`: `Array` of tag `String`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `book`: Updated Book `Object`
+
 ## PATCH | Remove Tags from Book of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/books/:bookId/removetags
@@ -744,6 +858,14 @@ Params:
 Params:
 - libraryId: `libraryId`
 - bookId: `bookId`
+
+Required Fields:
+- `tags`: `Array` of tag `String`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `book`: Updated Book `Object`
 
 # Library / Resource API
 *Library / Resource* is a section of *Library*. This route maintains *Resources* of this *Library*.
@@ -755,6 +877,37 @@ Params:
 Params:
 - libraryId: `libraryId`
 
+Query Params:
+- `sort`: Sort objects according to given field name
+- `fields`: Return pecific fields of object's [inclusive | eclusive ]
+- `page`: [`Pagination`] page number
+- `limit`: [`Pagination`] number of items in a single page
+
+Fields:
+- `library`: `libraryId`
+- `title`: `String`, title of the resource.
+- `category`: `String` of choice fields: ['magazine', 'software', 'hardware', 'other']
+- `accessionNumber`: `String`, resource accessionNumber
+- `callNumber`: `String`, resource callNumber
+- `copyNumber`: `String`, resource copyNumber
+- `description`: `String`, resource description
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `barcode`: `String`, barcode of the resource
+- `image`: `String`, image url
+- `depts`: `Array` of `DeptId`
+- `tags`: `Array` of `String`
+- `user`: `UserId`, who created this resource first.
+- `status`: `String` of choice fields: ['available', 'unavailable']
+- `infoProvided`: `Number`, range [0, 100], representing how much resource information given.
+- `active`: `Boolean`, [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `results`: `Number` [Number of items]
+- `resources`: `Array` [Resources]
+
 ## GET | Get Resource of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/resources/:resourceId
@@ -763,12 +916,57 @@ Params:
 - libraryId: `libraryId`
 - resourceId: `resourceId`
 
+Fields:
+- `library`: `libraryId`
+- `title`: `String`, title of the resource.
+- `category`: `String` of choice fields: ['magazine', 'software', 'hardware', 'other']
+- `accessionNumber`: `String`, resource accessionNumber
+- `callNumber`: `String`, resource callNumber
+- `copyNumber`: `String`, resource copyNumber
+- `description`: `String`, resource description
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `barcode`: `String`, barcode of the resource
+- `image`: `String`, image url
+- `depts`: `Array` of `DeptId`
+- `tags`: `Array` of `String`
+- `user`: `UserId`, who created this resource first.
+- `status`: `String` of choice fields: ['available', 'unavailable']
+- `infoProvided`: `Number`, range [0, 100], representing how much resource information given.
+- `active`: `Boolean`, [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `resource`: Resource `Object`
+
 ## POST | Create Resource for Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/resources
 ```
 Params:
 - libraryId: `libraryId`
+
+Required Fields:
+- `title`: `String`, title of the book.
+- `category`: `String` of choice fields: ['magazine', 'software', 'hardware', 'other']
+
+Optional Fields:
+- `accessionNumber`: `String`, resource accessionNumber
+- `callNumber`: `String`, resource callNumber
+- `copyNumber`: `String`, resource copyNumber
+- `description`: `String`, resource description
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `barcode`: `String`, barcode of the resource
+- `image`: `String`, image url
+- `depts`: `Array` of `DeptId`
+- `tags`: `Array` of `String`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `resource`: Created Resource `Object`
 
 ## PATCH | Update Resource of Library
 ```bash
@@ -778,6 +976,22 @@ Params:
 - libraryId: `libraryId`
 - resourceId: `resourceId`
 
+Updatable Fields:
+- `title`: `String`, title of the resource.
+- `category`: `String` of choice fields: ['magazine', 'software', 'hardware', 'other']
+- `accessionNumber`: `String`, resource accessionNumber
+- `callNumber`: `String`, resource callNumber
+- `copyNumber`: `String`, resource copyNumber
+- `description`: `String`, resource description
+- `price`: `Object` containing `quantity` and `currency` properties.
+- `barcode`: `String`, barcode of the resource
+- `image`: `String`, image url
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `resource`: Updated Resource `Object`
+
 ## PATCH | Add Depts at Resource of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/resources/:resourceId/adddepts
@@ -785,6 +999,14 @@ Params:
 Params:
 - libraryId: `libraryId`
 - resourceId: `resourceId`
+
+Required Fields:
+- `depts`: `Array` of `DeptId`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `resource`: Updated Resource `Object`
 
 ## PATCH | Remove Depts from Resource of Library
 ```bash
@@ -794,6 +1016,14 @@ Params:
 - libraryId: `libraryId`
 - resourceId: `resourceId`
 
+Required Fields:
+- `depts`: `Array` of `DeptId`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `resource`: Updated Resource `Object`
+
 ## PATCH | Add Tags at Resource of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/resources/:resourceId/addtags
@@ -802,6 +1032,14 @@ Params:
 - libraryId: `libraryId`
 - resourceId: `resourceId`
 
+Required Fields:
+- `tags`: `Array` of tag `String`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `resource`: Updated Resource `Object`
+
 ## PATCH | Remove Tags from Resource of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/resources/:resourceId/removetags
@@ -809,6 +1047,14 @@ Params:
 Params:
 - libraryId: `libraryId`
 - resourceId: `resourceId`
+
+Required Fields:
+- `tags`: `Array` of tag `String`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `resource`: Updated Resource `Object`
 
 # Library / Trx API
 *Library / Trx* is a section of *Library*. This route maintains *Trxs* of this *Library*.
@@ -820,6 +1066,33 @@ Params:
 Params:
 - libraryId: `libraryId`
 
+Query Params:
+- `sort`: Sort objects according to given field name
+- `fields`: Return pecific fields of object's [inclusive | eclusive ]
+- `page`: [`Pagination`] page number
+- `limit`: [`Pagination`] number of items in a single page
+
+Fields:
+- `library`: `LibraryId` of the trx-object
+- `contentType`: `String` of choise field: ['book', 'resource'] | `GFK`
+- `objectId`: `ObjectId` of trx-object | `GFK`
+- `issueDate`: `Date`, trx issue date
+- `dueDate`: `Date`, trx issue dueDate
+- `returnDate`: `Date`, trx issue returnDate
+- `comment`: `String`, comment about trx
+- `user`: `UserId`, The trx-user
+- `issuedBy`: `UserId`, The trx-issue-user (e.g. Librarian )
+- `updatedBy`: `Array` of `UserId`, The trx-updater-user (e.g. Librarian )
+- `status`: `String`
+- `active`: `Boolean` [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `results`: `Number` [Number of items]
+- `trxs`: `Array` [Trxs]
+
 ## GET | Get Trx of Library
 ```bash
     {{URL}}api/v1/libraries/:libraryId/trxs/:trxId
@@ -827,6 +1100,27 @@ Params:
 Params:
 - libraryId: `libraryId`
 - trxId: `trxId`
+
+Fields:
+- `library`: `LibraryId` of the trx-object
+- `contentType`: `String` of choise field: ['book', 'resource'] | `GFK`
+- `objectId`: `ObjectId` of trx-object | `GFK`
+- `issueDate`: `Date`, trx issue date
+- `dueDate`: `Date`, trx issue dueDate
+- `returnDate`: `Date`, trx issue returnDate
+- `comment`: `String`, comment about trx
+- `user`: `UserId`, The trx-user
+- `issuedBy`: `UserId`, The trx-issue-user (e.g. Librarian )
+- `updatedBy`: `Array` of `UserId`, The trx-updater-user (e.g. Librarian )
+- `status`: `String`
+- `active`: `Boolean` [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `trx`: Trx `Object`
 
 # Author API
 *Author* is the writter of *Book*.
@@ -836,6 +1130,31 @@ Params:
     {{URL}}api/v1/authors
 ```
 
+Query Params:
+- `sort`: Sort objects according to given field name
+- `fields`: Return pecific fields of object's [inclusive | eclusive ]
+- `page`: [`Pagination`] page number
+- `limit`: [`Pagination`] number of items in a single page
+
+Fields:
+- `name`: `String`, Full name of the *Author*
+- `nicname`: `String`, Nicname of the *Author*
+- `verified`: `Boolean`
+- `realUser`: `UserId`, If Author is a `User` too
+- `gender`: `String` of choise fields:  ['male', 'female', 'other']
+- `bio`: `String`, about *Author*
+- `contacts`: `Array` of *contact* `Object`
+- `address`: Address `Object`
+- `createdBy`: `UserId`, who created this *Author* instance
+- `active`: `Boolean` [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `results`: `Number` [Number of items]
+- `authors`: `Array` [Authors]
+
 ## GET | Get Author
 ```bash
     {{URL}}api/v1/authors/:authorId
@@ -843,10 +1162,44 @@ Params:
 Params:
 - authorId: `authorId`
 
+Fields:
+- `name`: `String`, Full name of the *Author*
+- `nicname`: `String`, Nicname of the *Author*
+- `verified`: `Boolean`
+- `realUser`: `UserId`, If Author is a `User` too
+- `gender`: `String` of choise fields:  ['male', 'female', 'other']
+- `bio`: `String`, about *Author*
+- `contacts`: `Array` of *contact* `Object`
+- `address`: Address `Object`
+- `createdBy`: `UserId`, who created this *Author* instance
+- `active`: `Boolean` [true, false]
+- `createdAt`: `Date`, when this instance created.
+- `updatedAt`: `Date`, last updated date of this instance.
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `author`: Author `Object`
+
 ## POST | Create Author
 ```bash
     {{URL}}api/v1/authors
 ```
+
+Required Fields:
+- `name`: `String`, Full name of the *Author*
+- `nicname`: `String`, Nicname of the *Author*
+- `gender`: `String` of choise fields:  ['male', 'female', 'other']
+
+Optional Fields:
+- `bio`: `String`, about *Author*
+- `contacts`: `Array` of *contact* `Object`
+- `address`: Address `Object`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `author`: Created Author `Object`
 
 ## PATCH | Update Author
 ```bash
@@ -854,3 +1207,16 @@ Params:
 ```
 Params:
 - authorId: `authorId`
+
+Updatable Fields:
+- `name`: `String`, Full name of the *Author*
+- `nicname`: `String`, Nicname of the *Author*
+- `gender`: `String` of choise fields:  ['male', 'female', 'other']
+- `bio`: `String`, about *Author*
+- `contacts`: `Array` of *contact* `Object`
+- `address`: Address `Object`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `author`: Updated Author `Object`
