@@ -1,20 +1,25 @@
 import React, { Fragment, useState } from 'react';
-import './GetLoginlight.css';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import './GetLoginlight.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './../Layout/Alert';
+import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer.js';
 // icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import readingimage from './../img/undraw_book_lover_mkck.svg';
 import ThemeChanger from './../theme/ThemeChanger/ThemeChanger';
+
 // redux
 import { login } from '../../actions/authAction';
 import { setAlert } from '../../actions/alertAction';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
-import { SignIn, SigninCompany, SigninCompanyName } from './LightContainer.js';
-import Alert from '../Layout/Alert';
+// import Alert from '../Layout/Alert';
 
-const LoginLight = ({ login, isAuthenticated }) => {
+const LoginLight = ({ login, isAuthenticated, alerts }) => {
 	// from
 	const [formData, setFormData] = useState({
 		email: '',
@@ -31,6 +36,23 @@ const LoginLight = ({ login, isAuthenticated }) => {
 		}
 		login(email, password);
 	};
+	// react toastify
+
+	if (alerts !== null && alerts.length > 0) {
+		alerts.map((alert) => {
+			if (alert.alertType === 'danger' && alerts.length < 2) {
+				toast.error(alert.msg, {
+					position: 'top-right',
+					autoClose: 2500,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
+		});
+	}
 	//redirected if user authenticated
 	if (isAuthenticated) {
 		return <Redirect to='/home' />;
@@ -51,7 +73,22 @@ const LoginLight = ({ login, isAuthenticated }) => {
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className='signin__main___right'>
-						<Alert />
+						{/* <Alert /> */}
+						<ToastContainer
+							position='top-right'
+							autoClose={2500}
+							hideProgressBar={false}
+							newestOnTop
+							closeOnClick
+							rtl={false}
+							pauseOnFocusLoss
+							draggable
+							pauseOnHover
+							style={{
+								fontSize: '16px',
+								color: '#35393b',
+							}}
+						/>
 						<div className='signin__main___right-avater'>
 							<img src={require('./../img/undraw_profile_pic_ic5t (1).svg')} alt='for good' />
 						</div>
@@ -115,10 +152,12 @@ const LoginLight = ({ login, isAuthenticated }) => {
 LoginLight.propTypes = {
 	login: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
+	alerts: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
+	alerts: state.alert,
 });
 
 export default connect(mapStateToProps, { login })(LoginLight);

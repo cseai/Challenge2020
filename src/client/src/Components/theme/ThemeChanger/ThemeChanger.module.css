@@ -2,12 +2,13 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	position: absolute;
+	position: fixed;
 	align-items: center;
 	top: 84vh;
 	left: 2vw;
 	transform: translate(10px, 10px);
 	z-index: 22;
+	transition: none !important;
 }
 .toggleChange {
 	display: flex;
@@ -19,16 +20,6 @@
 	z-index: 20;
 }
 
-.theme__changer_dark {
-	padding: 10px;
-	background-color: white;
-}
-
-.theme__changer_light {
-	padding: 10px;
-	background-color: black;
-	margin-bottom: 3px;
-}
 .theme__changer_toggle {
 	padding: 5px;
 }

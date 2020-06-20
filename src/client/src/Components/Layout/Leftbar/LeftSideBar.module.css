@@ -3,7 +3,7 @@
 	/* margin-right: 10px; */
 	padding: 0px 10px 0px 0px !important;
 }
-
+/* 
 .left__part__data {
 	position: fixed;
 	min-height: 70vh;
@@ -11,7 +11,7 @@
 	border-radius: 10px;
 	box-shadow: 1px 1px 0px 0px #eee;
 	min-width: 224px;
-}
+} */
 
 .left__part__data__links {
 	display: flex;
@@ -19,6 +19,7 @@
 	justify-content: center;
 	align-items: center;
 	padding-top: 15px;
+	color: inherit;
 }
 .left__part__data__links__link {
 	/* background: red; */
@@ -29,8 +30,7 @@
 	justify-content: flex-start;
 	align-items: center;
 	padding: 20px;
-	/* padding-top: 15px; */
-	color: var(--color--primary-light-2) !important;
+	color: inherit;
 	font-size: 24px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
@@ -39,7 +39,7 @@
 .left__part__data__links__link:hover {
 	background-color: #57ceb49c;
 	border-radius: 25px;
-	color: white !important;
+	color: inherit;
 	font-size: 38px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
@@ -60,16 +60,14 @@
 .left__part__data__link_a {
 	text-decoration: none;
 	padding-left: 16px;
-	color: var(--color--primary-light-2) !important;
+	color: inherit;
 	font-size: 24px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
 }
 .left__part__data__link_a:hover {
-	color: white !important;
+	color: inherit;
 }
-
-
 
 /* ############ responsive ################## */
 /* big screen desktops/laptops,  --> xl */
@@ -88,7 +86,6 @@
 		flex: 0 0 25% !important;
 		max-width: 25% !important;
 	}
-	
 }
 /*larger smartphones in landscape, most tablets in portrait, some small laptops  --> md*/
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
@@ -99,7 +96,6 @@
 		flex: 0 0 10% !important;
 		width: 10% !important;
 	}
-
 }
 
 /* Small devices (landscape phones, 576px and up)*/
