@@ -196,6 +196,8 @@
 	border-radius: 10px;
 	padding: 4px 0px;
 	box-sizing: border-box;
+	/* transition: all 0.5s linear; */
+	cursor: pointer;
 }
 /*Also common in Contacts and Location Sections*/
 .eduHub__profile__about_heading {
@@ -206,8 +208,9 @@
 	border-top-right-radius: 15px;
 	border-bottom-right-radius: 15px;
 	height: 50px;
-	width: 130px;
+	width: 120px;
 	color: inherit;
+	transition: all 0.5s linear;
 }
 .eduHub__profile__about_heading p {
 	font-size: 20px;
@@ -217,9 +220,11 @@
 	z-index: 10;
 	bottom: 40px;
 	left: 12px;
+	transition: all 0.5s linear;
 }
 .eduHub__profile__about_about_details {
 	padding-left: 20px;
+	transition: all 0.5s linear;
 }
 .eduHub__profile__about_about_details p {
 	font-size: 16px;
@@ -261,6 +266,7 @@
 	border-bottom-right-radius: 15px;
 	box-sizing: border-box;
 	height: 50px;
+	cursor: pointer;
 }
 
 .eduHub__profile__contact_heading p {
@@ -356,6 +362,7 @@
 	border-bottom-right-radius: 15px;
 	box-sizing: border-box;
 	height: 50px;
+	cursor: pointer;
 }
 
 .eduHub__profile__location_heading p {

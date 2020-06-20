@@ -36,10 +36,10 @@ const App = ({ themeMode, darkMode }) => {
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyle />
-			<Router>
-				<Fragment>
-					<Route exact path='/' component={LandingPage} />
-					<GlobalConatiner>
+			<GlobalConatiner>
+				<Router>
+					<Fragment>
+						<Route exact path='/' component={LandingPage} />
 						<Switch>
 							<Route exact path='/home' component={NewsBoard} />
 							<Route exact path='/eduhub-profile' component={EduhubProfile} />
@@ -51,9 +51,9 @@ const App = ({ themeMode, darkMode }) => {
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/create-user-profile' component={CreateUserProfile} />
 						</Switch>
-					</GlobalConatiner>
-				</Fragment>
-			</Router>
+					</Fragment>
+				</Router>
+			</GlobalConatiner>
 		</ThemeProvider>
 	);
 };

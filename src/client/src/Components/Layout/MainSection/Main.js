@@ -12,7 +12,7 @@ const Main = ({ eduhub }) => {
 		<Fragment>
 			<Nav />
 			<ThemeChanger />
-			<main>
+			<div className={Styles.main_div}>
 				<div className={Styles.main__section}>
 					<div className='container'>
 						<div className={Styles.main__section_data}>
@@ -32,7 +32,7 @@ const Main = ({ eduhub }) => {
 						</div>
 					</div>
 				</div>
-			</main>
+			</div>
 		</Fragment>
 	);
 };

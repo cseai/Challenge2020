@@ -1,8 +1,9 @@
 /* ###################### main section ################### */
-main {
+.main_div {
 	width: 100vw;
-	padding: 100px 0;
-	height: 0vh;
+	transition: inherit;
+	top: 100px;
+	position: absolute;
 }
 .main__section {
 	width: 100%;

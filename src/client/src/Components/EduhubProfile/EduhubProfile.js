@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Styles from './EduhubProfile.module.css';
 import {
 	EduHubProfile,
@@ -30,6 +30,9 @@ import './EduhubProfile.module.css';
 import Main from './../Layout/MainSection/Main';
 
 const EduhubProfile = () => {
+	const [info, setInfo] = useState(false);
+	const [contact, setContact] = useState(false);
+	const [location, setLocation] = useState(false);
 	return (
 		<Main
 			eduhub={
@@ -61,7 +64,6 @@ const EduhubProfile = () => {
 								</div>
 							</div>
 						</div>
-
 						{/* <!-- user info --> */}
 						<EduHubProfileInfo>
 							<div className={Styles.eduHub__profile__info_content}>
@@ -69,7 +71,6 @@ const EduhubProfile = () => {
 									<EduHubProfileInfoContentSide className={Styles.eduHub__profile__info_content_side}>
 										{/* <div className={Styles.eduHub__profile__info_content_side}></div> */}
 									</EduHubProfileInfoContentSide>
-
 									<i>
 										<FontAwesomeIcon icon={faUniversity} size='1.5x' />
 									</i>
@@ -141,132 +142,155 @@ const EduhubProfile = () => {
 
 						{/* <!-- About us section --> */}
 						<EduHubProfileAbout className={Styles.eduHub__profile__about}>
-							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__about_heading}>
+							<EduHubProfileInfoContentIcon
+								onClick={() => setInfo(!info)}
+								className={Styles.eduHub__profile__about_heading}
+							>
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>About Us</p>
 							</EduHubProfileInfoContentIcon>
-							<div className={Styles.eduHub__profile__about_about_details}>
-								<p>
-									The government passed an act on 15 July 2001 to establish a science and technology
-									university in Pabna. Pabna is a central district town in northern Bangladesh, having
-									a long historical and cultural heritage. The academic curriculum of Pabna University
-									of Science and Technology was started on 15 July 2008. This university plays an
-									innovative role in providing need-based higher education, training, and research.
-									The university is committed to maintaining and raising the quality and standard of
-									higher education for the students as in international standards. This practical and
-									need-based curricula will produce highly qualified trained scientists and
-									technologists for the needs of Bangladesh as well as the world employment market.
-								</p>
-							</div>
+							{info && (
+								<div className={Styles.eduHub__profile__about_about_details}>
+									<p>
+										The government passed an act on 15 July 2001 to establish a science and
+										technology university in Pabna. Pabna is a central district town in northern
+										Bangladesh, having a long historical and cultural heritage. The academic
+										curriculum of Pabna University of Science and Technology was started on 15 July
+										2008. This university plays an innovative role in providing need-based higher
+										education, training, and research. The university is committed to maintaining
+										and raising the quality and standard of higher education for the students as in
+										international standards. This practical and need-based curricula will produce
+										highly qualified trained scientists and technologists for the needs of
+										Bangladesh as well as the world employment market.
+									</p>
+								</div>
+							)}
 						</EduHubProfileAbout>
 
 						{/* <!-- Contacts Section --> */}
 						<EduHubProfileAbout className={Styles.eduHub__profile__contact}>
-							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__contact_heading}>
+							<EduHubProfileInfoContentIcon
+								className={Styles.eduHub__profile__contact_heading}
+								onClick={() => setContact(!contact)}
+							>
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Contacts</p>
 							</EduHubProfileInfoContentIcon>
-							<div className={Styles.eduHub__profile__contact_inner_heading}>
-								<p>
-									<span>
-										<i>
-											<FontAwesomeIcon icon={faPhoneAlt} size='1.5x' />
-										</i>
-									</span>{' '}
-									Phone
-								</p>
-							</div>
-							<div className={Styles.eduHub__profile__contact_list}>
-								<ul>
-									<li>
-										<i>
-											<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
-										</i>{' '}
-										<span>01988906494</span>{' '}
-									</li>
-									<li>
-										<i>
-											<FontAwesomeIcon icon={faAlignLeft} size='1.5x' />
-										</i>
-										<span> Register office</span>{' '}
-									</li>
-								</ul>
-							</div>
+							{contact && (
+								<Fragment>
+									<div className={Styles.eduHub__profile__contact_inner_heading}>
+										<p>
+											<span>
+												<i>
+													<FontAwesomeIcon icon={faPhoneAlt} size='1.5x' />
+												</i>
+											</span>{' '}
+											Phone
+										</p>
+									</div>
+									<div className={Styles.eduHub__profile__contact_list}>
+										<ul>
+											<li>
+												<i>
+													<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
+												</i>{' '}
+												<span>01988906494</span>{' '}
+											</li>
+											<li>
+												<i>
+													<FontAwesomeIcon icon={faAlignLeft} size='1.5x' />
+												</i>
+												<span> Register office</span>{' '}
+											</li>
+										</ul>
+									</div>
 
-							<div className={Styles.eduHub__profile__contact_inner_heading}>
-								<p>
-									<span>
-										<i>
-											<FontAwesomeIcon icon={faMobileAlt} size='1.5x' />
-										</i>
-									</span>
-									Mobile
-								</p>
-							</div>
-							<div className={Styles.eduHub__profile__contact_list}>
-								<ul>
-									<li>
-										<i>
-											<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
-										</i>
-										<span> 01988906494</span>
-									</li>
-									<li>
-										<i>
-											<FontAwesomeIcon icon={faMobileAlt} size='1.5x' />
-										</i>
-										<span>Register office</span>{' '}
-									</li>
-								</ul>
-							</div>
+									<div className={Styles.eduHub__profile__contact_inner_heading}>
+										<p>
+											<span>
+												<i>
+													<FontAwesomeIcon icon={faMobileAlt} size='1.5x' />
+												</i>
+											</span>
+											Mobile
+										</p>
+									</div>
+									<div className={Styles.eduHub__profile__contact_list}>
+										<ul>
+											<li>
+												<i>
+													<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
+												</i>
+												<span> 01988906494</span>
+											</li>
+											<li>
+												<i>
+													<FontAwesomeIcon icon={faMobileAlt} size='1.5x' />
+												</i>
+												<span>Register office</span>{' '}
+											</li>
+										</ul>
+									</div>
 
-							<div className={Styles.eduHub__profile__contact_inner_heading}>
-								<p>
-									<span>
-										<i>
-											<FontAwesomeIcon icon={faEnvelope} size='1.5x' />
-										</i>
-									</span>{' '}
-									Email
-								</p>
-							</div>
-							<div className={Styles.eduHub__profile__contact_list}>
-								<ul>
-									<li>
-										<i>
-											<FontAwesomeIcon icon={faAt} size='1.5x' />
-										</i>{' '}
-										<span>eduHub@gmail.com</span>{' '}
-									</li>
-								</ul>
-							</div>
+									<div className={Styles.eduHub__profile__contact_inner_heading}>
+										<p>
+											<span>
+												<i>
+													<FontAwesomeIcon icon={faEnvelope} size='1.5x' />
+												</i>
+											</span>{' '}
+											Email
+										</p>
+									</div>
+									<div className={Styles.eduHub__profile__contact_list}>
+										<ul>
+											<li>
+												<i>
+													<FontAwesomeIcon icon={faAt} size='1.5x' />
+												</i>{' '}
+												<span>eduHub@gmail.com</span>{' '}
+											</li>
+										</ul>
+									</div>
+								</Fragment>
+							)}
 						</EduHubProfileAbout>
 						<EduHubProfileAbout className={Styles.eduHub__profile__location}>
-							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__location_heading}>
+							<EduHubProfileInfoContentIcon
+								className={Styles.eduHub__profile__location_heading}
+								onClick={() => setLocation(!location)}
+							>
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Location</p>
 							</EduHubProfileInfoContentIcon>
-							<div className={Styles.eduHub__profile__contact_inner_heading}>
-								<p>
-									<i>
-										<FontAwesomeIcon icon={faLocationArrow} size='1.5x' />
-									</i>
-									<span>Address</span>{' '}
-								</p>
-							</div>
-							<EduHubProfileAbout className={Styles.eduHub__profile__contact} style={{ border: 'none' }}>
-								<ul>
-									<li>
-										<i>
-											<FontAwesomeIcon icon={faCity} size='1.5x' />
-										</i>{' '}
-										<span> Rajapur ,6600, Pabna</span>
-									</li>
-								</ul>
-							</EduHubProfileAbout>
-							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__location_map}>
-								<p>use map</p>
-							</EduHubProfileInfoContentIcon>
+							{location && (
+								<Fragment>
+									<div className={Styles.eduHub__profile__contact_inner_heading}>
+										<p>
+											<i>
+												<FontAwesomeIcon icon={faLocationArrow} size='1.5x' />
+											</i>
+											<span>Address</span>{' '}
+										</p>
+									</div>
+									<EduHubProfileAbout
+										className={Styles.eduHub__profile__contact}
+										style={{ border: 'none' }}
+									>
+										<ul>
+											<li>
+												<i>
+													<FontAwesomeIcon icon={faCity} size='1.5x' />
+												</i>{' '}
+												<span> Rajapur ,6600, Pabna</span>
+											</li>
+										</ul>
+									</EduHubProfileAbout>
+									<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__location_map}>
+										<p>use map</p>
+									</EduHubProfileInfoContentIcon>
+								</Fragment>
+							)}
 						</EduHubProfileAbout>
 					</EduHubProfile>
 				</Fragment>
