@@ -1,7 +1,7 @@
-const HubTree = require('../model/hubTreeModel');
-const APIFeatures = require('../utils/apiFeatures');
-const AppError = require('./../utils/appError');
-const catchAsync = require('./../utils/catchAsync');
+const HubTree = require('../../model/hubTreeModel');
+const APIFeatures = require('../../utils/apiFeatures');
+const AppError = require('../../utils/appError');
+const catchAsync = require('../../utils/catchAsync');
 
 // TODO: When Dept will be update then HubTree also need to update...
 

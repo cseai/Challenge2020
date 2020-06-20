@@ -30,11 +30,12 @@ devDependencies:
 ```
 
 ## API Documentation
-
 Links:
 - Go to [API Documentation README --> `api_doc/README.md`](api_doc/README.md)
--   See at `src/API-Doc.md` [API-Doc.md](src/API-Doc.md)
--   All API did not publish for some reason. [Postman Generatet Public API Documentation](https://documenter.getpostman.com/view/5663139/SzmY7fpM)
+
+## src/README and BUG Fixing Doc
+If you got any `ERROR` or `BUG` please note it at [src/README.md](src/README.md).
+Go to [src/README.md](src/README.md)
 
 ## Contributing
 

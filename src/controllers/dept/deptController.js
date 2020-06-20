@@ -1,10 +1,10 @@
-const Dept = require('../model/deptModel');
-const MemberGroup = require('../model/memberGroupModel');
-const Library = require('../model/libraryModel');
-const HubTree = require('../model/hubTreeModel');
-const APIFeatures = require('../utils/apiFeatures');
-const AppError = require('./../utils/appError');
-const catchAsync = require('./../utils/catchAsync');
+const Dept = require('../../model/deptModel');
+const MemberGroup = require('../../model/memberGroupModel');
+const Library = require('../../model/libraryModel');
+const HubTree = require('../../model/hubTreeModel');
+const APIFeatures = require('../../utils/apiFeatures');
+const AppError = require('../../utils/appError');
+const catchAsync = require('../../utils/catchAsync');
 
 exports.getAllDepts = catchAsync(async (req, res, next) => {
 	// EXECUTE QUERY

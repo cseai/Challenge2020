@@ -1,9 +1,9 @@
-const Resource = require('../model/resourceModel');
-const Library = require('../model/libraryModel');
-const Dept = require('../model/deptModel');
-const APIFeatures = require('../utils/apiFeatures');
-const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
+const Resource = require('../../model/resourceModel');
+const Library = require('../../model/libraryModel');
+const Dept = require('../../model/deptModel');
+const APIFeatures = require('../../utils/apiFeatures');
+const AppError = require('../../utils/appError');
+const catchAsync = require('../../utils/catchAsync');
 
 exports.getAllResources = catchAsync(async (req, res, next) => {
     // NOTE: This is Resources of a specific Library

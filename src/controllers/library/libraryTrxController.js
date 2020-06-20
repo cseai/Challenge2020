@@ -1,11 +1,11 @@
-const Trx = require('../model/transactionModel');
-const Library = require('../model/libraryModel');
-const Book = require('../model/bookModel');
-const Resource = require('../model/resourceModel');
-const MemberGroup = require('../model/memberGroupModel');
-const APIFeatures = require('../utils/apiFeatures');
-const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
+const Trx = require('../../model/transactionModel');
+const Library = require('../../model/libraryModel');
+const Book = require('../../model/bookModel');
+const Resource = require('../../model/resourceModel');
+const MemberGroup = require('../../model/memberGroupModel');
+const APIFeatures = require('../../utils/apiFeatures');
+const AppError = require('../../utils/appError');
+const catchAsync = require('../../utils/catchAsync');
 
 // ALL TRANSACTION
 exports.getAllTrxs = catchAsync(async (req, res, next) => {

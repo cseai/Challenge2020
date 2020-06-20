@@ -1,9 +1,9 @@
-const Book = require('../model/bookModel');
-const Dept = require('../model/deptModel');
-const Library = require('../model/libraryModel');
-const APIFeatures = require('../utils/apiFeatures');
-const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
+const Book = require('../../model/bookModel');
+const Dept = require('../../model/deptModel');
+const Library = require('../../model/libraryModel');
+const APIFeatures = require('../../utils/apiFeatures');
+const AppError = require('../../utils/appError');
+const catchAsync = require('../../utils/catchAsync');
 
 exports.getAllBooks = catchAsync(async (req, res, next) => {
     // NOTE: This is Books of a specific Library

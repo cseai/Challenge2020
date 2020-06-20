@@ -1,13 +1,13 @@
-const Library = require('../model/libraryModel');
-const Author = require('../model/authorModel');
-const Book = require('../model/bookModel');
-const Resource = require('../model/resourceModel');
-const Transaction = require('../model/transactionModel');
-const Dept = require('../model/deptModel');
-const MemberGroup = require('../model/memberGroupModel');
-const APIFeatures = require('../utils/apiFeatures');
-const AppError = require('./../utils/appError');
-const catchAsync = require('./../utils/catchAsync');
+const Library = require('../../model/libraryModel');
+const Author = require('../../model/authorModel');
+const Book = require('../../model/bookModel');
+const Resource = require('../../model/resourceModel');
+const Transaction = require('../../model/transactionModel');
+const Dept = require('../../model/deptModel');
+const MemberGroup = require('../../model/memberGroupModel');
+const APIFeatures = require('../../utils/apiFeatures');
+const AppError = require('../../utils/appError');
+const catchAsync = require('../../utils/catchAsync');
 
 exports.getAllLibraries = catchAsync(async (req, res, next) => {
 	// EXECUTE QUERY

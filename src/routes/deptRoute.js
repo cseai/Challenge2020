@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const deptController = require('../controllers/deptController');
+const deptController = require('../controllers/dept/deptController');
 const authController = require('../controllers/authController');
 
 router.route('/eduhubs/').get(authController.protect, deptController.getAllEduHubs);

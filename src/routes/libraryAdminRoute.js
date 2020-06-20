@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const libraryController = require('../controllers/libraryController');
+const libraryController = require('../controllers/library/libraryController');
 const authController = require('../controllers/authController');
-const libraryBookController = require('../controllers/libraryBookController');
-const libraryResourceController = require('../controllers/libraryResourceController');
-const libraryTrxController = require('../controllers/libraryTrxController');
+const libraryBookController = require('../controllers/library/libraryBookController');
+const libraryResourceController = require('../controllers/library/libraryResourceController');
+const libraryTrxController = require('../controllers/library/libraryTrxController');
 
 // Library
 router.route('/:libraryId/addcontrollers').patch(authController.protect, libraryController.addControllers);

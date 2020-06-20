@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const hubTreeController = require('../controllers/hubTreeController');
+const hubTreeController = require('../controllers/dept/hubTreeController');
 const authController = require('../controllers/authController');
 
 router.route('/').get(authController.protect, hubTreeController.getAllHubTrees);

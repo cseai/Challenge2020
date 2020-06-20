@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const libraryAdminRiute = require('./libraryAdminRoute');
-const libraryController = require('../controllers/libraryController');
+const libraryController = require('../controllers/library/libraryController');
 const authController = require('../controllers/authController');
-const libraryBookController = require('../controllers/libraryBookController');
-const libraryResourceController = require('../controllers/libraryResourceController');
+const libraryBookController = require('../controllers/library/libraryBookController');
+const libraryResourceController = require('../controllers/library/libraryResourceController');
 
 // Library admin-panel
 router.use('/admin', libraryAdminRiute);
