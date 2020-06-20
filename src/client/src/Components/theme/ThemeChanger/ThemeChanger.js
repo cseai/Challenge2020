@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from './ThemeChanger.module.css';
-import { ThemeMode } from './ThemeChangerContainer';
+import { ThemeModeDark,ThemeModeLight } from './ThemeChangerContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
@@ -22,12 +22,12 @@ const ThemeChanger = ({ themeMode }) => {
 		<Fragment>
 			<div className={styled.theme__changer}>
 				<div className={styled.toggle}>
-					<div className={styled.theme__changer_light} onClick={() => themeChange('light')}>
-						<FontAwesomeIcon icon={faSun} color='#ccc' size='3x' type='button' />
-					</div>
-					<div className={styled.theme__changer_dark} onClick={() => themeChange('dark')}>
-						<FontAwesomeIcon icon={faMoon} color='black' size='3x' type='button' />
-					</div>
+					<ThemeModeLight onClick={() => themeChange('light')}>
+						<FontAwesomeIcon icon={faSun} size='3x' type='button' />
+					</ThemeModeLight>
+					<ThemeModeDark onClick={() => themeChange('dark')}>
+						<FontAwesomeIcon icon={faMoon} size='3x' type='button' />
+					</ThemeModeDark>
 				</div>
 			</div>
 			{/* <div className={styled.toggleChange}>

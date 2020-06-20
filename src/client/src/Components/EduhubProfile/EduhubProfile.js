@@ -1,6 +1,12 @@
 import React, { Fragment } from 'react';
 import Styles from './EduhubProfile.module.css';
-import { EduHubProfile, EduHubProfileInfo } from './EduhubProfileContainer';
+import {
+	EduHubProfile,
+	EduHubProfileInfo,
+	EduHubProfileInfoContentSide,
+	EduHubProfileInfoContentIcon,
+	EduHubProfileAbout,
+} from './EduhubProfileContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faUniversity,
@@ -59,36 +65,41 @@ const EduhubProfile = () => {
 						{/* <!-- user info --> */}
 						<EduHubProfileInfo>
 							<div className={Styles.eduHub__profile__info_content}>
-								<div className={Styles.eduHub__profile__info_content_icon}>
-									<div className={Styles.eduHub__profile__info_content_side}></div>
+								<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__info_content_icon}>
+									<EduHubProfileInfoContentSide className={Styles.eduHub__profile__info_content_side}>
+										{/* <div className={Styles.eduHub__profile__info_content_side}></div> */}
+									</EduHubProfileInfoContentSide>
+
 									<i>
 										<FontAwesomeIcon icon={faUniversity} size='1.5x' />
 									</i>
-								</div>
+								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
 									<p>University</p>
 								</div>
 							</div>
 
 							<div className={Styles.eduHub__profile__info_content}>
-								<div className={Styles.eduHub__profile__info_content_icon}>
-									<div className={Styles.eduHub__profile__info_content_side}></div>
+								<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__info_content_icon}>
+									<EduHubProfileInfoContentSide
+										className={Styles.eduHub__profile__info_content_side}
+									></EduHubProfileInfoContentSide>
 									<i>
 										<FontAwesomeIcon icon={faCheck} size='1.5x' />
 									</i>
-								</div>
+								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
 									<p>Pabna University of Science And Technology</p>
 								</div>
 							</div>
 
 							<div className={Styles.eduHub__profile__info_content}>
-								<div className={Styles.eduHub__profile__info_content_icon}>
+								<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__info_content_icon}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<i>
 										<FontAwesomeIcon icon={faCalendar} size='1.5x' />
 									</i>
-								</div>
+								</EduHubProfileInfoContentIcon>
 
 								<div className={Styles.text}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
@@ -116,12 +127,12 @@ const EduhubProfile = () => {
 							</div>
 
 							<div className={Styles.eduHub__profile__info_content}>
-								<div className={Styles.eduHub__profile__info_content_icon}>
+								<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__info_content_icon}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<i>
 										<FontAwesomeIcon icon={faUserFriends} size='1.5x' />
 									</i>
-								</div>
+								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
 									<p>25.2k Members</p>
 								</div>
@@ -129,11 +140,11 @@ const EduhubProfile = () => {
 						</EduHubProfileInfo>
 
 						{/* <!-- About us section --> */}
-						<div className={Styles.eduHub__profile__about}>
-							<div className={Styles.eduHub__profile__about_heading}>
+						<EduHubProfileAbout className={Styles.eduHub__profile__about}>
+							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__about_heading}>
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>About Us</p>
-							</div>
+							</EduHubProfileInfoContentIcon>
 							<div className={Styles.eduHub__profile__about_about_details}>
 								<p>
 									The government passed an act on 15 July 2001 to establish a science and technology
@@ -147,14 +158,14 @@ const EduhubProfile = () => {
 									technologists for the needs of Bangladesh as well as the world employment market.
 								</p>
 							</div>
-						</div>
+						</EduHubProfileAbout>
 
 						{/* <!-- Contacts Section --> */}
-						<div className={Styles.eduHub__profile__contact}>
-							<div className={Styles.eduHub__profile__contact_heading}>
+						<EduHubProfileAbout className={Styles.eduHub__profile__contact}>
+							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__contact_heading}>
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Contacts</p>
-							</div>
+							</EduHubProfileInfoContentIcon>
 							<div className={Styles.eduHub__profile__contact_inner_heading}>
 								<p>
 									<span>
@@ -229,12 +240,12 @@ const EduhubProfile = () => {
 									</li>
 								</ul>
 							</div>
-						</div>
-						<div className={Styles.eduHub__profile__location}>
-							<div className={Styles.eduHub__profile__location_heading}>
+						</EduHubProfileAbout>
+						<EduHubProfileAbout className={Styles.eduHub__profile__location}>
+							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__location_heading}>
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Location</p>
-							</div>
+							</EduHubProfileInfoContentIcon>
 							<div className={Styles.eduHub__profile__contact_inner_heading}>
 								<p>
 									<i>
@@ -243,7 +254,7 @@ const EduhubProfile = () => {
 									<span>Address</span>{' '}
 								</p>
 							</div>
-							<div className={Styles.eduHub__profile__contact}>
+							<EduHubProfileAbout className={Styles.eduHub__profile__contact} style={{ border: 'none' }}>
 								<ul>
 									<li>
 										<i>
@@ -252,11 +263,11 @@ const EduhubProfile = () => {
 										<span> Rajapur ,6600, Pabna</span>
 									</li>
 								</ul>
-							</div>
-							<div className={Styles.eduHub__profile__location_map}>
+							</EduHubProfileAbout>
+							<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__location_map}>
 								<p>use map</p>
-							</div>
-						</div>
+							</EduHubProfileInfoContentIcon>
+						</EduHubProfileAbout>
 					</EduHubProfile>
 				</Fragment>
 			}

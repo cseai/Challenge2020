@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 // theme
 import { SignIn } from './Components/auth/LightContainer';
 
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+
 import { themeMode } from './actions/configAction';
 import lightTheme from './Components/theme/Light';
 import darkTheme from './Components/theme/Dark';
@@ -34,6 +35,7 @@ const App = ({ themeMode, darkMode }) => {
 
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
+			<GlobalStyle />
 			<Router>
 				<Fragment>
 					<Route exact path='/' component={LandingPage} />
@@ -64,5 +66,13 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
 	darkMode: state.config.darkMode,
 });
+
+const GlobalStyle = createGlobalStyle`
+	body {
+		background: ${(props) => props.theme.colors.background};
+		color: ${({ theme }) => theme.colors.color};
+		transition: all 0.25s linear;
+}
+`;
 
 export default connect(mapStateToProps, { themeMode })(App);

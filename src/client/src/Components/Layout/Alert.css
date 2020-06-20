@@ -1,12 +1,11 @@
 .danger {
 	width: 90%;
-	background-color: red;
+	background-color: #af2c2c;
 	text-align: center;
 	margin-bottom: 20px;
 	padding: 9px 0px;
-	min-height: 10px;
-	font-size: 12px;
-	border-radius: 10px;
+	min-height: 30px;
+	font-size: 16px;
 	font-weight: 300;
 }
 .msg {
