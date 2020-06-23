@@ -1,18 +1,20 @@
 import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 import Style from './Register.module.css';
-import { SignIn } from './LightContainer.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ThemeChanger from './../theme/ThemeChanger/ThemeChanger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
-import PropTypes from 'prop-types';
+import { SignIn } from './LightContainer.js';
 import LeftImage from './../img/undraw_true_friends_c94g.svg';
 import AvaterImg from './../img/undraw_profile_pic_ic5t (1).svg';
 import { register } from '../../actions/authAction';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import Alert from './../Layout/Alert';
 
-const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
+const Register = ({ register, auth: { isAuthenticated, loading, msg }, alerts }) => {
 	const [formData, setFormData] = useState({
 		username: '',
 		email: '',
@@ -25,6 +27,22 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 		register({ username, email, password });
 		console.log(username, password, email);
 	};
+	// tostify alert for error or success
+	if (alerts !== null && alerts.length > 0) {
+		alerts.map((alert) => {
+			if (alert.alertType === 'danger' && alerts.length < 2) {
+				toast.error(alert.msg, {
+					position: 'top-right',
+					autoClose: 2500,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
+		});
+	}
 	if (isAuthenticated && !loading) {
 		return <Redirect to='/home' />;
 	}
@@ -41,8 +59,21 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 					</div>
 					{/* <!-- 2nd part --> */}
 					<div className={Style.signin__main___right}>
-						<Alert />
-
+						<ToastContainer
+							position='top-right'
+							autoClose={2500}
+							hideProgressBar={false}
+							newestOnTop
+							closeOnClick
+							rtl={false}
+							pauseOnFocusLoss
+							draggable
+							pauseOnHover
+							style={{
+								fontSize: '16px',
+								color: '#35393b',
+							}}
+						/>
 						<div className={Style.signin__main___right_avater}>
 							<img src={AvaterImg} alt='for good' />
 						</div>
@@ -124,10 +155,12 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg } }) => {
 Register.propTypes = {
 	register: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool.isRequired,
+	alerts: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
+	alerts: state.alert,
 });
 
 export default connect(mapStateToProps, { register })(Register);

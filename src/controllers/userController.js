@@ -24,18 +24,17 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 	});
 });
 
+// @route    GET api/v1/users/currentUser
+// @desc     load current user
+// @access   Private
+
 exports.getUser = catchAsync(async (req, res, next) => {
-	const user = await User.findById(req.params.id);
+	console.log('error from get current user');
+	const user = await User.findById(req.user).select('-_id -createdAt -__v');
 	if (!user) {
 		return next(new AppError(`User doesn't exists!`, 404));
 	}
-	res.status(200).json({
-		success: true,
-		msg: 'Get User',
-		data: {
-			user,
-		},
-	});
+	res.status(200).json(user);
 });
 
 exports.createUser = catchAsync(async (req, res, next) => {

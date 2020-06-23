@@ -2,6 +2,9 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Styles from './EduhubProfile.module.css';
+import './EduhubProfile.module.css';
+import Main from './../Layout/MainSection/Main';
+import Moment from 'react-moment';
 import {
 	EduHubProfile,
 	EduHubProfileInfo,
@@ -27,8 +30,7 @@ import {
 	faLocationArrow,
 	faCity,
 } from '@fortawesome/free-solid-svg-icons';
-import './EduhubProfile.module.css';
-import Main from './../Layout/MainSection/Main';
+
 // action
 import { geteduhub } from './../../actions/eduHubAction';
 
@@ -116,7 +118,7 @@ const EduhubProfile = ({ geteduhub, eduhub: { loading, eduhub } }) => {
 								<div className={Styles.text}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<p>
-										Established since {eduhub.eduHub.since}{' '}
+										Established since <Moment format='YYYY'>{eduhub.eduHub.since}</Moment>{' '}
 										<span>
 											<i>
 												<FontAwesomeIcon icon={faStar} size='1.5x' />

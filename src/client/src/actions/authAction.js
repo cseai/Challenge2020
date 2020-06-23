@@ -1,7 +1,25 @@
 import axios from 'axios';
 import { setAlert } from './../actions/alertAction';
-// import setAuthToken from '../utils/setAuthToken';
-import { LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_SUCCESS, REGISTER_FAIL } from './types';
+import setAuthToken from '../utils/setAuthToken';
+import { LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_SUCCESS, REGISTER_FAIL, LOGOUT, AUTH_ERROR, LOAD_USER } from './types';
+
+// load user
+export const loadUser = () => async (dispatch) => {
+	if (window.localStorage.token) {
+		setAuthToken(localStorage.token);
+	}
+	try {
+		const user = await axios.get('/api/v1/users/currentUser');
+		dispatch({
+			type: LOAD_USER,
+			payload: user.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: AUTH_ERROR,
+		});
+	}
+};
 
 // login
 export const login = (email, password) => async (dispatch) => {
@@ -73,4 +91,11 @@ export const register = ({ username, email, password }) => async (dispatch) => {
 			type: REGISTER_FAIL,
 		});
 	}
+};
+
+// LOGOUT
+export const logout = () => (dispatch) => {
+	dispatch({
+		type: LOGOUT,
+	});
 };

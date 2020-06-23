@@ -2,17 +2,18 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { Provider } from 'react-redux';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { GlobalConatiner } from './Components/theme/GlobalContainer';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import store from './store';
+import { loadUser } from './actions/authAction';
 // theme
-import { SignIn } from './Components/auth/LightContainer';
-
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
-
 import { themeMode } from './actions/configAction';
 import lightTheme from './Components/theme/Light';
 import darkTheme from './Components/theme/Dark';
+// components
 import NewsBoard from './Components/NewsBoard/NewsBoard';
 import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
 import Dash from './Components/NewsBoard/Dash';
@@ -32,7 +33,10 @@ const App = ({ themeMode, darkMode }) => {
 		themeMode(window.localStorage.getItem('theme'));
 		// console.log('theme colors ' + darkMode);
 	}, [themeMode, darkMode]);
-
+	// load user
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyle />

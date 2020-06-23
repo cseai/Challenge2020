@@ -12,6 +12,13 @@ const signToken = (id) => {
 	});
 };
 
+// exports.user = catchAsync(async (req, res, next) => {
+// 	const user = await User.findById(req.user);
+// 	if (user) {
+// 		return res.status(200).json(user);
+// 	}
+// });
+
 // @route    POST api/v1/users/signup
 // @desc     signup  user and get token
 // @access   Public
