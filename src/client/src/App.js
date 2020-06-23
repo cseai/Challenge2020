@@ -30,7 +30,7 @@ if (localStorage.token) {
 const App = ({ themeMode, darkMode }) => {
 	useEffect(() => {
 		themeMode(window.localStorage.getItem('theme'));
-		console.log('theme colors ' + darkMode);
+		// console.log('theme colors ' + darkMode);
 	}, [themeMode, darkMode]);
 
 	return (

@@ -4,7 +4,8 @@ const { getAllProfile, createProfile } = require('./../controllers/profileContro
 const { protect } = require('./../controllers/authController');
 
 router.get('/', protect, getAllProfile).post(
-	'/:userId',
+	'/',
+	// '/:userId',
 	// [
 	// 	check('firstName', 'first name cant empty').not().empty(),
 	// 	check('lastName', 'Last Name cant be empyt').not().empty(),

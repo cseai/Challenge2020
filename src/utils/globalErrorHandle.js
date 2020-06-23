@@ -67,7 +67,7 @@ const sendErrorProd = (err, res) => {
 
 // error handler for dev mode
 const errorDev = (err, res) => {
-	// console.log(err.stack);
+	console.log(err.stack);
 	return res.status(err.statusCode).json({
 		success: false,
 		status: err.status,

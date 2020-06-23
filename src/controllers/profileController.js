@@ -7,10 +7,12 @@ const Profile = require('../model/profileModel');
 //@desc     get all users
 //@access   private
 exports.getAllProfile = catchAsync(async (req, res) => {
-	const profile = await Profile.find();
+	// const profile = await Profile.find();
+	user = req.user._id;
 	res.status(200).json({
 		success: true,
-		data: profile,
+		// data: profile,
+		user,
 	});
 });
 
@@ -20,38 +22,44 @@ exports.getAllProfile = catchAsync(async (req, res) => {
 exports.createProfile = catchAsync(async (req, res) => {
 	// for now user id gets from params, in future it get from loged user id
 	// find user exist or not
-	const user = await User.findById({ _id: req.params.userId });
-	if (!user) {
-		return res.status(404).json({
-			success: false,
-			msg: 'user not found',
-		});
-	}
+	console.log(`${typeof JSON.stringify(req.user)}`.red);
+	const id = JSON.stringify(req.user);
+	const user = await User.findById(req.user);
+	console.log(`${user}`.red);
+
+	// if (!user) {
+	// 	console.log(user);
+
+	// 	return res.status(404).json({
+	// 		success: false,
+	// 		msg: 'user not found',
+	// 	});
+	// }
 	// destructure the req
-	const { firstName, lastName, type, numbers, birthday, country, place, zip } = req.body;
-	const newProfile = {};
-	newProfile.user = user._id;
-	if (firstName) newProfile.firstName = firstName;
-	if (lastName) newProfile.lastName = lastName;
-	if (birthday) newProfile.birthday = birthday;
-	// contact
-	newProfile.contacts = [];
-	const newContact = { type, numbers };
-	newProfile.contacts.unshift(newContact);
-	//address
-	newProfile.presentAddress = {};
-	if (country) newProfile.presentAddress.country = country;
-	if (zip) newProfile.presentAddress.zip = zip;
+	// const { firstName, lastName, type, numbers, birthday, country, place, zipCode } = req.body;
+	// const newProfile = {};
+	// newProfile.user = req.user;
+	// if (firstName) newProfile.firstName = firstName;
+	// if (lastName) newProfile.lastName = lastName;
+	// if (birthday) newProfile.birthday = birthday;
+	// // contact
+	// newProfile.contacts = [];
+	// const newContact = { type, numbers };
+	// newProfile.contacts.unshift(newContact);
+	// //address
+	// newProfile.presentAddress = {};
+	// if (country) newProfile.presentAddress.country = country;
+	// if (zipCode) newProfile.presentAddress.zip = zipCode;
 
-	newProfile.presentAddress.place = [];
-	if (place) newProfile.presentAddress.place = place;
+	// newProfile.presentAddress.place = [];
+	// if (place) newProfile.presentAddress.place = place;
 
-	// create new profile
-	let profile = new Profile(newProfile);
-	await profile.save();
+	// // create new profile
+	// let profile = new Profile(newProfile);
+	// await profile.save();
 
-	res.status(200).json({
-		success: true,
-		data: newProfile,
-	});
+	// res.status(200).json({
+	// 	success: true,
+	// 	data: newProfile,
+	// });
 });

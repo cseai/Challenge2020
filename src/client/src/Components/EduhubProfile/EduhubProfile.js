@@ -1,4 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Styles from './EduhubProfile.module.css';
 import {
 	EduHubProfile,
@@ -25,15 +27,24 @@ import {
 	faLocationArrow,
 	faCity,
 } from '@fortawesome/free-solid-svg-icons';
-// import PropTypes from 'prop-types';
 import './EduhubProfile.module.css';
 import Main from './../Layout/MainSection/Main';
+// action
+import { geteduhub } from './../../actions/eduHubAction';
 
-const EduhubProfile = () => {
+const EduhubProfile = ({ geteduhub, eduhub: { loading, eduhub } }) => {
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
-	return (
+	//eduhub
+	useEffect(() => {
+		geteduhub();
+		console.log('hello');
+	}, []);
+
+	return loading && eduhub === null ? (
+		<Main eduhub={<Fragment>loading</Fragment>} />
+	) : (
 		<Main
 			eduhub={
 				<Fragment>
@@ -53,13 +64,13 @@ const EduhubProfile = () => {
 								</div>
 							</div>
 							<div className={Styles.eduHub__profile__image_profile_image}>
-								<img src={require('./images/rain-bus-1.jpg')} alt='profile picture' />
+								<img src={require('./images/rain-bus-1.jpg')} alt='profile picture good' />
 								<div className={Styles.eduHub__profile__image_profile_image_overlay}>
 									<div className={Styles.eduHub__profile__image_cover_image_overlay_upload}>
 										<i>
 											<FontAwesomeIcon icon={faCamera} size='1.5x' />
 										</i>
-										<span>Upload</span>
+										<span>Upload </span>
 									</div>
 								</div>
 							</div>
@@ -76,7 +87,7 @@ const EduhubProfile = () => {
 									</i>
 								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>University</p>
+									<p>{eduhub.eduHub.category}</p>
 								</div>
 							</div>
 
@@ -90,7 +101,7 @@ const EduhubProfile = () => {
 									</i>
 								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>Pabna University of Science And Technology</p>
+									<p>{eduhub.eduHub.name}</p>
 								</div>
 							</div>
 
@@ -105,7 +116,7 @@ const EduhubProfile = () => {
 								<div className={Styles.text}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<p>
-										Established since 2008{' '}
+										Established since {eduhub.eduHub.since}{' '}
 										<span>
 											<i>
 												<FontAwesomeIcon icon={faStar} size='1.5x' />
@@ -151,18 +162,7 @@ const EduhubProfile = () => {
 							</EduHubProfileInfoContentIcon>
 							{info && (
 								<div className={Styles.eduHub__profile__about_about_details}>
-									<p>
-										The government passed an act on 15 July 2001 to establish a science and
-										technology university in Pabna. Pabna is a central district town in northern
-										Bangladesh, having a long historical and cultural heritage. The academic
-										curriculum of Pabna University of Science and Technology was started on 15 July
-										2008. This university plays an innovative role in providing need-based higher
-										education, training, and research. The university is committed to maintaining
-										and raising the quality and standard of higher education for the students as in
-										international standards. This practical and need-based curricula will produce
-										highly qualified trained scientists and technologists for the needs of
-										Bangladesh as well as the world employment market.
-									</p>
+									<p>{eduhub.eduHub.shortDescription}</p>
 								</div>
 							)}
 						</EduHubProfileAbout>
@@ -185,7 +185,7 @@ const EduhubProfile = () => {
 													<FontAwesomeIcon icon={faPhoneAlt} size='1.5x' />
 												</i>
 											</span>{' '}
-											Phone
+											{eduhub.eduHub.contacts[0].method}
 										</p>
 									</div>
 									<div className={Styles.eduHub__profile__contact_list}>
@@ -194,7 +194,7 @@ const EduhubProfile = () => {
 												<i>
 													<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
 												</i>{' '}
-												<span>01988906494</span>{' '}
+												<span>{eduhub.eduHub.contacts[0].numbers[0].number}</span>{' '}
 											</li>
 											<li>
 												<i>
@@ -212,7 +212,7 @@ const EduhubProfile = () => {
 													<FontAwesomeIcon icon={faMobileAlt} size='1.5x' />
 												</i>
 											</span>
-											Mobile
+											{eduhub.eduHub.contacts[1].method}
 										</p>
 									</div>
 									<div className={Styles.eduHub__profile__contact_list}>
@@ -221,7 +221,7 @@ const EduhubProfile = () => {
 												<i>
 													<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
 												</i>
-												<span> 01988906494</span>
+												<span> {eduhub.eduHub.contacts[1].numbers[0].number}</span>
 											</li>
 											<li>
 												<i>
@@ -239,7 +239,7 @@ const EduhubProfile = () => {
 													<FontAwesomeIcon icon={faEnvelope} size='1.5x' />
 												</i>
 											</span>{' '}
-											Email
+											{eduhub.eduHub.contacts[2].method}
 										</p>
 									</div>
 									<div className={Styles.eduHub__profile__contact_list}>
@@ -248,7 +248,7 @@ const EduhubProfile = () => {
 												<i>
 													<FontAwesomeIcon icon={faAt} size='1.5x' />
 												</i>{' '}
-												<span>eduHub@gmail.com</span>{' '}
+												<span>{eduhub.eduHub.contacts[2].numbers[0].number}</span>{' '}
 											</li>
 										</ul>
 									</div>
@@ -299,8 +299,13 @@ const EduhubProfile = () => {
 	);
 };
 
-// EduhubProfile.propTypes = {
+EduhubProfile.propTypes = {
+	geteduhub: PropTypes.func.isRequired,
+	eduhub: PropTypes.array.isRequired,
+};
 
-// }
+const mapStateToProps = (state) => ({
+	eduhub: state.eduhub,
+});
 
-export default EduhubProfile;
+export default connect(mapStateToProps, { geteduhub })(EduhubProfile);

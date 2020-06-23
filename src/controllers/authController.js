@@ -6,6 +6,7 @@ const catchAsync = require('./../utils/catchAsync');
 const { validationResult } = require('express-validator');
 
 const signToken = (id) => {
+	console.log('user id'.red, id);
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
 		expiresIn: process.env.JWT_EXPIRES_IN,
 	});
@@ -41,6 +42,8 @@ exports.signup = catchAsync(async (req, res, next) => {
 // @desc     user login and get token
 // @access   Public
 exports.login = catchAsync(async (req, res, next) => {
+	console.log('user login');
+
 	// check validator
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -95,5 +98,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 	// GRANT ACCESS TO PROTECTED ROUTE
 	req.user = currentUser;
+	console.log('logged user id' + `${req.user._id}`.red);
 	next();
 });

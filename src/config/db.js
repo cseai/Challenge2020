@@ -8,7 +8,10 @@ const ConnectDB = async () => {
 		// if use global database
 		// const DB = process.env.MONGODB_URI.replace('<password>', process.env.MONGODB_PASSWORD);
 
-		const DB = process.env.USING_DB === 'local' ? process.env.LOCAL_DB.replace('<db_name>', process.env.DB_NAME) : process.env.MONGODB_URI.replace('<password>', process.env.MONGODB_PASSWORD);
+		const DB =
+			process.env.USING_DB === 'local'
+				? process.env.LOCAL_DB.replace('<db_name>', process.env.DB_NAME)
+				: process.env.MONGODB_URI.replace('<password>', process.env.MONGODB_PASSWORD);
 
 		const conn = await mongoose.connect(DB, {
 			useNewUrlParser: true,
