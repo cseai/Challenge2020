@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import Style from './Register.module.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -133,7 +133,7 @@ const Register = ({ register, auth: { isAuthenticated, loading, msg }, alerts })
 							<input type='submit' className={Style.signin_btn} value='Sign Up' />
 							<div className='height:20%'></div>
 							<div className={Style.create_link}>
-								<a href='signup.html'>sign in</a>
+								<Link to='/login'>sign in</Link>
 							</div>
 						</form>
 						<div className={Style.poweredby}>

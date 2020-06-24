@@ -1,3 +1,21 @@
+/* ###################### spinner ################### */
+.spinner_div {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	background: transparent;
+	height: 100vh;
+	width: 100vw;
+}
+.spinner {
+	/* width: 250px; */
+	margin: auto;
+	display: flex;
+	/* top: 50%; */
+	/* position: absolute; */
+	background-position: center;
+	background-color: red;
+}
 /* ###################### main section ################### */
 main {
 	width: 100%;
@@ -18,38 +36,31 @@ main {
 	margin: 0px auto !important;
 }
 
-
-
 /* ############ responsive ################## */
 /* big screen desktops/laptops,  --> xl */
 @media only screen and (min-width: 1200px) {
-
 	.mid__part {
 		flex: 0 0 50% !important;
 		min-width: 50% !important;
 	}
-	
 }
 /* most tablets in landscape, many desktops/laptops  --> lg*/
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-
 	.mid__part {
 		flex: 0 0 50% !important;
 		min-width: 50% !important;
 	}
-	
 }
 /*larger smartphones in landscape, most tablets in portrait, some small laptops  --> md*/
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
 	.container {
 		max-width: 990px !important;
 	}
-	
+
 	.mid__part {
 		flex: 0 0 50% !important;
 		width: 50% !important;
 	}
-	
 }
 
 /* Small devices (landscape phones, 576px and up)*/

@@ -1,4 +1,4 @@
-import { GET_EDUHUB_PROFILE, GET_EDUHUB_ERROR } from './../actions/types';
+import { GET_EDUHUB_PROFILE, EDUHUB_PROFILE_ERROR, LOGOUT } from './../actions/types';
 
 const initialState = {
 	eduhub: null,
@@ -12,6 +12,14 @@ export default function (state = initialState, action) {
 	switch (type) {
 		case GET_EDUHUB_PROFILE:
 			return { ...state, eduhub: payload, loading: false };
+		case LOGOUT:
+		case EDUHUB_PROFILE_ERROR:
+			return {
+				...state,
+				eduhub: null,
+				loading: true,
+				error: {},
+			};
 		default:
 			return state;
 	}

@@ -1,12 +1,17 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import Styles from './NewsBoard.module.css';
 import Main from './../Layout/MainSection/Main';
 const NewsBoard = () => {
 	return (
 		<Fragment>
-			<Main eduhub={<div>this good things</div>} />
+			<Main eduhub={<Fragment>this good things</Fragment>} />
 		</Fragment>
 	);
 };
 
-export default NewsBoard;
+// const mapStateToProps=state=>({
+
+// })
+
+export default connect()(NewsBoard);

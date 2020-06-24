@@ -1,14 +1,28 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Styles from './Main.module.css';
+import ReactLoading from 'react-loading';
 import { MainStyle } from './MainContainer';
+import Spinner from './../../theme/Spinner/Spinner';
+// components
 import ThemeChanger from './../../theme/ThemeChanger/ThemeChanger';
 import Nav from './../Nav/NavBar';
 import LeftSideBar from './../Leftbar/LeftSideBar';
 import RightSideBar from './../Rightbar/RightSideBar';
 
-const Main = ({ eduhub }) => {
-	return (
+const Main = ({ eduhub, auth: { loading, isAuthenticated } }) => {
+	// redirected if user not authenticated
+	if (isAuthenticated === false) {
+		return <Redirect path='/' />;
+	}
+	//
+	return loading ? (
+		<Fragment>
+			<Spinner />
+		</Fragment>
+	) : (
 		<Fragment>
 			<Nav />
 			<ThemeChanger />
@@ -37,6 +51,12 @@ const Main = ({ eduhub }) => {
 	);
 };
 
-Main.propTypes = {};
+Main.propTypes = {
+	auth: PropTypes.object.isRequired,
+};
 
-export default Main;
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps)(Main);
