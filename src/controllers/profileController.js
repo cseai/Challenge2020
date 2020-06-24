@@ -22,10 +22,12 @@ exports.getAllProfile = catchAsync(async (req, res) => {
 exports.createProfile = catchAsync(async (req, res) => {
 	// for now user id gets from params, in future it get from loged user id
 	// find user exist or not
-	console.log(`${typeof JSON.stringify(req.user)}`.red);
-	const id = JSON.stringify(req.user);
-	const user = await User.findById(req.user);
-	console.log(`${user}`.red);
+	// console.log(`${typeof JSON.stringify(req.user)}`.red);
+	const body = JSON.stringify(req.body);
+	console.log(`${body}`.red);
+	console.log(`${req.user}`.green);
+	// const user = await User.findById(req.user);
+	// console.log(`${user}`.red);
 
 	// if (!user) {
 	// 	console.log(user);
@@ -36,30 +38,45 @@ exports.createProfile = catchAsync(async (req, res) => {
 	// 	});
 	// }
 	// destructure the req
-	// const { firstName, lastName, type, numbers, birthday, country, place, zipCode } = req.body;
-	// const newProfile = {};
-	// newProfile.user = req.user;
-	// if (firstName) newProfile.firstName = firstName;
-	// if (lastName) newProfile.lastName = lastName;
-	// if (birthday) newProfile.birthday = birthday;
-	// // contact
-	// newProfile.contacts = [];
-	// const newContact = { type, numbers };
-	// newProfile.contacts.unshift(newContact);
-	// //address
-	// newProfile.presentAddress = {};
-	// if (country) newProfile.presentAddress.country = country;
-	// if (zipCode) newProfile.presentAddress.zip = zipCode;
+	const {
+		firstName,
+		lastName,
+		email,
+		phoneNumber,
+		birthday,
+		addressOne,
+		addressTwo,
+		country,
+		zipCode,
+		info,
+	} = req.body;
+	const newProfile = {};
+	newProfile.user = req.user;
+	if (firstName) newProfile.firstName = firstName;
+	if (lastName) newProfile.lastName = lastName;
+	if (birthday) newProfile.birthday = birthday;
+	if (info) newProfile.bio = info;
+	// contact
+	newProfile.contacts = [];
+	let type = 'phone';
+	const newContactPhone = { type, phoneNumber };
+	newProfile.contacts.unshift(newContactPhone);
+	type = 'email';
+	const newContactEmail = { type, email };
+	newProfile.contacts.unshift(newContactEmail);
+	//address
+	newProfile.presentAddress = {};
+	if (country) newProfile.presentAddress.country = country;
+	if (zipCode) newProfile.presentAddress.zip = zipCode;
 
-	// newProfile.presentAddress.place = [];
-	// if (place) newProfile.presentAddress.place = place;
+	newProfile.presentAddress.place = [];
+	if (addressOne && addressTwo) {
+		newProfile.presentAddress.place.shift(addressOne);
+		newProfile.presentAddress.place.shift(addressTwo);
+	}
+	// create new profile
+	let profile = new Profile(newProfile);
+	await profile.save();
 
-	// // create new profile
-	// let profile = new Profile(newProfile);
-	// await profile.save();
-
-	// res.status(200).json({
-	// 	success: true,
-	// 	data: newProfile,
-	// });
+	res.status(201).json(newProfile);
 });

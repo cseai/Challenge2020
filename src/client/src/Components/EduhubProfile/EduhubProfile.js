@@ -1,8 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Styles from './EduhubProfile.module.css';
 import './EduhubProfile.module.css';
+import Spinner from './../theme/Spinner/Spinner';
 import Main from './../Layout/MainSection/Main';
 import Moment from 'react-moment';
 import {
@@ -34,18 +36,30 @@ import {
 // action
 import { geteduhub } from './../../actions/eduHubAction';
 
-const EduhubProfile = ({ geteduhub, eduhub: { loading, eduhub } }) => {
+const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub } }) => {
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
-	//eduhub
+
+	//eduhub loading before page show
 	useEffect(() => {
 		geteduhub();
-		console.log('hello');
-	}, []);
+	}, [geteduhub]);
 
+	// redirected if not logged in
+	if (isAuthenticated === false) {
+		return <Redirect to='/' />;
+	}
 	return loading && eduhub === null ? (
-		<Main eduhub={<Fragment>loading</Fragment>} />
+		<Main
+			eduhub={
+				<Fragment>
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<img src={require('./../theme/Spinner/Spin-0.8s-217px.svg')} alt='loading...' />
+					</div>
+				</Fragment>
+			}
+		/>
 	) : (
 		<Main
 			eduhub={
@@ -304,10 +318,12 @@ const EduhubProfile = ({ geteduhub, eduhub: { loading, eduhub } }) => {
 EduhubProfile.propTypes = {
 	geteduhub: PropTypes.func.isRequired,
 	eduhub: PropTypes.array.isRequired,
+	isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	eduhub: state.eduhub,
+	isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { geteduhub })(EduhubProfile);
