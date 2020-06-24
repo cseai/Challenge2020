@@ -22,7 +22,7 @@ exports.getAllDepts = catchAsync(async (req, res, next) => {
 });
 
 exports.getDept = catchAsync(async (req, res, next) => {
-	const selectForRefDepts = `_id name`;
+	const selectForRefDepts = `_id username name`;
 
 	// Get dept by _id or username
 	const deptIdOrUsername  = req.params.deptId;
@@ -82,7 +82,7 @@ exports.getAllEduHubs = catchAsync(async (req, res, next) => {
 });
 
 exports.getEduHub = catchAsync(async (req, res, next) => {
-	// const selectForRefDepts = `_id name`;
+	const selectForRefDepts = `_id username name`;
 
 	// Get dept by _id
 	// const dept = await Dept.findById(req.params.deptId);
@@ -97,7 +97,13 @@ exports.getEduHub = catchAsync(async (req, res, next) => {
 		$or.push({ _id : ObjectId(deptIdOrUsername) });
 	}
 
-	const dept = await Dept.findOne({ $or : $or });
+	const dept = await Dept.findOne({ $or : $or }).populate({
+		path: 'children parent eduHub',
+		select: selectForRefDepts,
+	}).populate({
+		path: `memberGroup`,
+		select: `_id, members`
+	});
 	// console.log(dept.name);
 
 	if (!dept) {
@@ -105,7 +111,13 @@ exports.getEduHub = catchAsync(async (req, res, next) => {
 	}
 
 	if (dept.eduHub !== null) {
-		const eduHub = await Dept.findById(dept.eduHub);
+		const eduHub = await Dept.findById(dept.eduHub).populate({
+			path: 'children parent eduHub',
+			select: selectForRefDepts,
+		}).populate({
+			path: `memberGroup`,
+			select: `_id, members`
+		});
 		
 		if (!eduHub) {
 			return next(new AppError(`EduHub doesn't exists!`, 404));
