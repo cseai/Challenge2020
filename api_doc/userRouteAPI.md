@@ -46,15 +46,11 @@ Required Fields:
 - `email`
 - `password`
 
-### GET | Get User
+### GET | Get Current User
 
 ```
-    {{URL}}api/v1/users/:id
+    {{URL}}api/v1/users/currentuser
 ```
-
-Params:
-
--   id : `UserId`
 
 ### PATCH | Update User
 

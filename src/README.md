@@ -19,3 +19,7 @@ Fixing:
 - DO NOT USE `.toString()` ! Because: `IF ObjectId is null then ERROR!!!` like: `Cannot read property 'toString' of null`
 - USE `String()` or `.equals()` BUT `String()` is safe
 - DO NOT CONVERT TO `String()` WHEN COMPARE WITH `null` ! like: `String(this._id) === null` is WRONG... AND RIGHT is: `this._id === null`
+
+## Find by id or username in mongo
+- stackoverflow [Find by id or username in mongo](https://stackoverflow.com/questions/30651875/find-by-id-or-username-in-mongo)
+

@@ -6,6 +6,8 @@ const APIFeatures = require('../../utils/apiFeatures');
 const AppError = require('../../utils/appError');
 const catchAsync = require('../../utils/catchAsync');
 
+const ObjectId = require('mongoose').Types.ObjectId;
+
 exports.getAllDepts = catchAsync(async (req, res, next) => {
 	// EXECUTE QUERY
 	const features = new APIFeatures(Dept.find(), req.query).filter().sort().limitFields().paginate();
@@ -21,13 +23,35 @@ exports.getAllDepts = catchAsync(async (req, res, next) => {
 
 exports.getDept = catchAsync(async (req, res, next) => {
 	const selectForRefDepts = `_id name`;
-	const dept = await Dept.findById(req.params.deptId).populate({
+
+	// Get dept by _id or username
+	const deptIdOrUsername  = req.params.deptId;
+	let $or = [ { username : deptIdOrUsername } ];
+
+	// Does it look like an ObjectId? If so, convert it to one and
+	// add it to the list of OR operands.
+	if (ObjectId.isValid(deptIdOrUsername)) {
+		$or.push({ _id : ObjectId(deptIdOrUsername) });
+	}
+
+	const dept = await Dept.findOne({ $or : $or }).populate({
 		path: 'children parent eduHub',
 		select: selectForRefDepts,
 	}).populate({
 		path: `memberGroup`,
 		select: `_id, members`
 	});
+	// console.log(dept.name);
+
+	// Get dept by _id
+	// const dept = await Dept.findById(req.params.deptId).populate({
+	// 	path: 'children parent eduHub',
+	// 	select: selectForRefDepts,
+	// }).populate({
+	// 	path: `memberGroup`,
+	// 	select: `_id, members`
+	// });
+
 	if (!dept) {
 		return next(new AppError(`Dept doesn't exists!`, 404));
 	}
@@ -60,8 +84,22 @@ exports.getAllEduHubs = catchAsync(async (req, res, next) => {
 exports.getEduHub = catchAsync(async (req, res, next) => {
 	// const selectForRefDepts = `_id name`;
 
-	const dept = await Dept.findById(req.params.deptId);
-	
+	// Get dept by _id
+	// const dept = await Dept.findById(req.params.deptId);
+
+	// Get dept by _id or username
+	const deptIdOrUsername  = req.params.deptId;
+	let $or = [ { username : deptIdOrUsername } ];
+
+	// Does it look like an ObjectId? If so, convert it to one and
+	// add it to the list of OR operands.
+	if (ObjectId.isValid(deptIdOrUsername)) {
+		$or.push({ _id : ObjectId(deptIdOrUsername) });
+	}
+
+	const dept = await Dept.findOne({ $or : $or });
+	// console.log(dept.name);
+
 	if (!dept) {
 		return next(new AppError(`EduHub doesn't exists!`, 404));
 	}

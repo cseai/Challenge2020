@@ -40,7 +40,8 @@ const EduhubProfile = ({ geteduhub, eduhub: { loading, eduhub } }) => {
 	const [location, setLocation] = useState(false);
 	//eduhub
 	useEffect(() => {
-		geteduhub();
+		const deptIdOrUsername = "pust";
+		geteduhub(deptIdOrUsername);
 		console.log('hello');
 	}, []);
 

@@ -49,7 +49,7 @@ Error:
     {{URL}}api/v1/depts/:deptId
 ```
 Params:
-- deptId : `DeptId`
+- deptId : `deptIdOrUsername`
 
 Fields:
 - `username`: Dept's Username
@@ -121,7 +121,7 @@ Response:
     {{URL}}api/v1/depts/:deptId/eduhubs
 ```
 Params:
-- deptId : `DeptId`. If it is not `EduHub` then it will automatically response with it's `EduHub`
+- deptId : `deptIdOrUsername`. If it is not `EduHub` then it will automatically response with it's `EduHub`
 
 Fields:
 - `username`: Dept's Username

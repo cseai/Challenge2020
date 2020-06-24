@@ -2,10 +2,10 @@ import axios from 'axios';
 import { GET_EDUHUB_PROFILE, GET_EDUHUB_ERROR } from './types';
 
 // get eduhub profile
-export const geteduhub = () => async (dispatch) => {
+export const geteduhub = (deptIdOrUsername) => async (dispatch) => {
 	console.log('edhu hub profile loaded');
 	try {
-		const res = await axios.get('/api/v1/depts/5eb3d2537e01aa2869306d2f/eduhub');
+		const res = await axios.get(`/api/v1/depts/${deptIdOrUsername}/eduhub`);
 		console.log(res.data);
 		dispatch({
 			type: GET_EDUHUB_PROFILE,
