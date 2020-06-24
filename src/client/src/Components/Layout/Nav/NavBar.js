@@ -12,7 +12,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, loading } }) => {
 				<Link to='/home'>Home</Link>
 			</li>
 			<li>
-				<Link to='/eduhub-profile'>eduhub profile</Link>
+				<Link to='/eduhub/pust'>eduhub profile</Link>
 			</li>
 			<li>
 				<Link to='/'>Dev</Link>

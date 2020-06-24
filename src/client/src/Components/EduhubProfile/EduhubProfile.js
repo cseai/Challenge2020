@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Styles from './EduhubProfile.module.css';
 import './EduhubProfile.module.css';
@@ -36,16 +36,17 @@ import {
 // action
 import { geteduhub } from './../../actions/eduHubAction';
 
-const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub } }) => {
+const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }, match: { params } }) => {
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
 
 	//eduhub loading before page show
 	useEffect(() => {
-		const deptIdOrUsername = "pust";
+		const deptIdOrUsername = params.eduhubName;
 		geteduhub(deptIdOrUsername);
-	}, [geteduhub]);
+		console.log(params);
+	}, [geteduhub, params.eduhubName]);
 
 	// redirected if not logged in
 	if (isAuthenticated === false) {
@@ -74,7 +75,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 								<div className={Styles.eduHub__profile__image_cover_image_overlay}>
 									<div className={Styles.eduHub__profile__image_cover_image_overlay_upload}>
 										<i>
-											<FontAwesomeIcon icon={faCamera} size='1.5x' />
+											<FontAwesomeIcon icon={faCamera} />
 											Upload
 										</i>
 									</div>
@@ -85,7 +86,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 								<div className={Styles.eduHub__profile__image_profile_image_overlay}>
 									<div className={Styles.eduHub__profile__image_cover_image_overlay_upload}>
 										<i>
-											<FontAwesomeIcon icon={faCamera} size='1.5x' />
+											<FontAwesomeIcon icon={faCamera} />
 										</i>
 										<span>Upload </span>
 									</div>
@@ -100,7 +101,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										{/* <div className={Styles.eduHub__profile__info_content_side}></div> */}
 									</EduHubProfileInfoContentSide>
 									<i>
-										<FontAwesomeIcon icon={faUniversity} size='1.5x' />
+										<FontAwesomeIcon icon={faUniversity} />
 									</i>
 								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
@@ -114,7 +115,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										className={Styles.eduHub__profile__info_content_side}
 									></EduHubProfileInfoContentSide>
 									<i>
-										<FontAwesomeIcon icon={faCheck} size='1.5x' />
+										<FontAwesomeIcon icon={faCheck} />
 									</i>
 								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
@@ -126,7 +127,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 								<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__info_content_icon}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<i>
-										<FontAwesomeIcon icon={faCalendar} size='1.5x' />
+										<FontAwesomeIcon icon={faCalendar} />
 									</i>
 								</EduHubProfileInfoContentIcon>
 
@@ -136,19 +137,19 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										Established since <Moment format='YYYY'>{eduhub.eduHub.since}</Moment>{' '}
 										<span>
 											<i>
-												<FontAwesomeIcon icon={faStar} size='1.5x' />
+												<FontAwesomeIcon icon={faStar} />
 											</i>{' '}
 											<i>
-												<FontAwesomeIcon icon={faStar} size='1.5x' />
+												<FontAwesomeIcon icon={faStar} />
 											</i>{' '}
 											<i>
-												<FontAwesomeIcon icon={faStar} size='1.5x' />
+												<FontAwesomeIcon icon={faStar} />
 											</i>{' '}
 											<i>
-												<FontAwesomeIcon icon={faStar} size='1.5x' />
+												<FontAwesomeIcon icon={faStar} />
 											</i>{' '}
 											<i>
-												<FontAwesomeIcon icon={faStarHalfAlt} size='1.5x' />
+												<FontAwesomeIcon icon={faStarHalfAlt} />
 											</i>{' '}
 										</span>
 									</p>
@@ -159,7 +160,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 								<EduHubProfileInfoContentIcon className={Styles.eduHub__profile__info_content_icon}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<i>
-										<FontAwesomeIcon icon={faUserFriends} size='1.5x' />
+										<FontAwesomeIcon icon={faUserFriends} />
 									</i>
 								</EduHubProfileInfoContentIcon>
 								<div className={Styles.text}>
@@ -167,7 +168,29 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 								</div>
 							</div>
 						</EduHubProfileInfo>
+						{/* map */}
+						<EduHubProfileAbout className={Styles.eduHub__profile__about}>
+							<EduHubProfileInfoContentIcon
+								className={Styles.eduHub__profile__about_heading}
+								style={{ width: '155px' }}
+							>
+								<div className={Styles.eduHub__profile__info_content_side}></div>
+								<p>EduHub Map</p>
+							</EduHubProfileInfoContentIcon>
 
+							<div className={Styles.eduHub__profile__about_about_details}>
+								{eduhub.eduHub.children.map((dept, index) => (
+									<Link to={`/eduhub/${dept.username}`}>
+										<EduHubProfileInfoContentIcon
+											key={index}
+											className={Styles.eduHub__profile__eduhubmap}
+										>
+											<p className={Styles.eduHub__profile__eduhubmap_p}>{dept.name}</p>
+										</EduHubProfileInfoContentIcon>
+									</Link>
+								))}
+							</div>
+						</EduHubProfileAbout>
 						{/* <!-- About us section --> */}
 						<EduHubProfileAbout className={Styles.eduHub__profile__about}>
 							<EduHubProfileInfoContentIcon
@@ -199,7 +222,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										<p>
 											<span>
 												<i>
-													<FontAwesomeIcon icon={faPhoneAlt} size='1.5x' />
+													<FontAwesomeIcon icon={faPhoneAlt} />
 												</i>
 											</span>{' '}
 											{eduhub.eduHub.contacts[0].method}
@@ -209,13 +232,13 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										<ul>
 											<li>
 												<i>
-													<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
+													<FontAwesomeIcon icon={faKeyboard} />
 												</i>{' '}
 												<span>{eduhub.eduHub.contacts[0].numbers[0].number}</span>{' '}
 											</li>
 											<li>
 												<i>
-													<FontAwesomeIcon icon={faAlignLeft} size='1.5x' />
+													<FontAwesomeIcon icon={faAlignLeft} />
 												</i>
 												<span> Register office</span>{' '}
 											</li>
@@ -226,7 +249,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										<p>
 											<span>
 												<i>
-													<FontAwesomeIcon icon={faMobileAlt} size='1.5x' />
+													<FontAwesomeIcon icon={faMobileAlt} />
 												</i>
 											</span>
 											{eduhub.eduHub.contacts[1].method}
@@ -236,13 +259,13 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										<ul>
 											<li>
 												<i>
-													<FontAwesomeIcon icon={faKeyboard} size='1.5x' />
+													<FontAwesomeIcon icon={faKeyboard} />
 												</i>
 												<span> {eduhub.eduHub.contacts[1].numbers[0].number}</span>
 											</li>
 											<li>
 												<i>
-													<FontAwesomeIcon icon={faMobileAlt} size='1.5x' />
+													<FontAwesomeIcon icon={faMobileAlt} />
 												</i>
 												<span>Register office</span>{' '}
 											</li>
@@ -253,7 +276,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										<p>
 											<span>
 												<i>
-													<FontAwesomeIcon icon={faEnvelope} size='1.5x' />
+													<FontAwesomeIcon icon={faEnvelope} />
 												</i>
 											</span>{' '}
 											{eduhub.eduHub.contacts[2].method}
@@ -263,7 +286,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										<ul>
 											<li>
 												<i>
-													<FontAwesomeIcon icon={faAt} size='1.5x' />
+													<FontAwesomeIcon icon={faAt} />
 												</i>{' '}
 												<span>{eduhub.eduHub.contacts[2].numbers[0].number}</span>{' '}
 											</li>
@@ -285,7 +308,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 									<div className={Styles.eduHub__profile__contact_inner_heading}>
 										<p>
 											<i>
-												<FontAwesomeIcon icon={faLocationArrow} size='1.5x' />
+												<FontAwesomeIcon icon={faLocationArrow} />
 											</i>
 											<span>Address</span>{' '}
 										</p>
@@ -297,7 +320,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, eduhub }
 										<ul>
 											<li>
 												<i>
-													<FontAwesomeIcon icon={faCity} size='1.5x' />
+													<FontAwesomeIcon icon={faCity} />
 												</i>{' '}
 												<span> Rajapur ,6600, Pabna</span>
 											</li>

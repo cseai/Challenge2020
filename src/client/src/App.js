@@ -46,7 +46,7 @@ const App = ({ themeMode, darkMode }) => {
 						<Route exact path='/' component={LandingPage} />
 						<Switch>
 							<Route exact path='/home' component={NewsBoard} />
-							<Route exact path='/eduhub-profile' component={EduhubProfile} />
+							<Route exact path='/eduhub/:eduhubName' component={EduhubProfile} />
 							{/* form */}
 							<Route exact path='/dash' component={Dash} />
 							{/* <SignIn> */}
@@ -64,7 +64,7 @@ const App = ({ themeMode, darkMode }) => {
 
 App.propTypes = {
 	themeMode: PropTypes.func.isRequired,
-	darkMode: PropTypes.string.isRequired,
+	// darkMode: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -200,9 +200,27 @@
 	cursor: pointer;
 }
 /*Also common in Contacts and Location Sections*/
+.eduHub__profile__eduhubmap {
+	width: 95%;
+	height: 50px;
+	margin: 15px 5px;
+	border-radius: 10px;
+}
+.eduHub__profile__eduhubmap_p {
+	text-align: center;
+	color: inherit !important;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 8px 0px 10px 12px !important;
+	font-size: 20px !important;
+	font-weight: 500 !important;
+}
 .eduHub__profile__about_heading {
 	background: inherit;
-	display: inline-block;
+	/* display: inline-block; */
 	margin: 10px 75% 5px 0px;
 	border-left: 10px solid #4cbea6;
 	border-top-right-radius: 15px;
@@ -210,7 +228,6 @@
 	height: 50px;
 	width: 120px;
 	color: inherit;
-	transition: all 0.5s linear;
 }
 .eduHub__profile__about_heading p {
 	font-size: 20px;
@@ -220,11 +237,9 @@
 	z-index: 10;
 	bottom: 40px;
 	left: 12px;
-	transition: all 0.5s linear;
 }
 .eduHub__profile__about_about_details {
 	padding-left: 20px;
-	transition: all 0.5s linear;
 }
 .eduHub__profile__about_about_details p {
 	font-size: 16px;
