@@ -5,7 +5,13 @@ import Main from './../Layout/MainSection/Main';
 const NewsBoard = () => {
 	return (
 		<Fragment>
-			<Main eduhub={<Fragment>this good things</Fragment>} />
+			<Main
+				eduhub={
+					<Fragment>
+						<div>this good things for project</div>
+					</Fragment>
+				}
+			/>
 		</Fragment>
 	);
 };

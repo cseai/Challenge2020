@@ -54,7 +54,7 @@ const LoginLight = ({ login, isAuthenticated, alerts }) => {
 		});
 	}
 	//redirected if user authenticated
-	if (isAuthenticated) {
+	if (isAuthenticated === true) {
 		return <Redirect to='/home' />;
 	}
 	// theme provider

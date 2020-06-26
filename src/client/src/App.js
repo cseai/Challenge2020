@@ -15,7 +15,8 @@ import lightTheme from './Components/theme/Light';
 import darkTheme from './Components/theme/Dark';
 // components
 import NewsBoard from './Components/NewsBoard/NewsBoard';
-import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
+import Test from './Components/test/Test';
+// import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
 import Dash from './Components/NewsBoard/Dash';
 import LandingPage from './Components/Layout/Landing/LandingPage.js';
 // form
@@ -46,7 +47,7 @@ const App = ({ themeMode, darkMode }) => {
 						<Route exact path='/' component={LandingPage} />
 						<Switch>
 							<Route exact path='/home' component={NewsBoard} />
-							<Route exact path='/eduhub/:eduhubName' component={EduhubProfile} />
+							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* form */}
 							<Route exact path='/dash' component={Dash} />
 							{/* <SignIn> */}
@@ -54,6 +55,7 @@ const App = ({ themeMode, darkMode }) => {
 							{/* </SignIn> */}
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/create-user-profile' component={CreateUserProfile} />
+							<Route exact path='/test/:deptId/:libId' component={Test} />
 						</Switch>
 					</Fragment>
 				</Router>

@@ -1,7 +1,7 @@
 import { GET_EDUHUB_PROFILE, EDUHUB_PROFILE_ERROR, LOGOUT } from './../actions/types';
 
 const initialState = {
-	eduhub: null,
+	dept: null,
 	loading: true,
 	error: {},
 };
