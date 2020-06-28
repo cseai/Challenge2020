@@ -17,7 +17,7 @@ import darkTheme from './Components/theme/Dark';
 import NewsBoard from './Components/NewsBoard/NewsBoard';
 import Test from './Components/test/Test';
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
-import Dept from './Components/Dept/Dept';
+import Dept from './Components/Dept/DeptProfile';
 import Dash from './Components/NewsBoard/Dash';
 import LandingPage from './Components/Layout/Landing/LandingPage.js';
 // form
@@ -50,7 +50,7 @@ const App = ({ themeMode, darkMode }) => {
 							<Route exact path='/home' component={NewsBoard} />
 							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* dept */}
-							<Route exact path='/depts/:deptUsername' component={Dept} />
+							<Route exact path='/dept/:deptUsername' component={Dept} />
 							{/* form */}
 							<Route exact path='/dash' component={Dash} />
 							{/* <SignIn> */}

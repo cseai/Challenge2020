@@ -22,6 +22,10 @@ export const DeptProfileInfo = styled.div`
 	align-items: flex-start;
 `;
 
+export const DeptMap = styled.div`
+	color: ${(props) => props.theme.colors.color};
+`;
+
 export const DeptProfileInfoContentIcon = styled.div`
 	background: ${(props) => props.theme.colors.inbg};
 `;

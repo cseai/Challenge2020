@@ -208,7 +208,7 @@
 }
 .eduHub__profile__eduhubmap_p {
 	text-align: center;
-	color: inherit !important;
+	/* color: inherit !important; */
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -217,6 +217,19 @@
 	padding: 8px 0px 10px 12px !important;
 	font-size: 20px !important;
 	font-weight: 500 !important;
+}
+/* color: inherit !important; */
+.eduHub__profile__eduhubmap_p:hover,
+.eduHub__profile__eduhubmap_p:focus,
+eduHub__profile__eduhubmap_p:active {
+	color: #4cbea6;
+	text-decoration: none;
+}
+a :hover {
+	text-decoration: none;
+}
+Link :hover {
+	text-decoration: none;
 }
 .eduHub__profile__about_heading {
 	background: inherit;
@@ -248,7 +261,7 @@
 	word-break: break-word;
 	word-spacing: 1px;
 	padding: 0px 15px 1px 0px;
-	color: inherit;
+	/* color: inherit; */
 }
 .eduHub__profile__about_heading:hover .eduHub__profile__info_content_side {
 	transform: scaleY(1);

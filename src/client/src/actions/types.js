@@ -17,6 +17,9 @@ export const PROFILE_ERROR = 'PROFILE_ERROR';
 //eduhub profile
 export const GET_EDUHUB_PROFILE = 'GET_EDUHUB_PROFILE';
 export const EDUHUB_PROFILE_ERROR = 'EDUHUB_PROFILE_ERROR';
+// dept profile
+export const GET_DEPT_PROFILE = 'GET_EDUHUB_PROFILE';
+export const DEPT_PROFILE_ERROR = 'GET_EDUHUB_PROFILE';
 // test
 export const TEST_LOAD = 'TEST_LOAD';
 export const TEST_LOAD_FAIL = 'TEST_LOAD_FAIL';

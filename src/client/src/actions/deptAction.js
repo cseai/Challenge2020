@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_EDUHUB_PROFILE, EDUHUB_PROFILE_ERROR } from './types';
+import { GET_DEPT_PROFILE, DEPT_PROFILE_ERROR } from './types';
 
 // get Dept profile
 export const getDept = (deptUsername) => async (dispatch) => {
@@ -7,17 +7,18 @@ export const getDept = (deptUsername) => async (dispatch) => {
 	try {
 		// get dept api
 		const res = await axios.get(`/api/v1/depts/${deptUsername}`);
-		console.log("dept-data");
-		console.log(res.data);
+		// console.log("dept-data");
+		// console.log(res.data);
 		dispatch({
-			type: GET_EDUHUB_PROFILE,
+			type: GET_DEPT_PROFILE,
 			payload: res.data,
 		});
 	} catch (err) {
 		const errors = err.response;
 		console.log(errors);
-		// dispatch({
-		// 	type: EDUHUB_PROFILE_ERROR,
-		// });
+		// todos not finish
+		dispatch({
+			type: DEPT_PROFILE_ERROR,
+		});
 	}
 };

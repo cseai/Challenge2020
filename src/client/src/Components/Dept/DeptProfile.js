@@ -4,7 +4,6 @@ import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Styles from './DeptProfile.module.css';
 import './DeptProfile.module.css';
-import Spinner from '../theme/Spinner/Spinner';
 import Main from '../Layout/MainSection/Main';
 import Moment from 'react-moment';
 import {
@@ -13,7 +12,9 @@ import {
 	DeptProfileInfoContentSide,
 	DeptProfileInfoContentIcon,
 	DeptProfileAbout,
+	DeptMap,
 } from './DeptProfileContainer';
+import Spinner from './../theme/Spinner/Spin-0.8s-217px.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faUniversity,
@@ -36,7 +37,7 @@ import {
 // action
 import { getDept } from '../../actions/deptAction';
 
-const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { params } }) => {
+const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, dept } }) => {
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
@@ -57,7 +58,7 @@ const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { pa
 			eduhub={
 				<Fragment>
 					<div style={{ display: 'flex', justifyContent: 'center' }}>
-						<img src={require('./../theme/Spinner/Spin-0.8s-217px.svg')} alt='loading...' />
+						<img src={Spinner} alt='loading...' />
 					</div>
 				</Fragment>
 			}
@@ -105,7 +106,7 @@ const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { pa
 									</i>
 								</DeptProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>{dept.category}</p>
+									<p>{dept.category.charAt(0).toUpperCase() + dept.category.slice(1)}</p>
 								</div>
 							</div>
 
@@ -119,7 +120,7 @@ const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { pa
 									</i>
 								</DeptProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>{dept.name}</p>
+									<p>{dept.name.charAt(0).toUpperCase() + dept.name.slice(1)}</p>
 								</div>
 							</div>
 
@@ -135,7 +136,7 @@ const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { pa
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<p>
 										Established since <Moment format='YYYY'>{dept.since}</Moment>{' '}
-										<span>
+										{/* <span>
 											<i>
 												<FontAwesomeIcon icon={faStar} />
 											</i>{' '}
@@ -151,7 +152,7 @@ const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { pa
 											<i>
 												<FontAwesomeIcon icon={faStarHalfAlt} />
 											</i>{' '}
-										</span>
+										</span> */}
 									</p>
 								</div>
 							</div>
@@ -177,19 +178,39 @@ const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { pa
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Dept Map</p>
 							</DeptProfileInfoContentIcon>
-
-							<div className={Styles.eduHub__profile__about_about_details}>
-								{dept.children.map((dept, index) => (
-									<Link to={`/eduhub/${dept.username}`}>
-										<DeptProfileInfoContentIcon
-											key={index}
-											className={Styles.eduHub__profile__eduhubmap}
-										>
-											<p className={Styles.eduHub__profile__eduhubmap_p}>{dept.name}</p>
-										</DeptProfileInfoContentIcon>
-									</Link>
-								))}
-							</div>
+							{dept.children.length === null ? (
+								<Fragment>
+									<div
+										style={{
+											display: 'flex',
+											justifyContent: 'center',
+										}}
+									>
+										<img
+											src={Spinner}
+											alt='sub dept loading'
+											style={{ height: '40px', width: '40px' }}
+										/>
+									</div>
+								</Fragment>
+							) : (
+								<Fragment>
+									<div className={Styles.eduHub__profile__about_about_details}>
+										{dept.children.map((dept, index) => (
+											<Link to={`/dept/${dept.username}`}>
+												<DeptProfileInfoContentIcon
+													key={index}
+													className={Styles.eduHub__profile__eduhubmap}
+												>
+													<DeptMap className={Styles.eduHub__profile__eduhubmap_p}>
+														{dept.name}
+													</DeptMap>
+												</DeptProfileInfoContentIcon>
+											</Link>
+										))}
+									</div>
+								</Fragment>
+							)}
 						</DeptProfileAbout>
 						{/* <!-- About us section --> */}
 						<DeptProfileAbout className={Styles.eduHub__profile__about}>
@@ -341,12 +362,12 @@ const Dept = ({ getDept, isAuthenticated, eduhub: { loading, dept }, match: { pa
 
 Dept.propTypes = {
 	getDept: PropTypes.func.isRequired,
-	eduhub: PropTypes.array.isRequired,
+	dept: PropTypes.array.isRequired,
 	isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	eduhub: state.eduhub,
+	dept: state.dept,
 	isAuthenticated: state.auth.isAuthenticated,
 });
 
