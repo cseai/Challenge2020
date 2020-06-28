@@ -101,7 +101,7 @@ Query Params:
 Fields:
 - `library`: `libraryId`
 - `title`: `String`, title of the book.
-- `authors`: `Array` of `AuthorId`
+- `authors`: `Array` `Object` with 'authorNmae' and 'authorId'
 - `edition`: `String`, book edition
 - `pagination`: `String`, book pagination
 - `accessionNumber`: `String`, book accessionNumber
@@ -142,7 +142,7 @@ Params:
 Fields:
 - `library`: `libraryId`
 - `title`: `String`, title of the book.
-- `authors`: `Array` of `AuthorId`
+- `authors`: `Array` `Object` with 'authorNmae' and 'authorId'
 - `edition`: `String`, book edition
 - `pagination`: `String`, book pagination
 - `accessionNumber`: `String`, book accessionNumber
@@ -180,7 +180,7 @@ Params:
 
 Required Fields:
 - `title`: `String`, title of the book.
-- `authors`: `Array` of `AuthorId`
+- `authors`: `Array` of `Object` with 'authorNmae' and 'authorId'. ( `authorName` is optional)
 
 Optional Fields:
 - `edition`: `String`, book edition

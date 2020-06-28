@@ -114,8 +114,16 @@ const bookSchema = {
         required: [true, 'Book must have a title']
     },
     authors: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Author'
+        authorName: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        authorId: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Author',
+            required: true
+        }
     }],
     edition: {
         type: String

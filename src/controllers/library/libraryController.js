@@ -256,9 +256,13 @@ exports.createBook = catchAsync(async (req, res, next) => {
 		return next(new AppError(`Book's must have at least one Author.`, 406));
 	}else{
 		for(let index=0; index < clearedData.authors.length; index++){
-			const author = await Author.findById(clearedData.authors[index]);
+			const author = await Author.findById(clearedData.authors[index].authorId);
 			if(!author){
 				return next(new AppError(`Author does not exist. Please provide valid authors.`, 404));
+			}
+			else if((!clearedData.authors[index].authorName)  || (author.name !== clearedData.authors[index].authorName)){
+				// if the given author name is incorrect then replace with correct name
+				clearedData.authors[index].authorName = author.name;
 			}
 		}
 	}
