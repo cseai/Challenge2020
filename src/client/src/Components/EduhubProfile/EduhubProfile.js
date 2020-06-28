@@ -40,7 +40,7 @@ const EduhubProfile = ({ geteduhub, isAuthenticated, eduhub: { loading, dept }, 
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
-
+	console.log(`eduhub=${eduhub} # dept= ${dept}`)
 	//eduhub loading before page show
 	useEffect(() => {
 		const deptIdOrUsername = params.eduhubName;
