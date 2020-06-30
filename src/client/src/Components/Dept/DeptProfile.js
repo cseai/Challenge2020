@@ -53,6 +53,24 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 	if (isAuthenticated === false) {
 		return <Redirect to='/' />;
 	}
+
+	// If requested dept does not exist (dept===null) then redirect to 404 page
+	// Now just redirect to home page
+	if (dept === null && loading === false){
+		return <Redirect to='/error' />;
+		// return (
+		// 	<Main
+		// 		eduhub={
+		// 			<Fragment>
+		// 				<div style={{ display: 'flex', justifyContent: 'center' }}>
+		// 					<h1>Opps! Nothing found! 404</h1>
+		// 				</div>
+		// 			</Fragment>
+		// 		}
+		// 	/>
+		// );
+	}
+
 	return loading && dept === null ? (
 		<Main
 			eduhub={
@@ -106,7 +124,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 									</i>
 								</DeptProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>{dept.category.charAt(0).toUpperCase() + dept.category.slice(1)}</p>
+									<p>{dept.category ? dept.category.charAt(0).toUpperCase() + dept.category.slice(1) : `Undefined`}</p>
 								</div>
 							</div>
 
@@ -120,7 +138,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 									</i>
 								</DeptProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>{dept.name.charAt(0).toUpperCase() + dept.name.slice(1)}</p>
+									<p>{dept.name ? dept.name.charAt(0).toUpperCase() + dept.name.slice(1) : `Unknown!`}</p>
 								</div>
 							</div>
 
@@ -135,7 +153,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 								<div className={Styles.text}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<p>
-										Established since <Moment format='YYYY'>{dept.since}</Moment>{' '}
+										Established at {dept.since ? (<Moment format='YYYY'> {dept.since} </Moment>) : `Unknown!`}{' '}
 										{/* <span>
 											<i>
 												<FontAwesomeIcon icon={faStar} />
@@ -223,7 +241,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 							</DeptProfileInfoContentIcon>
 							{info && (
 								<div className={Styles.eduHub__profile__about_about_details}>
-									<p>{dept.shortDescription}</p>
+									<p>{dept.shortDescription ? dept.shortDescription : `Nothing to show!`}</p>
 								</div>
 							)}
 						</DeptProfileAbout>
@@ -237,7 +255,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Contacts</p>
 							</DeptProfileInfoContentIcon>
-							{contact && (
+							{contact && ( dept.contacts.length > 2 ? (
 								<Fragment>
 									<div className={Styles.eduHub__profile__contact_inner_heading}>
 										<p>
@@ -314,7 +332,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 										</ul>
 									</div>
 								</Fragment>
-							)}
+							) : (<div className={Styles.eduHub__profile__about_about_details}><p>Nothing to show!</p></div>))}
 						</DeptProfileAbout>
 						<DeptProfileAbout className={Styles.eduHub__profile__location}>
 							<DeptProfileInfoContentIcon
@@ -348,7 +366,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 										</ul>
 									</DeptProfileAbout>
 									<DeptProfileInfoContentIcon className={Styles.eduHub__profile__location_map}>
-										<p>use map</p>
+										<p>Use map</p>
 									</DeptProfileInfoContentIcon>
 								</Fragment>
 							)}

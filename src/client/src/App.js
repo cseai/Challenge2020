@@ -14,6 +14,7 @@ import { themeMode } from './actions/configAction';
 import lightTheme from './Components/theme/Light';
 import darkTheme from './Components/theme/Dark';
 // components
+import ErrorPage from './Components/Layout/ErrorPage/ErrorPage'
 import NewsBoard from './Components/NewsBoard/NewsBoard';
 import Test from './Components/test/Test';
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
@@ -47,6 +48,7 @@ const App = ({ themeMode, darkMode }) => {
 					<Fragment>
 						<Route exact path='/' component={LandingPage} />
 						<Switch>
+							<Route exact path='/error' component={ErrorPage} />
 							<Route exact path='/home' component={NewsBoard} />
 							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* dept */}
