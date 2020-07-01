@@ -33,9 +33,11 @@ devDependencies:
 Links:
 - Go to [API Documentation README --> `api_doc/README.md`](api_doc/README.md)
 
-## src/README and BUG Fixing Doc
-If you got any `ERROR` or `BUG` please note it at [src/README.md](src/README.md).
-Go to [src/README.md](src/README.md)
+# BUG Fixing
+If you find any bug in Backend or Frontend section please write it on that section. And create an `#issue` in GitHub.
+- Backend Section --> [BugFixingBackendREADME.md](./src/BugFixingBackendREADME.md).
+- Frontend Section --> [BugFixingFrontendREADME.md](./src/client/BugFixingFrontendREADME.md).
+ 
 
 ## Contributing
 
