@@ -58,17 +58,6 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 	// Now just redirect to home page
 	if (dept === null && loading === false){
 		return <Redirect to='/error' />;
-		// return (
-		// 	<Main
-		// 		eduhub={
-		// 			<Fragment>
-		// 				<div style={{ display: 'flex', justifyContent: 'center' }}>
-		// 					<h1>Opps! Nothing found! 404</h1>
-		// 				</div>
-		// 			</Fragment>
-		// 		}
-		// 	/>
-		// );
 	}
 
 	return loading && dept === null ? (
@@ -196,6 +185,43 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Dept Map</p>
 							</DeptProfileInfoContentIcon>
+							{/* EduHub */}
+							{(dept.eduHub === null && dept.parent === null) ? (
+								// This is EduHub
+								<Fragment>
+									<div className={Styles.eduHub__profile__about_about_details}>This is a EduHub</div>
+								</Fragment>
+							):(
+								<Fragment>
+									<div className={Styles.eduHub__profile__about_about_details}><h3>Child Departments:</h3></div>
+									<div className={Styles.eduHub__profile__about_about_details}>
+									<Link to={`/dept/${dept.eduHub.username}`}>
+										<DeptProfileInfoContentIcon
+											key={dept.eduHub.username}
+											className={Styles.eduHub__profile__eduhubmap}
+										>
+											<DeptMap className={Styles.eduHub__profile__eduhubmap_p}>
+												{dept.eduHub.name}
+											</DeptMap>
+										</DeptProfileInfoContentIcon>
+									</Link>
+									<Link to={`/dept/${dept.parent.username}`}>
+										<DeptProfileInfoContentIcon
+											key={dept.parent.username}
+											className={Styles.eduHub__profile__eduhubmap}
+										>
+											<DeptMap className={Styles.eduHub__profile__eduhubmap_p}>
+												{dept.parent.name}
+											</DeptMap>
+										</DeptProfileInfoContentIcon>
+									</Link>
+									</div>
+								</Fragment>
+							)}
+							{/* Parent */}
+
+
+							{/* Children */}
 							{dept.children.length === null ? (
 								<Fragment>
 									<div
@@ -213,6 +239,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 								</Fragment>
 							) : (
 								<Fragment>
+									<div className={Styles.eduHub__profile__about_about_details}><h3>Child Departments:</h3></div>
 									<div className={Styles.eduHub__profile__about_about_details}>
 										{dept.children.map((dept, index) => (
 											<Link to={`/dept/${dept.username}`}>
