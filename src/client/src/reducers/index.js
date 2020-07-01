@@ -5,4 +5,5 @@ import config from './configReducer';
 import eduhub from './eduHubReducer';
 import test from './testReducer';
 import dept from './deptReducer';
-export default combineReducers({ alert, auth, config, eduhub, dept, test });
+import library from './libraryReducer';
+export default combineReducers({ alert, auth, config, eduhub, dept, library, test });
