@@ -22,6 +22,8 @@ import Dept from './Components/Dept/DeptProfile';
 import LibraryProfile from './Components/Library/LibraryProfile'
 import Dash from './Components/NewsBoard/Dash';
 import LandingPage from './Components/Layout/Landing/LandingPage.js';
+//library
+import UserLibrary from './Components/Library/User Library/UserLibrary';
 // form
 import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
@@ -64,6 +66,9 @@ const App = ({ themeMode, darkMode }) => {
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/create-user-profile' component={CreateUserProfile} />
 							<Route exact path='/test/:deptId/:libId' component={Test} />
+							{/* library */}
+							<Route exact path='/pust/library' component={UserLibrary}></Route>{' '}
+							{/*maybe upate route url*/}
 						</Switch>
 					</Fragment>
 				</Router>
