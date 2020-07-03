@@ -12,20 +12,11 @@ const NavBar = ({ logout, auth: { isAuthenticated, loading } }) => {
 				<Link to='/home'>Home</Link>
 			</li>
 			<li>
-<<<<<<< HEAD
 				<Link to='/dept/pust'>dept profile</Link>
-=======
-				<Link to='/dept/pust'>Dept</Link>
 			</li>
-			<li>
-				<Link to='/eduhub/pust'>EduHub</Link>
->>>>>>> 01b22fb03cd62e5d57341742dfcda97f38a22e41
-			</li>
+
 			<li>
 				<Link to='/'>Dev</Link>
-			</li>
-			<li>
-				<Link to='/'>follow</Link>
 			</li>
 			<li onClick={() => logout()}>
 				<Link to='/'>logout</Link>
@@ -45,7 +36,10 @@ const NavBar = ({ logout, auth: { isAuthenticated, loading } }) => {
 	return (
 		<Fragment>
 			<header className='container-fluid'>
-				<div className={Styles.logo}>Edukos</div>
+				<div className={Styles.logo}>
+					{' '}
+					<Link to='/'>Edukos</Link>{' '}
+				</div>
 				<nav>{!loading && <Fragment>{isAuthenticated ? loginLink : guestLink} </Fragment>}</nav>
 			</header>
 		</Fragment>
