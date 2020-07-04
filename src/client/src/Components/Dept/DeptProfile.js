@@ -57,9 +57,9 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 
 	// If requested dept does not exist (dept===null) then redirect to 404 page
 	// Now just redirect to home page
-	if (dept === null && loading === false){
-		return <Redirect to='/error' />;
-	}
+	// if (dept === null && loading === false){
+	// 	return <Redirect to='/error' />;
+	// }
 
 	return loading && dept === null ? (
 		<Main
@@ -71,8 +71,8 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 				</Fragment>
 			}
 		/>
-	) : (
-		<Main
+	) : (dept === null && loading === false) ? (<Redirect to='/error' />) : 
+	(<Main
 			eduhub={
 				<Fragment>
 					{/* <!-- start code for here --> */}
