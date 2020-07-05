@@ -620,7 +620,7 @@ Link :hover {
 	justify-content: center;
 	align-items: center;
 	padding-left: 10px;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 }
 
 .create__profile__form_control_in_field:active,
@@ -788,4 +788,174 @@ Link :hover {
 .required {
 	color: red;
 	/*font-size: 20px;*/
+}
+
+
+
+
+
+/* ================================================
+				Contact Section 
+===================================================*/
+/* Hub / details / contact */
+.contact__outer{
+	position: relative;
+	width: 100%;
+	height: auto;
+
+	/* background: #C4C4C4; */
+	background: #dae0e0;
+}
+
+/* Hub / section-bar */
+.contact__section__bar {
+	position: absolute;
+	width: 540px;
+	height: 30px;
+	left: 0px;
+	top: 0px;
+}
+
+
+/* Rectangle 10 */
+.contact__rectangle {
+	position: relative;
+	width: 100%;
+	height: auto;
+	/* left: 0%;
+	right: 0%;
+	top: 0%;
+	bottom: 0%; */
+	padding: 5px, 5px;
+
+	background: #C4C4C4;
+	border: 1px dashed #E5E5E5;
+}
+
+/* Contact Information */
+.contact__info {
+	position: relative;
+	/* left: 0%;
+	right: 69.44%;
+	top: 13.33%;
+	bottom: 10%; */
+
+	font-family: Gothic A1;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 22px;
+	/* identical to box height */
+	display: flex;
+	align-items: center;
+
+	/* Deep Gray */
+	color: #3E3E3E;
+}
+
+/* Option / more btn */
+
+/* position: absolute;
+left: 91.67%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+ */
+
+
+/* Rectangle more-btn */
+
+/* position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #C4C4C4;
+border-radius: 4px; */
+
+
+/* more ... */
+
+/* position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+font-family: Gothic A1;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 30px;
+/* identical to box height */
+/* display: flex;
+align-items: center;
+text-align: center;
+
+color: #000000; */ 
+
+
+
+/* Hub / contact / single-list phone */
+.contact__single__list{
+	position: relative;
+	width: 100%;
+	height: auto;
+	display: inline-flex;
+	list-style: none;
+}
+
+
+/* Rectangle 11 */
+.contact__single__list__in{
+	position: relative;
+	/* left: 0%;
+	right: 0%;
+	top: 0%;
+	bottom: 0%; */
+
+	background: #C4C4C4;
+}
+
+/* sub-top */
+.contact__sub__top{
+	position: absolute;
+	left: 0%;
+	right: 0%;
+	top: 0%;
+	bottom: 89.86%;
+
+	background: #C4C4C4;
+}
+
+/* contact-icon-section */
+.contact__icon{
+	position: absolute;
+	left: 0%;
+	right: 94.06%;
+	top: 0%;
+	bottom: 89.86%;
+
+	background: #C4C4C4;
+}
+
+/* Phone */
+.contact__phone{
+	position: absolute;
+	left: 7.13%;
+	right: 84.75%;
+	top: 2.03%;
+	bottom: 91.89%;
+
+	font-family: Gothic A1;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 17px;
+	/* identical to box height */
+	display: flex;
+	align-items: center;
+
+	color: #000000;
 }
