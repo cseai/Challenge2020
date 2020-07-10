@@ -183,122 +183,120 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 								</div>
 							</div>
 						</div>
-                        <div className='m-3'>
-                            <h2>{dept.name}</h2>
-                        </div>
+                        
 					</DeptProfile>
                     <DeptProfile>
-                        <div className='mt-3'>
-                            <div className='row mx-2 px-2'>
-                                <div className='col'>
-                                    <button className='btn bg-white' value='detail' onClick={ (e) => onSectionChange(e) }>Details</button>
+                        <div className={Styles.settings__container}>
+							<div className={Styles.hub__name__section}>
+								<h2>{dept.name}</h2>
+							</div>
+                            <div className={Styles.tab__section}>
+                                <div className={Styles.tab_section_inner_div}>
+									<button className={Styles.tab__section__button} value='detail' onClick={ (e) => onSectionChange(e) }>Details</button>
                                 </div>
-                                <div className='col'>
-                                    <button className='btn bg-white' value='member' onClick={ (e) => onSectionChange(e) }>Members</button>
+                                <div className={Styles.tab_section_inner_div}>
+                                    <button className={Styles.tab__section__button} value='member' onClick={ (e) => onSectionChange(e) }>Members</button>
                                 </div>
-                                <div className='col'>
-                                    <button className='btn bg-white' value='controller' onClick={ (e) => onSectionChange(e) }>Controllers</button>
+                                <div className={Styles.tab_section_inner_div}>
+                                    <button className={Styles.tab__section__button} value='controller' onClick={ (e) => onSectionChange(e) }>Controllers</button>
                                 </div>
-                                <div className='col'>
-                                    <button className='btn bg-white' value='create' onClick={ (e) => onSectionChange(e) }>Create</button>
+                                <div className={Styles.tab_section_inner_div}>
+                                    <button className={Styles.tab__section__button} value='create' onClick={ (e) => onSectionChange(e) }>Create</button>
                                 </div>
                             </div>
-                        </div>
-                    </DeptProfile>
-                    <DeptProfile>
-                        <div className='m-3 p-1'>
 							{/* Detail Section */}
                             {detailSection && (
 								<Fragment>
-									<div className='ml-3 pl-3'>
-										<button className='btn btn-primary btn-lg' onClick={(e) => detailSectionButtonClick(e)}>{detailSectionButtonValue}</button>
+									<div className={Styles.detail__option__button__section}>
+										<button className='' onClick={(e) => detailSectionButtonClick(e)}>{detailSectionButtonValue}</button>
 									</div>
 									{detailSectionEditOption ? (
 										// Edit Mode 
 										// {/* code start here */}
-										<CreateProfileMain className={Styles.create__profile}>
-											{/* <h2 className={Styles.create__profile_title}>Update Hub</h2> */}
-											<form className={Styles.create__profile__form} onSubmit={(e) => onSubmitDetailSection(e)}>
-												<div className={Styles.create__profile__form_control}>
-													<div className={Styles.create__profile__form_control_title}>
+										<div className={Styles.update__hub__container}>
+											<form className={Styles.update__hub__form} onSubmit={(e) => onSubmitDetailSection(e)}>
+												{/* Name  */}
+												<div className={Styles.update__hub__form_control}>
+													<div className={Styles.update__hub__form_control_title}>
 														<label>Name</label>
-														<span className='required'> * </span>
+														<span className={Styles.required}> * </span>
 													</div>
-													<div className={Styles.create__profile__form_control_in}>
-														<div className={Styles.create__profile__form_control_in_left}>
+													<div className={Styles.update__hub__form_control_in}>
+														<div className={Styles.update__hub__form_control_in_left}>
 															<ProfileIcon>
 																<FontAwesomeIcon icon={faUniversity} />
 															</ProfileIcon>
 														</div>
 														<CreateProfileFormControlInField
 															type='text'
-															className={Styles.create__profile__form_control_in_field}
+															className={Styles.update__hub__form_control_in_field}
 															name='name'
 															value={name}
 															onChange={(e) => onChangeDetailInput(e)}
 														/>
 													</div>
 												</div>
-	
-												<div className={Styles.create__profile__form_control}>
-													<div className={Styles.create__profile__form_control_title}>
+												{/* Username  */}
+												<div className={Styles.update__hub__form_control}>
+													<div className={Styles.update__hub__form_control_title}>
 														<label>Username</label>
-														<span className='required'> * </span>
+														<span className={Styles.required}> * </span>
 													</div>
-													<div className={Styles.create__profile__form_control_in}>
-														<div className={Styles.create__profile__form_control_in_left}>
+													<div className={Styles.update__hub__form_control_in}>
+														<div className={Styles.update__hub__form_control_in_left}>
 															<ProfileIcon>
 																<FontAwesomeIcon icon={faAt} />
 															</ProfileIcon>
 														</div>
 														<CreateProfileFormControlInField
 															type='text'
-															className={Styles.create__profile__form_control_in_field}
+															className={Styles.update__hub__form_control_in_field}
 															name='username'
 															value={username}
 															onChange={(e) => onChangeDetailInput(e)}
 														/>
 													</div>
 												</div>
-	
-												<div className={Styles.create__profile__form_control}>
-													<div className={Styles.create__profile__form_control_title}>
+												{/* Established Date  */}
+												<div className={Styles.update__hub__form_control}>
+													<div className={Styles.update__hub__form_control_title}>
 														<label>Established</label>
-														<span className='required'> * </span>
+														{/* <span className='required'> * </span> */}
 													</div>
-													<div className={Styles.create__profile__form_control_in}>
-														<div className={Styles.create__profile__form_control_in_left}>
+													<div className={Styles.update__hub__form_control_in}>
+														<div className={Styles.update__hub__form_control_in_left}>
 															<ProfileIcon>
 																<FontAwesomeIcon icon={faCalendar} />
 															</ProfileIcon>
 														</div>
 														<CreateProfileFormControlInField
 															type='date'
-															className={Styles.create__profile__form_control_in_field}
+															className={Styles.update__hub__form_control_in_field}
 															name='since'
 															value={since}
 															onChange={(e) => onChangeDetailInput(e)}
 														/>
 													</div>
 												</div>
-	
-												<div className={Styles.create__profile__form_control}>
-													<label className={Styles.create__profile__form_control_title}>
-														Tell Something About This Hub
-													</label>
-													<CreateProfileTextField
-														rows='7'
-														name='shortDescription'
-														value={shortDescription}
-														onChange={(e) => onChangeDetailInput(e)}
-													></CreateProfileTextField>
+												{/* About  */}
+												<div className={Styles.update__hub__form_control}>
+													<div className={Styles.update__hub__form_control_title}>
+														<label>Tell Something About This Hub</label>
+													</div>
+													<div>
+														<CreateProfileTextField
+															rows='7'
+															name='shortDescription'
+															value={shortDescription}
+															onChange={(e) => onChangeDetailInput(e)}
+														></CreateProfileTextField>
+													</div>
 												</div>
-
-												{/* <!-- Contacts Section --> */}
-												<div className={Styles.create__profile__form_control}>
-													<div className={Styles.create__profile__form_control_title}>
+												{/* Contact */}
+												<div className={Styles.update__hub__form_control}>
+													<div className={Styles.update__hub__form_control_title}>
 														<label>Contacts</label>
-														<span className='required'> * </span>
+														{/* <span className='required'> * </span> */}
 													</div>
 													<div className={Styles.eduHub__profile__contact}>
 														<div className={Styles.eduHub__profile__contact_inner_heading}>
@@ -327,7 +325,6 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																</li>
 															</ul>
 														</div>
-
 														<div className={Styles.eduHub__profile__contact_inner_heading}>
 															<p>
 																<span>
@@ -373,57 +370,49 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																	</i>{' '}
 																	<span>{dept.contacts[2].numbers[0].number}</span>{' '}
 																</li>
+																<li>
+																	<i>
+																		<FontAwesomeIcon icon={faAlignLeft} />
+																	</i>
+																	<span> Register office</span>{' '}
+																</li>
 															</ul>
 														</div>
 													</div>
 												</div>
-												
-												{/* <!-- Address Section --> */}
-												<DeptProfileAbout className={Styles.eduHub__profile__location}>
-													<DeptProfileInfoContentIcon
-														className={Styles.eduHub__profile__location_heading}
-														onClick={() => setLocation(!location)}
-													>
-														<div className={Styles.eduHub__profile__info_content_side}></div>
-														<p>Location</p>
-													</DeptProfileInfoContentIcon>
-													{location && (
-														<Fragment>
-															<div className={Styles.eduHub__profile__contact_inner_heading}>
-																<p>
+												{/* Address */}
+												<div className={Styles.update__hub__form_control}>
+													<div className={Styles.update__hub__form_control_title}>
+														<i><FontAwesomeIcon icon={faLocationArrow} /></i>
+														<label>Address</label>
+														{/* <span className={Styles.required}> * </span> */}
+													</div>
+													<div>
+														<DeptProfileAbout
+															className={Styles.eduHub__profile__contact}
+															style={{ border: 'none' }}
+														>
+															<ul>
+																<li>
 																	<i>
-																		<FontAwesomeIcon icon={faLocationArrow} />
-																	</i>
-																	<span>Address</span>{' '}
-																</p>
-															</div>
-															<DeptProfileAbout
-																className={Styles.eduHub__profile__contact}
-																style={{ border: 'none' }}
-															>
-																<ul>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faCity} />
-																		</i>{' '}
-																		<span> Rajapur ,6600, Pabna</span>
-																	</li>
-																</ul>
-															</DeptProfileAbout>
-															<DeptProfileInfoContentIcon className={Styles.eduHub__profile__location_map}>
-																<p>Use map</p>
-															</DeptProfileInfoContentIcon>
-														</Fragment>
-													)}
-												</DeptProfileAbout>
-	
-												<div className={Styles.create__profile__form_btn}>
+																		<FontAwesomeIcon icon={faCity} />
+																	</i>{' '}
+																	<span> Rajapur ,6600, Pabna</span>
+																</li>
+															</ul>
+														</DeptProfileAbout>
+														<DeptProfileInfoContentIcon className={Styles.eduHub__profile__location_map}>
+															<p>Use map</p>
+														</DeptProfileInfoContentIcon>
+													</div>
+												</div>
+												<div className={Styles.update__hub__form_btn}>
 													<button type='submit' name='submit'>
 														Save
 													</button>
 												</div>
 											</form>
-										</CreateProfileMain>
+										</div>
 										// {/* code end here */}
 
 									) : (
