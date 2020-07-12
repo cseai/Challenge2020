@@ -39,6 +39,8 @@ import {
 	faLocationArrow,
 	faCity,
 
+	faPlus,
+
 
 	faUser,
 
@@ -298,8 +300,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 														<label>Contacts</label>
 														{/* <span className='required'> * </span> */}
 													</div>
-													<div className={Styles.eduHub__profile__contact}>
-														<div className={Styles.eduHub__profile__contact_inner_heading}>
+													<div className={Styles.update__hub__contact}>
+														<div className={Styles.update__hub__contact_inner_heading}>
 															<p>
 																<span>
 																	<i>
@@ -308,24 +310,41 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																</span>{' '}
 																{dept.contacts[0].method}
 															</p>
+															<span>
+																<i>
+																	<FontAwesomeIcon icon={faPlus} />
+																</i>
+															</span>
 														</div>
-														<div className={Styles.eduHub__profile__contact_list}>
+														<div className={Styles.update__hub__contact_list}>
 															<ul>
 																<li>
 																	<i>
 																		<FontAwesomeIcon icon={faKeyboard} />
 																	</i>{' '}
-																	<span>{dept.contacts[0].numbers[0].number}</span>{' '}
+																	<span>
+																		<input
+																			type='text'
+																			name="number"
+																			value={dept.contacts[0].numbers[0].number}
+																		/>
+																	</span>{' '}
 																</li>
 																<li>
 																	<i>
 																		<FontAwesomeIcon icon={faAlignLeft} />
 																	</i>
-																	<span> Register office</span>{' '}
+																	<span>
+																		<textarea 
+																			type='text'
+																			name="description"
+																			value={dept.contacts[0].numbers[0].description}
+																		/>
+																	</span>{' '}
 																</li>
 															</ul>
 														</div>
-														<div className={Styles.eduHub__profile__contact_inner_heading}>
+														<div className={Styles.update__hub__contact_inner_heading}>
 															<p>
 																<span>
 																	<i>
@@ -335,7 +354,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																{dept.contacts[1].method}
 															</p>
 														</div>
-														<div className={Styles.eduHub__profile__contact_list}>
+														<div className={Styles.update__hub__contact_list}>
 															<ul>
 																<li>
 																	<i>
@@ -352,7 +371,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 															</ul>
 														</div>
 
-														<div className={Styles.eduHub__profile__contact_inner_heading}>
+														<div className={Styles.update__hub__contact_inner_heading}>
 															<p>
 																<span>
 																	<i>
@@ -362,7 +381,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																{dept.contacts[2].method}
 															</p>
 														</div>
-														<div className={Styles.eduHub__profile__contact_list}>
+														<div className={Styles.update__hub__contact_list}>
 															<ul>
 																<li>
 																	<i>
@@ -389,7 +408,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 													</div>
 													<div>
 														<DeptProfileAbout
-															className={Styles.eduHub__profile__contact}
+															className={Styles.update__hub__contact}
 															style={{ border: 'none' }}
 														>
 															<ul>
@@ -401,7 +420,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																</li>
 															</ul>
 														</DeptProfileAbout>
-														<DeptProfileInfoContentIcon className={Styles.eduHub__profile__location_map}>
+														<DeptProfileInfoContentIcon className={Styles.update__hub__location_map}>
 															<p>Use map</p>
 														</DeptProfileInfoContentIcon>
 													</div>
