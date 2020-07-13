@@ -301,101 +301,140 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 														{/* <span className='required'> * </span> */}
 													</div>
 													<div className={Styles.update__hub__contact}>
-														<div className={Styles.update__hub__contact_inner_heading}>
-															<p>
+														<div className={Styles.update__hub__contact__method__div}>
+															<div className={Styles.update__hub__contact_inner_heading}>
+																<p>
+																	<span>
+																		<i>
+																			<FontAwesomeIcon icon={faPhoneAlt} />
+																		</i>
+																	</span>{' '}
+																	{dept.contacts[0].method}
+																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon icon={faPhoneAlt} />
-																	</i>
-																</span>{' '}
-																{dept.contacts[0].method}
-															</p>
-															<span>
-																<i>
-																	<FontAwesomeIcon icon={faPlus} />
-																</i>
-															</span>
-														</div>
-														<div className={Styles.update__hub__contact_list}>
-															<ul>
-																<li>
-																	<i>
-																		<FontAwesomeIcon icon={faKeyboard} />
-																	</i>{' '}
-																	<span>
-																		<input
-																			type='text'
-																			name="number"
-																			value={dept.contacts[0].numbers[0].number}
-																		/>
-																	</span>{' '}
-																</li>
-																<li>
-																	<i>
-																		<FontAwesomeIcon icon={faAlignLeft} />
-																	</i>
-																	<span>
-																		<textarea 
-																			type='text'
-																			name="description"
-																			value={dept.contacts[0].numbers[0].description}
-																		/>
-																	</span>{' '}
-																</li>
-															</ul>
-														</div>
-														<div className={Styles.update__hub__contact_inner_heading}>
-															<p>
-																<span>
-																	<i>
-																		<FontAwesomeIcon icon={faMobileAlt} />
+																		<FontAwesomeIcon icon={faPlus} />
 																	</i>
 																</span>
-																{dept.contacts[1].method}
-															</p>
+															</div>
+															<div className={Styles.update__hub__contact_list}>
+																<ul>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faKeyboard} />
+																		</i>{' '}
+																		<span>
+																			<input
+																				type='text'
+																				name="number"
+																				value={dept.contacts[0].numbers[0].number}
+																			/>
+																		</span>{' '}
+																	</li>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faAlignLeft} />
+																		</i>
+																		<span>
+																			<textarea 
+																				type='text'
+																				name="description"
+																				value={dept.contacts[0].numbers[0].description}
+																			/>
+																		</span>{' '}
+																	</li>
+																</ul>
+															</div>
 														</div>
-														<div className={Styles.update__hub__contact_list}>
-															<ul>
-																<li>
-																	<i>
-																		<FontAwesomeIcon icon={faKeyboard} />
-																	</i>
-																	<span> {dept.contacts[1].numbers[0].number}</span>
-																</li>
-																<li>
-																	<i>
-																		<FontAwesomeIcon icon={faMobileAlt} />
-																	</i>
-																	<span>Register office</span>{' '}
-																</li>
-															</ul>
-														</div>
-
-														<div className={Styles.update__hub__contact_inner_heading}>
-															<p>
+														<div className={Styles.update__hub__contact__method__div}>
+															<div className={Styles.update__hub__contact_inner_heading}>
+																<p>
+																	<span>
+																		<i>
+																			<FontAwesomeIcon icon={faMobileAlt} />
+																		</i>
+																	</span>
+																	{dept.contacts[1].method}
+																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon icon={faEnvelope} />
+																		<FontAwesomeIcon icon={faPlus} />
 																	</i>
-																</span>{' '}
-																{dept.contacts[2].method}
-															</p>
+																</span>
+															</div>
+															<div className={Styles.update__hub__contact_list}>
+																<ul>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faKeyboard} />
+																		</i>
+																		<span>
+																			<input
+																				type='text'
+																				name="number"
+																				value={dept.contacts[1].numbers[0].number}
+																			/>
+																		</span>
+																	</li>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faMobileAlt} />
+																		</i>
+																		<span>
+																			<textarea 
+																				type='text'
+																				name="description"
+																				value={dept.contacts[1].numbers[0].description}
+																			/>
+																		</span>{' '}
+																	</li>
+																</ul>
+															</div>
 														</div>
-														<div className={Styles.update__hub__contact_list}>
-															<ul>
-																<li>
+														<div className={Styles.update__hub__contact__method__div}>
+															<div className={Styles.update__hub__contact_inner_heading}>
+																<p>
+																	<span>
+																		<i>
+																			<FontAwesomeIcon icon={faEnvelope} />
+																		</i>
+																	</span>{' '}
+																	{dept.contacts[2].method}
+																</p>
+																<span>
 																	<i>
-																		<FontAwesomeIcon icon={faAt} />
-																	</i>{' '}
-																	<span>{dept.contacts[2].numbers[0].number}</span>{' '}
-																</li>
-																<li>
-																	<i>
-																		<FontAwesomeIcon icon={faAlignLeft} />
+																		<FontAwesomeIcon icon={faPlus} />
 																	</i>
-																	<span> Register office</span>{' '}
-																</li>
-															</ul>
+																</span>
+															</div>
+															<div className={Styles.update__hub__contact_list}>
+																<ul>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faAt} />
+																		</i>{' '}
+																		<span>
+																			<input
+																				type='text'
+																				name="number"
+																				value={dept.contacts[2].numbers[0].number}
+																			/>
+																		</span>
+																	</li>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faAlignLeft} />
+																		</i>
+																		<span>
+																			<textarea 
+																				type='text'
+																				name="description"
+																				value={dept.contacts[1].numbers[0].description}
+																			/>
+																		</span>{' '}
+																	</li>
+																</ul>
+															</div>
 														</div>
 													</div>
 												</div>

@@ -870,11 +870,18 @@ Link :hover {
 
 /*Contacts Sections*/
 .update__hub__contact {
-	width: 100%;
+	width: 90%;
 	height: auto;
 	/* margin-top: 20px !important; */
 	padding-bottom: 10px;
 	border-radius: 15px;
+
+	margin-left: 30px;
+}
+.update__hub__contact__method__div{
+	background-color: inherit;
+	border: 1px dashed white;
+	margin-left: 20px;
 }
 
 .update__hub__contact_heading {
@@ -914,7 +921,7 @@ Link :hover {
 	width: 90%;
 	/* background-color: #DAE0E0; */
 	display: flex;
-	margin: 10px 80% 0px 7%;
+	margin: 10px 80% 0px 5px;
 	padding-left: 0px;
 	box-sizing: border-box;
 	font-size: 20px;
@@ -948,7 +955,7 @@ Link :hover {
 	box-sizing: border-box;
 } */
 
-.update__hub__contact ul {
+.update__hub__contact__method__div ul {
 	width: 95%;
 	/* border-bottom: 1px dashed gray; */
 	margin: 6px 15px;
@@ -959,7 +966,7 @@ Link :hover {
 	justify-content: flex-start;
 	align-items: flex-start;
 }
-.update__hub__contact ul li {
+.update__hub__contact__method__div ul li {
 	width: 100%;
 	/* border: 1px dashed brown; */
 	color: inherit;
@@ -968,14 +975,14 @@ Link :hover {
 	justify-content: center;
 	align-items: center;
 }
-.update__hub__contact ul li i {
+.update__hub__contact__method__div ul li i {
 	width: 15%;
 	/* border: 1px dashed magenta; */
 	font-size: 18px;
 	color: #4cbea6;
 	padding: 5px 10px 5px 20px;
 }
-.update__hub__contact ul li span {
+.update__hub__contact__method__div ul li span {
 	width: 100%;
 	/* border: 1px solid red; */
 	color: inherit !important;
@@ -984,12 +991,13 @@ Link :hover {
 	font-family: inherit;
 	font-weight: 500;
 } 
-.update__hub__contact ul li span input, .update__hub__contact ul li span textarea {
+.update__hub__contact__method__div ul li span input, .update__hub__contact__method__div ul li span textarea {
 	width: 100%;
 	/* border: 1px solid red; */
 	border: 1px solid #4cbea6;
 	border-radius: 10px;
-	padding: px;
+	padding: 0px 5px;
+	background-color: #DAE0E0;
 	color: inherit !important;
 	font-size: inherit;
 	font-size: 16px;
