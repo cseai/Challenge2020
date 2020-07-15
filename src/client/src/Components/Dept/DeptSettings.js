@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -61,6 +62,10 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	
 	const [detailSectionEditOption, setDetailSectionEditOption] = useState(false);
 	const [detailSectionButtonValue, setDetailSectionButtonValue] = useState('Edit');
+
+	const [contactPhoneAdd, setContactPhoneAdd] = useState(false);
+	const [contactMobileAdd, setContactMobileAdd] = useState(false);
+	const [contactEmailAdd, setContactEmailAdd] = useState(false);
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -130,6 +135,16 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
         }
 	}
 	
+
+	const createContactPhoneField = (e) => {
+		setContactPhoneAdd(true);
+	}
+	const createContactMobileField = (e) => {
+		setContactMobileAdd(true);
+	}
+	const createContactEmailField = (e) => {
+		setContactEmailAdd(true);
+	}
 
 
 
@@ -301,7 +316,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 														{/* <span className='required'> * </span> */}
 													</div>
 													<div className={Styles.update__hub__contact}>
-														<div className={Styles.update__hub__contact__method__div}>
+														<div id="contactPhoneDiv" className={Styles.update__hub__contact__method__div}>
 															<div className={Styles.update__hub__contact_inner_heading}>
 																<p>
 																	<span>
@@ -309,14 +324,47 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<FontAwesomeIcon icon={faPhoneAlt} />
 																		</i>
 																	</span>{' '}
-																	{dept.contacts[0].method}
+																	Phone
+																	{/* {dept.contacts[0].method} */}
 																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon icon={faPlus} />
+																		<FontAwesomeIcon onClick={e => createContactPhoneField(e)} icon={faPlus} />
 																	</i>
 																</span>
 															</div>
+															{contactPhoneAdd && (
+																<div className={Styles.update__hub__contact_list}>
+																	<ul>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faKeyboard} />
+																			</i>{' '}
+																			<span>
+																				<input
+																					type='text'
+																					name="number"
+																					value=""
+																					// value={dept.contacts[0].numbers[0].number}
+																				/>
+																			</span>{' '}
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faAlignLeft} />
+																			</i>
+																			<span>
+																				<textarea 
+																					type='text'
+																					name="description"
+																					value=""
+																					// value={dept.contacts[0].numbers[0].description}
+																				/>
+																			</span>{' '}
+																		</li>
+																	</ul>
+																</div>
+															)}
 															<div className={Styles.update__hub__contact_list}>
 																<ul>
 																	<li>
@@ -327,7 +375,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<input
 																				type='text'
 																				name="number"
-																				value={dept.contacts[0].numbers[0].number}
+																				value="1784394509"
+																				// value={dept.contacts[0].numbers[0].number}
 																			/>
 																		</span>{' '}
 																	</li>
@@ -339,7 +388,38 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<textarea 
 																				type='text'
 																				name="description"
-																				value={dept.contacts[0].numbers[0].description}
+																				value="Register ofice, Pabna University of Science and Technology"
+																				// value={dept.contacts[0].numbers[0].description}
+																			/>
+																		</span>{' '}
+																	</li>
+																</ul>
+															</div>
+															<div className={Styles.update__hub__contact_list}>
+																<ul>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faKeyboard} />
+																		</i>{' '}
+																		<span>
+																			<input
+																				type='text'
+																				name="number"
+																				value="1784394509"
+																				// value={dept.contacts[0].numbers[0].number}
+																			/>
+																		</span>{' '}
+																	</li>
+																	<li>
+																		<i>
+																			<FontAwesomeIcon icon={faAlignLeft} />
+																		</i>
+																		<span>
+																			<textarea 
+																				type='text'
+																				name="description"
+																				value="Register ofice, Pabna University of Science and Technology"
+																				// value={dept.contacts[0].numbers[0].description}
 																			/>
 																		</span>{' '}
 																	</li>
@@ -354,14 +434,47 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<FontAwesomeIcon icon={faMobileAlt} />
 																		</i>
 																	</span>
-																	{dept.contacts[1].method}
+																	Mobile
+																	{/* {dept.contacts[1].method} */}
 																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon icon={faPlus} />
+																		<FontAwesomeIcon onClick={e => createContactMobileField(e)} icon={faPlus} />
 																	</i>
 																</span>
 															</div>
+															{contactMobileAdd && (
+																<div className={Styles.update__hub__contact_list}>
+																	<ul>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faKeyboard} />
+																			</i>
+																			<span>
+																				<input
+																					type='text'
+																					name="number"
+																					value=""
+																					// value={dept.contacts[1].numbers[0].number}
+																				/>
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faMobileAlt} />
+																			</i>
+																			<span>
+																				<textarea 
+																					type='text'
+																					name="description"
+																					value=""
+																					// value={dept.contacts[1].numbers[0].description}
+																				/>
+																			</span>{' '}
+																		</li>
+																	</ul>
+																</div>
+															)}
 															<div className={Styles.update__hub__contact_list}>
 																<ul>
 																	<li>
@@ -372,7 +485,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<input
 																				type='text'
 																				name="number"
-																				value={dept.contacts[1].numbers[0].number}
+																				value="01745678913"
+																				// value={dept.contacts[1].numbers[0].number}
 																			/>
 																		</span>
 																	</li>
@@ -384,7 +498,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<textarea 
 																				type='text'
 																				name="description"
-																				value={dept.contacts[1].numbers[0].description}
+																				value="Register ofice, Pabna University of Science and Technology"
+																				// value={dept.contacts[1].numbers[0].description}
 																			/>
 																		</span>{' '}
 																	</li>
@@ -399,14 +514,47 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<FontAwesomeIcon icon={faEnvelope} />
 																		</i>
 																	</span>{' '}
-																	{dept.contacts[2].method}
+																	Email
+																	{/* {dept.contacts[2].method} */}
 																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon icon={faPlus} />
+																		<FontAwesomeIcon onClick={e => createContactEmailField(e)} icon={faPlus} />
 																	</i>
 																</span>
 															</div>
+															{contactEmailAdd && (
+																<div className={Styles.update__hub__contact_list}>
+																	<ul>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faAt} />
+																			</i>{' '}
+																			<span>
+																				<input
+																					type='text'
+																					name="number"
+																					value=""
+																					// value={dept.contacts[2].numbers[0].number}
+																				/>
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faAlignLeft} />
+																			</i>
+																			<span>
+																				<textarea 
+																					type='text'
+																					name="description"
+																					value=""
+																					// value={dept.contacts[1].numbers[0].description}
+																				/>
+																			</span>{' '}
+																		</li>
+																	</ul>
+																</div>
+															)}
 															<div className={Styles.update__hub__contact_list}>
 																<ul>
 																	<li>
@@ -417,7 +565,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<input
 																				type='text'
 																				name="number"
-																				value={dept.contacts[2].numbers[0].number}
+																				value="register@pust.ac.bd"
+																				// value={dept.contacts[2].numbers[0].number}
 																			/>
 																		</span>
 																	</li>
@@ -429,7 +578,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<textarea 
 																				type='text'
 																				name="description"
-																				value={dept.contacts[1].numbers[0].description}
+																				value="Register ofice, Pabna University of Science and Technology"
+																				// value={dept.contacts[1].numbers[0].description}
 																			/>
 																		</span>{' '}
 																	</li>
