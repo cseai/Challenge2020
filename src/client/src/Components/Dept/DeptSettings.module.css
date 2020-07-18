@@ -991,7 +991,8 @@ Link :hover {
 	font-family: inherit;
 	font-weight: 500;
 } 
-.update__hub__contact__method__div ul li span input, .update__hub__contact__method__div ul li span textarea {
+.update__hub__contact__method__div ul li span input,
+.update__hub__contact__method__div ul li span textarea {
 	width: 100%;
 	/* border: 1px solid red; */
 	border: 1px solid #4cbea6;
@@ -1003,6 +1004,50 @@ Link :hover {
 	font-size: 16px;
 	font-family: inherit;
 	font-weight: 500;
+}
+
+.update__hub__contact__method__div ul li span select {
+	width: 100px;
+	/* border: 1px solid red; */
+	border: 1px solid #4cbea6;
+	border-radius: 5px;
+	margin-right: 5px;
+	padding: 0px 1px;
+	background-color: #DAE0E0;
+	color: inherit !important;
+	font-size: inherit;
+	font-size: 16px;
+	font-family: inherit;
+	font-weight: 500;
+}
+
+.update__hub__contact__method__div ul li span button{
+	display: inline-flex;
+	width: 100px;
+	/* border: 1px solid red; */
+	border: 1px solid #4cbea6;
+	border-radius: 10px;
+	margin-left: 10px;
+	padding: 0px 5px;
+	background-color: #DAE0E0;
+	color: inherit !important;
+	font-size: inherit;
+	font-size: 16px;
+	font-family: inherit;
+	font-weight: 500;
+	justify-content: center;
+}
+
+.update__hub__contact__method__div ul li span i {
+	display: inline-flex;
+	width: 200px;
+	margin-left: 10px;
+	padding: 0px 5px;
+	font-size: inherit;
+	font-size: 16px;
+	font-family: inherit;
+	font-weight: 500;
+	justify-content: flex-end;
 }
 
 .update__hub__contact_list{

@@ -41,6 +41,10 @@ import {
 	faCity,
 
 	faPlus,
+	faCheckCircle,
+	faTimesCircle,
+	faTrash,
+	
 
 
 	faUser,
@@ -71,17 +75,103 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 		name: '',
 		username: '',
 		since: '',
-		shortDescription: ''
+		shortDescription: '',
+		contacts: []
 	});
 
 	const {
 		name,
 		username,
 		since,
-		shortDescription
+		shortDescription,
+		contacts,
 	} = formData;
 
+	// dummy contacts data
+	const [contactsData, setContactsData] = useState([
+		{
+			method: 'phone',
+			numbers: [
+				{
+					number: '01234567898',
+					description: 'Register ofice, Pabna University of Science and Technology',
+					active: true
+				},
+				{
+					number: '23234567898',
+					description: 'Controller ofice, Pabna University of Science and Technology',
+					active: true
+				}
+			]
+		},
+		{
+			method: 'mobile',
+			numbers: [
+				{
+					number: '01745678913',
+					description: 'Register ofice, Pabna University of Science and Technology',
+					active: true
+				},
+				{
+					number: '01945678913',
+					description: 'Controller ofice, Pabna University of Science and Technology',
+					active: false
+				}
+			]
+		},
+		{
+			method: 'email',
+			numbers: [
+				{
+					number: 'register@pust.ac.bd',
+					description: 'Register ofice, Pabna University of Science and Technology',
+					active: true
+				},
+				{
+					number: 'controller@pust.ac.bd',
+					description: 'Controller ofice, Pabna University of Science and Technology',
+					active: true
+				}
+			]
+		}
+	]);
+
 	const onChangeDetailInput = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+	const onChangeContactInput = (e, method, number_index) => {
+		console.log(e.target.name,e.target.value, method, number_index);
+		if(method==='phone'){
+			if(e.target.name === 'number'){
+				contactsData[0].numbers[number_index].number = e.target.value
+			}else if(e.target.name === 'description'){
+				contactsData[0].numbers[number_index].description = e.target.value
+			}else if(e.target.name === 'active'){
+				contactsData[0].numbers[number_index].active = e.target.value
+			}
+			setContactsData({...contactsData});
+			// console.log(contactsData[0])
+		}else if(method==='mobile'){
+			if(e.target.name === 'number'){
+				contactsData[1].numbers[number_index].number = e.target.value
+			}else if(e.target.name === 'description'){
+				contactsData[1].numbers[number_index].description = e.target.value
+			}else if(e.target.name === 'active'){
+				contactsData[1].numbers[number_index].active = e.target.value
+			}
+			setContactsData({...contactsData});
+			// console.log(contactsData[1]);
+		}else if(method==='email'){
+			if(e.target.name === 'number'){
+				contactsData[2].numbers[number_index].number = e.target.value
+			}else if(e.target.name === 'description'){
+				contactsData[2].numbers[number_index].description = e.target.value
+			}else if(e.target.name === 'active'){
+				contactsData[2].numbers[number_index].active = e.target.value
+			}
+			setContactsData({...contactsData});
+			// console.log(contactsData[2])
+		}
+	}
 
 	const onSubmitDetailSection = (e) => {
 		e.preventDefault();
@@ -139,11 +229,20 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	const createContactPhoneField = (e) => {
 		setContactPhoneAdd(true);
 	}
+	const createContactPhoneFieldCancel = (e) => {
+		setContactPhoneAdd(false);
+	}
 	const createContactMobileField = (e) => {
 		setContactMobileAdd(true);
 	}
+	const createContactMobileFieldCancel = (e) => {
+		setContactMobileAdd(false);
+	}
 	const createContactEmailField = (e) => {
 		setContactEmailAdd(true);
+	}
+	const createContactEmailFieldCancel = (e) => {
+		setContactEmailAdd(false);
 	}
 
 
@@ -362,69 +461,80 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																				/>
 																			</span>{' '}
 																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faCheckCircle} />
+																			</i>
+																			<span>
+																				<select
+																					name="active"
+																				>
+																					<option value='true' selected>Active</option>
+																					<option value='false'>Deactive</option>
+																				</select>
+																				<button className='btn-success'>Add</button>
+																				<button className='btn-warning' onClick={e => createContactPhoneFieldCancel(e)}>Cancel</button>
+																			</span>
+																		</li>
 																	</ul>
 																</div>
 															)}
-															<div className={Styles.update__hub__contact_list}>
-																<ul>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faKeyboard} />
-																		</i>{' '}
-																		<span>
-																			<input
-																				type='text'
-																				name="number"
-																				value="1784394509"
-																				// value={dept.contacts[0].numbers[0].number}
-																			/>
-																		</span>{' '}
-																	</li>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faAlignLeft} />
-																		</i>
-																		<span>
-																			<textarea 
-																				type='text'
-																				name="description"
-																				value="Register ofice, Pabna University of Science and Technology"
-																				// value={dept.contacts[0].numbers[0].description}
-																			/>
-																		</span>{' '}
-																	</li>
-																</ul>
-															</div>
-															<div className={Styles.update__hub__contact_list}>
-																<ul>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faKeyboard} />
-																		</i>{' '}
-																		<span>
-																			<input
-																				type='text'
-																				name="number"
-																				value="1784394509"
-																				// value={dept.contacts[0].numbers[0].number}
-																			/>
-																		</span>{' '}
-																	</li>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faAlignLeft} />
-																		</i>
-																		<span>
-																			<textarea 
-																				type='text'
-																				name="description"
-																				value="Register ofice, Pabna University of Science and Technology"
-																				// value={dept.contacts[0].numbers[0].description}
-																			/>
-																		</span>{' '}
-																	</li>
-																</ul>
-															</div>
+															{Object.entries(contactsData[0].numbers).map(([key,number]) => (
+																<div className={Styles.update__hub__contact_list}>
+																	<ul>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faKeyboard} />
+																			</i>
+																			<span>
+																				<input
+																					type='text'
+																					name="number"
+																					value={number.number}
+																					// value="1784394509"
+																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				/>
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faAlignLeft} />
+																			</i>
+																			<span>
+																				<textarea 
+																					type='text'
+																					name="description"
+																					value={number.description}
+																					// value="Register ofice, Pabna University of Science and Technology"
+																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				/>
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				{number.active ? (
+																				<FontAwesomeIcon icon={faCheckCircle} />
+																				):(
+																					<FontAwesomeIcon icon={faTimesCircle} />
+																				)}
+																			</i>
+																			<span>
+																				<select
+																					name="active"
+																					value={number.active}
+																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				>
+																					<option value={true}>Active</option>
+																					<option value={false}>Deactive</option>
+																				</select>
+																				<i>
+																					<FontAwesomeIcon icon={faTrash} />
+																				</i>
+																			</span>
+																		</li>
+																	</ul>
+																</div>)
+															)}
 														</div>
 														<div className={Styles.update__hub__contact__method__div}>
 															<div className={Styles.update__hub__contact_inner_heading}>
@@ -461,7 +571,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																		</li>
 																		<li>
 																			<i>
-																				<FontAwesomeIcon icon={faMobileAlt} />
+																				<FontAwesomeIcon icon={faAlignLeft} />
 																			</i>
 																			<span>
 																				<textarea 
@@ -470,41 +580,82 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					value=""
 																					// value={dept.contacts[1].numbers[0].description}
 																				/>
-																			</span>{' '}
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faCheckCircle} />
+																			</i>
+																			<span>
+																				<select
+																					name="active"
+																				>
+																					<option value='true' selected>Active</option>
+																					<option value='false'>Deactive</option>
+																				</select>
+																				<button className='btn-success'>Add</button>
+																				<button className='btn-warning' onClick={e => createContactMobileFieldCancel(e)}>Cancel</button>
+																			</span>
 																		</li>
 																	</ul>
 																</div>
 															)}
-															<div className={Styles.update__hub__contact_list}>
-																<ul>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faKeyboard} />
-																		</i>
-																		<span>
-																			<input
-																				type='text'
-																				name="number"
-																				value="01745678913"
-																				// value={dept.contacts[1].numbers[0].number}
-																			/>
-																		</span>
-																	</li>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faMobileAlt} />
-																		</i>
-																		<span>
-																			<textarea 
-																				type='text'
-																				name="description"
-																				value="Register ofice, Pabna University of Science and Technology"
-																				// value={dept.contacts[1].numbers[0].description}
-																			/>
-																		</span>{' '}
-																	</li>
-																</ul>
-															</div>
+															{Object.entries(contactsData[1].numbers).map(([key,number]) => (
+																<div className={Styles.update__hub__contact_list}>
+																	<ul>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faKeyboard} />
+																			</i>
+																			<span>
+																				<input
+																					type='text'
+																					name="number"
+																					value={number.number}
+																					// value="01745678913"
+																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				/>
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faAlignLeft} />
+																			</i>
+																			<span>
+																				<textarea 
+																					type='text'
+																					name="description"
+																					value={number.description}
+																					// value="Register ofice, Pabna University of Science and Technology"
+																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				/>
+																			</span>{' '}
+																		</li>
+																		<li>
+																			<i>
+																				{number.active ? (
+																				<FontAwesomeIcon icon={faCheckCircle} />
+																				):(
+																					<FontAwesomeIcon icon={faTimesCircle} />
+																				)}
+																			</i>
+																			<span>
+																				<select
+																					name='active'
+																					value={number.active}
+																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				>
+																					<option value={true}>Active</option>
+																					<option value={false}>Deactive</option>
+																				</select>
+																				<i>
+																					<FontAwesomeIcon icon={faTrash} />
+																				</i>
+																			</span>
+																		</li>
+																	</ul>
+																</div>)
+															)}
 														</div>
 														<div className={Styles.update__hub__contact__method__div}>
 															<div className={Styles.update__hub__contact_inner_heading}>
@@ -550,41 +701,82 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					value=""
 																					// value={dept.contacts[1].numbers[0].description}
 																				/>
-																			</span>{' '}
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faCheckCircle} />
+																			</i>
+																			<span>
+																				<select
+																					name="active"
+																				>
+																					<option value='true' selected>Active</option>
+																					<option value='false'>Deactive</option>
+																				</select>
+																				<button className='btn-success'>Add</button>
+																				<button className='btn-warning' onClick={e => createContactEmailFieldCancel(e)}>Cancel</button>
+																			</span>
 																		</li>
 																	</ul>
 																</div>
 															)}
-															<div className={Styles.update__hub__contact_list}>
-																<ul>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faAt} />
-																		</i>{' '}
-																		<span>
-																			<input
-																				type='text'
-																				name="number"
-																				value="register@pust.ac.bd"
-																				// value={dept.contacts[2].numbers[0].number}
-																			/>
-																		</span>
-																	</li>
-																	<li>
-																		<i>
-																			<FontAwesomeIcon icon={faAlignLeft} />
-																		</i>
-																		<span>
-																			<textarea 
-																				type='text'
-																				name="description"
-																				value="Register ofice, Pabna University of Science and Technology"
-																				// value={dept.contacts[1].numbers[0].description}
-																			/>
-																		</span>{' '}
-																	</li>
-																</ul>
-															</div>
+															{Object.entries(contactsData[2].numbers).map(([key,number]) => (
+																<div className={Styles.update__hub__contact_list}>
+																	<ul>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faAt} />
+																			</i>{' '}
+																			<span>
+																				<input
+																					type='text'
+																					name="number"
+																					value={number.number}
+																					// value="register@pust.ac.bd"
+																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				/>
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				<FontAwesomeIcon icon={faAlignLeft} />
+																			</i>
+																			<span>
+																				<textarea 
+																					type='text'
+																					name="description"
+																					value={number.description}
+																					// value="Register ofice, Pabna University of Science and Technology"
+																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				/>
+																			</span>
+																		</li>
+																		<li>
+																			<i>
+																				{number.active ? (
+																				<FontAwesomeIcon icon={faCheckCircle} />
+																				):(
+																					<FontAwesomeIcon icon={faTimesCircle} />
+																				)}
+																			</i>
+																			<span>
+																				<select
+																					name='active'
+																					value={number.active}
+																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
+																				>
+																					<option value={true}>Active</option>
+																					<option value={false}>Deactive</option>
+																				</select>
+																				<i>
+																					<FontAwesomeIcon icon={faTrash} />
+																				</i>
+																			</span>
+																		</li>
+																	</ul>
+																</div>)
+															)}
 														</div>
 													</div>
 												</div>
