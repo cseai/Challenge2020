@@ -14,14 +14,16 @@ import { themeMode } from './actions/configAction';
 import lightTheme from './Components/theme/Light';
 import darkTheme from './Components/theme/Dark';
 // components
-import ErrorPage from './Components/Layout/ErrorPage/ErrorPage'
+import ErrorPage from './Components/Layout/ErrorPage/ErrorPage';
 import NewsBoard from './Components/NewsBoard/NewsBoard';
 import Test from './Components/test/Test';
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
 import Dept from './Components/Dept/DeptProfile';
-import LibraryProfile from './Components/Library/LibraryProfile'
+import LibraryProfile from './Components/Library/LibraryProfile';
 import Dash from './Components/NewsBoard/Dash';
 import LandingPage from './Components/Layout/Landing/LandingPage.js';
+//library
+import UserLibrary from './Components/Library/User Library/UserLibrary';
 // form
 import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
@@ -40,7 +42,7 @@ const App = ({ themeMode, darkMode }) => {
 	// load user
 	useEffect(() => {
 		store.dispatch(loadUser());
-	}, []);
+	}, [loadUser]);
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyle />
@@ -64,6 +66,9 @@ const App = ({ themeMode, darkMode }) => {
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/create-user-profile' component={CreateUserProfile} />
 							<Route exact path='/test/:deptId/:libId' component={Test} />
+							{/* library */}
+							<Route exact path='/pust/library' component={UserLibrary}></Route>{' '}
+							{/*maybe upate route url*/}
 						</Switch>
 					</Fragment>
 				</Router>

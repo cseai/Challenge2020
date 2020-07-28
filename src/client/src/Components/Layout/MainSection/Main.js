@@ -18,7 +18,7 @@ const Main = ({ eduhub, auth: { loading, isAuthenticated } }) => {
 		return <Redirect path='/' />;
 	}
 	//
-	return loading ? (
+	return loading && !isAuthenticated ? (
 		<Fragment>
 			<Spinner />
 		</Fragment>
