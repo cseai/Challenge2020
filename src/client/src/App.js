@@ -19,7 +19,8 @@ import NewsBoard from './Components/NewsBoard/NewsBoard';
 import Test from './Components/test/Test';
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
 import Dept from './Components/Dept/DeptProfile';
-import LibraryProfile from './Components/Library/LibraryProfile'
+import CreateLibraryProfile from './Components/Library/CreateLibrary/CreateLibraryProfile'
+import LibraryProfile from './Components/Library/LibraryProfile/CreateLibraryProfile'
 import Dash from './Components/NewsBoard/Dash';
 import LandingPage from './Components/Layout/Landing/LandingPage.js';
 // form
@@ -55,7 +56,8 @@ const App = ({ themeMode, darkMode }) => {
 							{/* dept */}
 							<Route exact path='/dept/:deptUsername' component={Dept} />
 							{/* library */}
-							<Route exact path='/library/:libraryId' component={LibraryProfile} />
+							<Route exact path='/dept/:deptUsername/create-library' component={CreateLibraryProfile} />
+							<Route exact path='/dept/:deptUsername/library' component={LibraryProfile} />
 							{/* form */}
 							<Route exact path='/dash' component={Dash} />
 							{/* <SignIn> */}
