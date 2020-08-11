@@ -18,9 +18,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUniversity, faBookReader, faCalendar, faAt, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 
 import { getDept } from '../../../actions/deptAction';
-import { createLibraryProfile } from '../../../actions/library/createLibraryAction';
+import { createLibraryProfile } from '../../../actions/libraryAction';
 
-const CreateLibraryProfile = ({getDept, createLibraryProfile, isAuthenticated, match: { params }, dept: { loading, dept }, history }) => {
+const CreateLibraryProfile = ({
+	getDept,
+	createLibraryProfile,
+	isAuthenticated,
+	match: { params },
+	dept: { loading, dept },
+	history,
+}) => {
 	// Form Data
 	const [formData, setFormData] = useState({
 		name: '',
@@ -45,17 +52,7 @@ const CreateLibraryProfile = ({getDept, createLibraryProfile, isAuthenticated, m
 		return <Redirect to='/' />;
 	}
 
-
-	const {
-		name,
-		username,
-		since,
-		country,
-		addressOne,
-		addressTwo,
-		zipCode,
-		shortDescription,
-	} = formData;
+	const { name, username, since, country, addressOne, addressTwo, zipCode, shortDescription } = formData;
 
 	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -65,7 +62,7 @@ const CreateLibraryProfile = ({getDept, createLibraryProfile, isAuthenticated, m
 			country: formData.country,
 			line1: formData.addressOne,
 			line2: formData.addressTwo,
-			zip: formData.zipCode
+			zip: formData.zipCode,
 		};
 
 		const clearedFormData = {
@@ -73,7 +70,7 @@ const CreateLibraryProfile = ({getDept, createLibraryProfile, isAuthenticated, m
 			username: formData.username,
 			since: formData.since,
 			shortDescription: formData.shortDescription,
-			address
+			address,
 		};
 
 		createLibraryProfile(clearedFormData, dept.id);
@@ -82,7 +79,7 @@ const CreateLibraryProfile = ({getDept, createLibraryProfile, isAuthenticated, m
 
 	// If requested dept does not exist (dept===null) then redirect to 404 page
 	// Now just redirect to home page
-	if (dept === null && loading === false){
+	if (dept === null && loading === false) {
 		return <Redirect to='/error' />;
 	}
 
@@ -113,8 +110,7 @@ const CreateLibraryProfile = ({getDept, createLibraryProfile, isAuthenticated, m
 				<Fragment>
 					<div>
 						<h2>This Hub's has no library</h2>
-						<p>If you want to create a library of this Hub, go to the following link
-						</p>
+						<p>If you want to create a library of this Hub, go to the following link</p>
 						<Link to={`/dept/${dept.username}/create-library`}>link: CreateLibrary</Link>
 					</div>
 				</Fragment>

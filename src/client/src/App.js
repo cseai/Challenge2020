@@ -61,12 +61,9 @@ const App = ({ themeMode, darkMode }) => {
 							{/* dept */}
 							<Route exact path='/dept/:deptUsername' component={Dept} />
 							{/* library */}
-<<<<<<< Updated upstream
 							<Route exact path='/dept/:deptUsername/create-library' component={CreateLibraryProfile} />
 							<Route exact path='/dept/:deptUsername/library' component={LibraryProfile} />
-=======
 							{/* <Route exact path='/library/:libraryId' component={LibraryProfile} /> */}
->>>>>>> Stashed changes
 							{/* form */}
 							<Route exact path='/dash' component={Dash} />
 							{/* <SignIn> */}

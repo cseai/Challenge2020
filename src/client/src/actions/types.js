@@ -23,18 +23,13 @@ export const GET_DEPT_PROFILE_SUCCESS = 'GET_DEPT_PROFILE_SUCCESS';
 export const DEPT_PROFILE_ERROR = 'DEPT_PROFILE_ERROR';
 export const DEPT_PROFILE_ERROR_404 = 'DEPT_PROFILE_ERROR_404';
 // library profile
-<<<<<<< Updated upstream
-export const LIBEARY_LOAD = 'LIBEARY_LOAD'
-export const LIBEARY_LOAD_FAIL = 'LIBEARY_LOAD_FAIL'
-export const CREATE_LIBRARY_SUCCESS = 'CREATE_LIBRARY_SUCCESS'
-export const CREATE_LIBRARY_FAIL = 'CREATE_LIBRARY_FAIL'
-=======
 export const LIBEARY_LOAD = 'LIBEARY_LOAD';
 export const LIBEARY_LOAD_FAIL = 'LIBEARY_LOAD_FAIL';
+export const CREATE_LIBRARY_SUCCESS = 'CREATE_LIBRARY_SUCCESS';
+export const CREATE_LIBRARY_FAIL = 'CREATE_LIBRARY_FAIL';
 export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
 export const GET_ALL_BOOKS_FAIL = 'GET_ALL_BOOKS_FAIL';
 
->>>>>>> Stashed changes
 // test
 export const TEST_LOAD = 'TEST_LOAD';
 export const TEST_LOAD_FAIL = 'TEST_LOAD_FAIL';
