@@ -61,7 +61,7 @@ import { getDept } from '../../actions/deptAction';
 import DummyContactsData from'./Components/DummyData/DummyContactsData';
 import CoverPhoto from './Components/Layout/CoverPhoto';
 
-import {formData,
+/*import {formData,
 	setFormData ,
 	newContactPhoneData, 
 	setNewContactPhoneData,
@@ -70,6 +70,7 @@ import {formData,
 	newContactEmailData, 
 	setNewContactEmailData
 } from './Components/InitialData'
+*/
 
 
 //Sanzid Editing End...
@@ -91,7 +92,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	const [contactMobileAdd, setContactMobileAdd] = useState(false);
 	const [contactEmailAdd, setContactEmailAdd] = useState(false);
 
-	/*
+	
 	const [formData, setFormData] = useState({
 		name: '',
 		username: '',
@@ -115,7 +116,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 		description: '',
 		active: true
 	});
-*/
+
 
 	const onChangeNewContactPhoneData = (e) => {
 		if(e.target.name === 'number' || e.target.name === 'description'){
