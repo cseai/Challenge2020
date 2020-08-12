@@ -29,6 +29,7 @@ import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
 import CreateUserProfile from './Components/Form/CreateProfile/CreateProfile';
 import setAuthToken from './utils/setAuthToken';
+import DeptSettings from './Components/Dept/DeptSettings';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -56,6 +57,7 @@ const App = ({ themeMode, darkMode }) => {
 							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* dept */}
 							<Route exact path='/dept/:deptUsername' component={Dept} />
+							<Route exact path='/dept/:deptUsername/settings' component={DeptSettings} />
 							{/* library */}
 							<Route exact path='/library/:libraryId' component={LibraryProfile} />
 							{/* form */}
