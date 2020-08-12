@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import Spinner from './../../../theme/Spinner/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserCog, faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import { SubBgAndColor, InbgSelect, InbgInput } from './../UserLibraryContainer';
@@ -14,6 +13,8 @@ import { SubBgAndColor, InbgSelect, InbgInput } from './../UserLibraryContainer'
 import { getAllBooks } from './../../../../actions/libraryAction';
 // components
 import BooksDetailsModal from './BooksDetailsModal';
+import Modal from './../../../Layout/Modal/Modal';
+import BookModal from './BookModal';
 
 const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks }) => {
 	useEffect(() => {
@@ -21,7 +22,7 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 		getAllBooks(id);
 	}, [getAllBooks, id]);
 	// modal selector
-	const [show, setShow] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	const display = () => {
 		const t = allBooks.books[1].authors;
@@ -31,7 +32,7 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 	return (
 		<>
 			<Fragment>
-				{show && <BooksDetailsModal closeButton={() => setShow(false)} />}
+				{/* {show && <BooksDetailsModal closeButton={() => setShow(false)} />} */}
 				<div className={Styles.right__part}>
 					<div className={Styles.right__part_main}>
 						<div className={Styles.right__part__cover}>
@@ -120,7 +121,7 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 												<SubBgAndColor className={Styles.right__part__books_card}>
 													<div
 														className={Styles.right__part__books_card_inner}
-														onClick={() => setShow(true)}
+														onClick={() => setOpen(true)}
 													>
 														<div className={Styles.right__part__books_card_img}>
 															<img src={require('./../image/al.jpg')} alt='book image' />
@@ -140,7 +141,6 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 																		}
 																		key={i}
 																	>
-																		{/* {display()} */}
 																		{
 																			allBooks.books[book].authors[author]
 																				.authorName
@@ -149,72 +149,6 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 																)
 															)}
 														</div>
-														{/* <div className={Styles.right__part__books_card_img_overlay}>
-														<div
-															className={
-																Styles.right__part__books_card_img_overlay_action
-															}
-														>
-															<div
-																className={
-																	Styles.right__part__books_card_img_overlay_action_btn
-																}
-															>
-																<button>Add List</button>
-																<button>Details View</button>
-															</div>
-														</div>
-													</div> */}
-														{/* <Modal
-															show={show}
-															onHide={() => setShow(false)}
-															dialogClassName='modal-90w'
-															aria-labelledby='example-custom-modal-styling-title'
-															size='xl'
-														>
-															<Modal.Header closeButton onClick={() => setShow(false)}>
-																<Modal.Title id='example-custom-modal-styling-title'>
-																	Custom Modal Styling
-																</Modal.Title>
-															</Modal.Header>
-															<Modal.Body>
-																<p varient='primary'>
-																	Ipsum molestiae natus adipisci modi eligendi?
-																	Debitis amet quae unde commodi aspernatur enim,
-																	consectetur. Cumque deleniti temporibus ipsam atque
-																	a dolores quisquam quisquam adipisci possimus
-																	laboriosam. Quibusdam facilis doloribus debitis! Sit
-																	quasi quod accusamus eos quod. Ab quos consequuntur
-																	eaque quo rem! Mollitia reiciendis porro quo magni
-																	incidunt dolore amet atque facilis ipsum deleniti
-																	rem! Ipsum molestiae natus adipisci modi eligendi?
-																	Debitis amet quae unde commodi aspernatur enim,
-																	consectetur. Cumque deleniti temporibus ipsam atque
-																	a dolores quisquam quisquam adipisci possimus
-																	laboriosam. Quibusdam facilis doloribus debitis! Sit
-																	quasi quod accusamus eos quod. Ab quos consequuntur
-																	eaque quo rem! Mollitia reiciendis porro quo magni
-																	incidunt dolore amet atque facilis ipsum deleniti
-																	rem! Ipsum molestiae natus adipisci modi eligendi?
-																	Debitis amet quae unde commodi aspernatur enim,
-																	consectetur. Cumque deleniti temporibus ipsam atque
-																	a dolores quisquam quisquam adipisci possimus
-																	laboriosam. Quibusdam facilis doloribus debitis! Sit
-																	quasi quod accusamus eos quod. Ab quos consequuntur
-																	eaque quo rem! Mollitia reiciendis porro quo magni
-																	incidunt dolore amet atque facilis ipsum deleniti
-																	rem! Ipsum molestiae natus adipisci modi eligendi?
-																	Debitis amet quae unde commodi aspernatur enim,
-																	consectetur. Cumque deleniti temporibus ipsam atque
-																	a dolores quisquam quisquam adipisci possimus
-																	laboriosam. Quibusdam facilis doloribus debitis! Sit
-																	quasi quod accusamus eos quod. Ab quos consequuntur
-																	eaque quo rem! Mollitia reiciendis porro quo magni
-																	incidunt dolore amet atque facilis ipsum deleniti
-																	rem!
-																</p>
-															</Modal.Body>
-														</Modal> */}
 													</div>
 												</SubBgAndColor>
 											</div>
@@ -226,6 +160,9 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 					</div>
 				</div>
 			</Fragment>
+			<Modal open={open} modalClose={() => setOpen(false)}>
+				<BookModal />
+			</Modal>
 		</>
 	);
 };

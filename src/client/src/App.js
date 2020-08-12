@@ -16,24 +16,30 @@ import lightTheme from './Components/theme/Light';
 import darkTheme from './Components/theme/Dark';
 // components
 import ErrorPage from './Components/Layout/ErrorPage/ErrorPage';
-import NewsBoard from './Components/NewsBoard/NewsBoard';
 import Test from './Components/test/Test';
+import LandingPage from './Components/Layout/Landing/LandingPage.js';
+import LinksPage from './Components/Layout/Links/LinksPage';
+// main page
+import NewsBoard from './Components/NewsBoard/NewsBoard';
+
+import Dash from './Components/NewsBoard/Dash';
+// user
+import CreateUserProfile from './Components/Form/CreateProfile/CreateProfile';
+
+// dept
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
 import Dept from './Components/Dept/DeptProfile';
-// import LibraryProfile from './Components/Library/LibraryProfile';
+import DeptSettings from './Components/Dept/DeptSettings';
 
-import CreateLibraryProfile from './Components/Library/CreateLibrary/CreateLibraryProfile';
-import LibraryProfile from './Components/Library/LibraryProfile/CreateLibraryProfile';
-import Dash from './Components/NewsBoard/Dash';
-import LandingPage from './Components/Layout/Landing/LandingPage.js';
 //library
 import UserLibrary from './Components/Library/User Library/UserLibrary';
+import LibraryProfile from './Components/Library/LibraryProfile/CreateLibraryProfile';
+import CreateLibraryProfile from './Components/Library/CreateLibrary/CreateLibraryProfile';
+
 // form
 import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
-import CreateUserProfile from './Components/Form/CreateProfile/CreateProfile';
 import setAuthToken from './utils/setAuthToken';
-import DeptSettings from './Components/Dept/DeptSettings';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -56,7 +62,6 @@ const App = ({ themeMode, darkMode }) => {
 					<Fragment>
 						<Route exact path='/' component={LandingPage} />
 						<Switch>
-							<Route exact path='/error' component={ErrorPage} />
 							<Route exact path='/home' component={NewsBoard} />
 							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* dept */}
@@ -73,10 +78,13 @@ const App = ({ themeMode, darkMode }) => {
 							{/* </SignIn> */}
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/create-user-profile' component={CreateUserProfile} />
-							<Route exact path='/test/:deptId/:libId' component={Test} />
 							{/* library */}
 							<Route exact path='/pust/library' component={UserLibrary}></Route>
 							{/*maybe upate route url*/}
+							{/* other  */}
+							<Route exact path='/links' component={LinksPage}></Route>
+							<Route exact path='/test/:deptId/:libId' component={Test} />
+							<Route exact path='/error' component={ErrorPage} />
 						</Switch>
 					</Fragment>
 				</Router>

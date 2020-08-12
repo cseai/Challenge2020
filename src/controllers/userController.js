@@ -29,9 +29,11 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 // @access   Private
 
 exports.getUser = catchAsync(async (req, res, next) => {
-	console.log('error from get current user');
 	const user = await User.findById(req.user).select('-_id -createdAt -__v');
+
 	if (!user) {
+		console.log('error from get current user');
+
 		return next(new AppError(`User doesn't exists!`, 404));
 	}
 	res.status(200).json(user);
