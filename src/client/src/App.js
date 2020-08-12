@@ -40,7 +40,7 @@ import CreateLibraryProfile from './Components/Library/CreateLibrary/CreateLibra
 import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
 import setAuthToken from './utils/setAuthToken';
-
+import PrivateRoute from './Components/Route/PrivateRoute';
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }
@@ -62,27 +62,32 @@ const App = ({ themeMode, darkMode }) => {
 					<Fragment>
 						<Route exact path='/' component={LandingPage} />
 						<Switch>
-							<Route exact path='/home' component={NewsBoard} />
+							<PrivateRoute exact path='/home' component={NewsBoard} />
 							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* dept */}
-							<Route exact path='/dept/:deptUsername' component={Dept} />
-							<Route exact path='/dept/:deptUsername/settings' component={DeptSettings} />
+							<PrivateRoute exact path='/dept/:deptUsername' component={Dept} />
+							<PrivateRoute exact path='/dept/:deptUsername/settings' component={DeptSettings} />
 							{/* library */}
-							<Route exact path='/dept/:deptUsername/create-library' component={CreateLibraryProfile} />
-							<Route exact path='/dept/:deptUsername/library' component={LibraryProfile} />
+							<PrivateRoute
+								exact
+								path='/dept/:deptUsername/create-library'
+								component={CreateLibraryProfile}
+							/>
+							<PrivateRoute exact path='/dept/:deptUsername/library' component={LibraryProfile} />
 							{/* <Route exact path='/library/:libraryId' component={LibraryProfile} /> */}
 							{/* form */}
-							<Route exact path='/dash' component={Dash} />
+							<PrivateRoute exact path='/dash' component={Dash} />
 							{/* <SignIn> */}
 							<Route exact path='/login' component={Login} />
 							{/* </SignIn> */}
 							<Route exact path='/register' component={Register} />
-							<Route exact path='/create-user-profile' component={CreateUserProfile} />
+							<PrivateRoute exact path='/create-user-profile' component={CreateUserProfile} />
 							{/* library */}
-							<Route exact path='/pust/library' component={UserLibrary}></Route>
+							<PrivateRoute exact path='/pust/library' component={UserLibrary}></PrivateRoute>
 							{/*maybe upate route url*/}
 							{/* other  */}
-							<Route exact path='/links' component={LinksPage}></Route>
+							<PrivateRoute exact path='/links' component={LinksPage} />
+							{/* <Route exact path='/links' component={LinksPage}></Route> */}
 							<Route exact path='/test/:deptId/:libId' component={Test} />
 							<Route exact path='/error' component={ErrorPage} />
 						</Switch>

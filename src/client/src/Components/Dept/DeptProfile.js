@@ -50,17 +50,6 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 		console.log(params);
 	}, [getDept, params.deptUsername]);
 
-	// redirected if not logged in
-	if (isAuthenticated === false) {
-		return <Redirect to='/' />;
-	}
-
-	// If requested dept does not exist (dept===null) then redirect to 404 page
-	// Now just redirect to home page
-	// if (dept === null && loading === false){
-	// 	return <Redirect to='/error' />;
-	// }
-
 	return loading && dept === null ? (
 		<Main
 			eduhub={
@@ -71,8 +60,10 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 				</Fragment>
 			}
 		/>
-	) : (dept === null && loading === false) ? (<Redirect to='/error' />) : 
-	(<Main
+	) : dept === null && loading === false ? (
+		<Redirect to='/error' />
+	) : (
+		<Main
 			eduhub={
 				<Fragment>
 					{/* <!-- start code for here --> */}
@@ -114,7 +105,11 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 									</i>
 								</DeptProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>{dept.category ? dept.category.charAt(0).toUpperCase() + dept.category.slice(1) : `Undefined`}</p>
+									<p>
+										{dept.category
+											? dept.category.charAt(0).toUpperCase() + dept.category.slice(1)
+											: `Undefined`}
+									</p>
 								</div>
 							</div>
 
@@ -128,7 +123,11 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 									</i>
 								</DeptProfileInfoContentIcon>
 								<div className={Styles.text}>
-									<p>{dept.name ? dept.name.charAt(0).toUpperCase() + dept.name.slice(1) : `Unknown!`}</p>
+									<p>
+										{dept.name
+											? dept.name.charAt(0).toUpperCase() + dept.name.slice(1)
+											: `Unknown!`}
+									</p>
 								</div>
 							</div>
 
@@ -143,7 +142,8 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 								<div className={Styles.text}>
 									<div className={Styles.eduHub__profile__info_content_side}></div>
 									<p>
-										Established at {dept.since ? (<Moment format='YYYY'> {dept.since} </Moment>) : `Unknown!`}{' '}
+										Established at{' '}
+										{dept.since ? <Moment format='YYYY'> {dept.since} </Moment> : `Unknown!`}{' '}
 										{/* <span>
 											<i>
 												<FontAwesomeIcon icon={faStar} />
@@ -190,43 +190,49 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 							{deptMap && (
 								<Fragment>
 									{/* EduHub and Parent*/}
-									{(dept.eduHub === null && dept.parent === null) ? (
+									{dept.eduHub === null && dept.parent === null ? (
 										// This is EduHub
 										<Fragment>
 											<div className={Styles.eduHub__profile__about_about_details}>
-											<div><p>Showing map from EduHub</p></div>
+												<div>
+													<p>Showing map from EduHub</p>
+												</div>
 											</div>
 										</Fragment>
-									):(
+									) : (
 										<Fragment>
 											{/* <div className={Styles.eduHub__profile__about_about_details}><h3>Super Departments:</h3></div> */}
 											<div className={Styles.eduHub__profile__about_about_details}>
-											<div><p>EduHub:</p></div>
-											<Link to={`/dept/${dept.eduHub.username}`}>
-												<DeptProfileInfoContentIcon
-													key={dept.eduHub.username}
-													className={Styles.eduHub__profile__eduhubmap}
-												>
-													<DeptMap className={Styles.eduHub__profile__eduhubmap_p}>
-														{dept.eduHub.name}
-													</DeptMap>
-												</DeptProfileInfoContentIcon>
-											</Link>
-											<div><p>Parent Department:</p></div>
-											<Link to={`/dept/${dept.parent.username}`}>
-												<DeptProfileInfoContentIcon
-													key={dept.parent.username}
-													className={Styles.eduHub__profile__eduhubmap}
-												>
-													<DeptMap className={Styles.eduHub__profile__eduhubmap_p}>
-														{dept.parent.name}
-													</DeptMap>
-												</DeptProfileInfoContentIcon>
-											</Link>
+												<div>
+													<p>EduHub:</p>
+												</div>
+												<Link to={`/dept/${dept.eduHub.username}`}>
+													<DeptProfileInfoContentIcon
+														key={dept.eduHub.username}
+														className={Styles.eduHub__profile__eduhubmap}
+													>
+														<DeptMap className={Styles.eduHub__profile__eduhubmap_p}>
+															{dept.eduHub.name}
+														</DeptMap>
+													</DeptProfileInfoContentIcon>
+												</Link>
+												<div>
+													<p>Parent Department:</p>
+												</div>
+												<Link to={`/dept/${dept.parent.username}`}>
+													<DeptProfileInfoContentIcon
+														key={dept.parent.username}
+														className={Styles.eduHub__profile__eduhubmap}
+													>
+														<DeptMap className={Styles.eduHub__profile__eduhubmap_p}>
+															{dept.parent.name}
+														</DeptMap>
+													</DeptProfileInfoContentIcon>
+												</Link>
 											</div>
 										</Fragment>
 									)}
-		
+
 									{/* Children */}
 									{dept.children.length < 1 ? (
 										<Fragment>
@@ -247,7 +253,9 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 										<Fragment>
 											{/* <div className={Styles.eduHub__profile__about_about_details}><h3>Child Departments:</h3></div> */}
 											<div className={Styles.eduHub__profile__about_about_details}>
-											<div><p>Child Departments:</p></div>
+												<div>
+													<p>Child Departments:</p>
+												</div>
 												{dept.children.map((dept, index) => (
 													<Link to={`/dept/${dept.username}`}>
 														<DeptProfileInfoContentIcon
@@ -291,84 +299,89 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 								<div className={Styles.eduHub__profile__info_content_side}></div>
 								<p>Contacts</p>
 							</DeptProfileInfoContentIcon>
-							{contact && ( dept.contacts.length > 2 ? (
-								<Fragment>
-									<div className={Styles.eduHub__profile__contact_inner_heading}>
-										<p>
-											<span>
-												<i>
-													<FontAwesomeIcon icon={faPhoneAlt} />
-												</i>
-											</span>{' '}
-											{dept.contacts[0].method}
-										</p>
-									</div>
-									<div className={Styles.eduHub__profile__contact_list}>
-										<ul>
-											<li>
-												<i>
-													<FontAwesomeIcon icon={faKeyboard} />
-												</i>{' '}
-												<span>{dept.contacts[0].numbers[0].number}</span>{' '}
-											</li>
-											<li>
-												<i>
-													<FontAwesomeIcon icon={faAlignLeft} />
-												</i>
-												<span> Register office</span>{' '}
-											</li>
-										</ul>
-									</div>
+							{contact &&
+								(dept.contacts.length > 2 ? (
+									<Fragment>
+										<div className={Styles.eduHub__profile__contact_inner_heading}>
+											<p>
+												<span>
+													<i>
+														<FontAwesomeIcon icon={faPhoneAlt} />
+													</i>
+												</span>{' '}
+												{dept.contacts[0].method}
+											</p>
+										</div>
+										<div className={Styles.eduHub__profile__contact_list}>
+											<ul>
+												<li>
+													<i>
+														<FontAwesomeIcon icon={faKeyboard} />
+													</i>{' '}
+													<span>{dept.contacts[0].numbers[0].number}</span>{' '}
+												</li>
+												<li>
+													<i>
+														<FontAwesomeIcon icon={faAlignLeft} />
+													</i>
+													<span> Register office</span>{' '}
+												</li>
+											</ul>
+										</div>
 
-									<div className={Styles.eduHub__profile__contact_inner_heading}>
-										<p>
-											<span>
-												<i>
-													<FontAwesomeIcon icon={faMobileAlt} />
-												</i>
-											</span>
-											{dept.contacts[1].method}
-										</p>
-									</div>
-									<div className={Styles.eduHub__profile__contact_list}>
-										<ul>
-											<li>
-												<i>
-													<FontAwesomeIcon icon={faKeyboard} />
-												</i>
-												<span> {dept.contacts[1].numbers[0].number}</span>
-											</li>
-											<li>
-												<i>
-													<FontAwesomeIcon icon={faMobileAlt} />
-												</i>
-												<span>Register office</span>{' '}
-											</li>
-										</ul>
-									</div>
+										<div className={Styles.eduHub__profile__contact_inner_heading}>
+											<p>
+												<span>
+													<i>
+														<FontAwesomeIcon icon={faMobileAlt} />
+													</i>
+												</span>
+												{dept.contacts[1].method}
+											</p>
+										</div>
+										<div className={Styles.eduHub__profile__contact_list}>
+											<ul>
+												<li>
+													<i>
+														<FontAwesomeIcon icon={faKeyboard} />
+													</i>
+													<span> {dept.contacts[1].numbers[0].number}</span>
+												</li>
+												<li>
+													<i>
+														<FontAwesomeIcon icon={faMobileAlt} />
+													</i>
+													<span>Register office</span>{' '}
+												</li>
+											</ul>
+										</div>
 
-									<div className={Styles.eduHub__profile__contact_inner_heading}>
-										<p>
-											<span>
-												<i>
-													<FontAwesomeIcon icon={faEnvelope} />
-												</i>
-											</span>{' '}
-											{dept.contacts[2].method}
-										</p>
+										<div className={Styles.eduHub__profile__contact_inner_heading}>
+											<p>
+												<span>
+													<i>
+														<FontAwesomeIcon icon={faEnvelope} />
+													</i>
+												</span>{' '}
+												{dept.contacts[2].method}
+											</p>
+										</div>
+										<div className={Styles.eduHub__profile__contact_list}>
+											<ul>
+												<li>
+													<i>
+														<FontAwesomeIcon icon={faAt} />
+													</i>{' '}
+													<span>{dept.contacts[2].numbers[0].number}</span>{' '}
+												</li>
+											</ul>
+										</div>
+									</Fragment>
+								) : (
+									<div className={Styles.eduHub__profile__about_about_details}>
+										<p>Nothing to show!</p>
 									</div>
-									<div className={Styles.eduHub__profile__contact_list}>
-										<ul>
-											<li>
-												<i>
-													<FontAwesomeIcon icon={faAt} />
-												</i>{' '}
-												<span>{dept.contacts[2].numbers[0].number}</span>{' '}
-											</li>
-										</ul>
-									</div>
-								</Fragment>
-							) : (<div className={Styles.eduHub__profile__about_about_details}><p>Nothing to show!</p></div>))}
+								))}
 						</DeptProfileAbout>
 						<DeptProfileAbout className={Styles.eduHub__profile__location}>
 							<DeptProfileInfoContentIcon
@@ -416,7 +429,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 
 Dept.propTypes = {
 	getDept: PropTypes.func.isRequired,
-	dept: PropTypes.array.isRequired,
+	// dept: PropTypes.array.isRequired,
 	isAuthenticated: PropTypes.bool.isRequired,
 };
 

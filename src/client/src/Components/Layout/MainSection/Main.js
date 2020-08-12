@@ -13,12 +13,7 @@ import LeftSideBar from './../Leftbar/LeftSideBar';
 import RightSideBar from './../Rightbar/RightSideBar';
 
 const Main = ({ eduhub, auth: { loading, isAuthenticated } }) => {
-	// redirected if user not authenticated
-	if (isAuthenticated === false) {
-		return <Redirect path='/' />;
-	}
-	//
-	return loading && !isAuthenticated ? (
+	return loading || !isAuthenticated ? (
 		<Fragment>
 			<Spinner />
 		</Fragment>
