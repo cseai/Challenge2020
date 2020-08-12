@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { Provider } from 'react-redux';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { GlobalConatiner } from './Components/theme/GlobalContainer';
 import { connect } from 'react-redux';
@@ -19,7 +20,10 @@ import NewsBoard from './Components/NewsBoard/NewsBoard';
 import Test from './Components/test/Test';
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
 import Dept from './Components/Dept/DeptProfile';
-import LibraryProfile from './Components/Library/LibraryProfile';
+// import LibraryProfile from './Components/Library/LibraryProfile';
+
+import CreateLibraryProfile from './Components/Library/CreateLibrary/CreateLibraryProfile';
+import LibraryProfile from './Components/Library/LibraryProfile/CreateLibraryProfile';
 import Dash from './Components/NewsBoard/Dash';
 import LandingPage from './Components/Layout/Landing/LandingPage.js';
 //library
@@ -43,7 +47,7 @@ const App = ({ themeMode, darkMode }) => {
 	// load user
 	useEffect(() => {
 		store.dispatch(loadUser());
-	}, [loadUser]);
+	}, [loadUser, localStorage.token]);
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyle />
@@ -59,7 +63,9 @@ const App = ({ themeMode, darkMode }) => {
 							<Route exact path='/dept/:deptUsername' component={Dept} />
 							<Route exact path='/dept/:deptUsername/settings' component={DeptSettings} />
 							{/* library */}
-							<Route exact path='/library/:libraryId' component={LibraryProfile} />
+							<Route exact path='/dept/:deptUsername/create-library' component={CreateLibraryProfile} />
+							<Route exact path='/dept/:deptUsername/library' component={LibraryProfile} />
+							{/* <Route exact path='/library/:libraryId' component={LibraryProfile} /> */}
 							{/* form */}
 							<Route exact path='/dash' component={Dash} />
 							{/* <SignIn> */}
@@ -69,7 +75,7 @@ const App = ({ themeMode, darkMode }) => {
 							<Route exact path='/create-user-profile' component={CreateUserProfile} />
 							<Route exact path='/test/:deptId/:libId' component={Test} />
 							{/* library */}
-							<Route exact path='/pust/library' component={UserLibrary}></Route>{' '}
+							<Route exact path='/pust/library' component={UserLibrary}></Route>
 							{/*maybe upate route url*/}
 						</Switch>
 					</Fragment>
