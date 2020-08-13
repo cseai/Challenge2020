@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { Provider } from 'react-redux';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { GlobalConatiner } from './Components/theme/GlobalContainer';
 import { connect } from 'react-redux';
@@ -14,21 +15,32 @@ import { themeMode } from './actions/configAction';
 import lightTheme from './Components/theme/Light';
 import darkTheme from './Components/theme/Dark';
 // components
-import ErrorPage from './Components/Layout/ErrorPage/ErrorPage'
-import NewsBoard from './Components/NewsBoard/NewsBoard';
+import ErrorPage from './Components/Layout/ErrorPage/ErrorPage';
 import Test from './Components/test/Test';
+import LandingPage from './Components/Layout/Landing/LandingPage.js';
+import LinksPage from './Components/Layout/Links/LinksPage';
+// main page
+import NewsBoard from './Components/NewsBoard/NewsBoard';
+
+import Dash from './Components/NewsBoard/Dash';
+// user
+import CreateUserProfile from './Components/Form/CreateProfile/CreateProfile';
+
+// dept
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
 import Dept from './Components/Dept/DeptProfile';
-import LibraryProfile from './Components/Library/LibraryProfile'
-import Dash from './Components/NewsBoard/Dash';
-import LandingPage from './Components/Layout/Landing/LandingPage.js';
+import DeptSettings from './Components/Dept/DeptSettings';
+
+//library
+import UserLibrary from './Components/Library/User Library/UserLibrary';
+import LibraryProfile from './Components/Library/LibraryProfile/CreateLibraryProfile';
+import CreateLibraryProfile from './Components/Library/CreateLibrary/CreateLibraryProfile';
+
 // form
 import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
-import CreateUserProfile from './Components/Form/CreateProfile/CreateProfile';
 import setAuthToken from './utils/setAuthToken';
-import DeptSettings from './Components/Dept/DeptSettings';
-
+import PrivateRoute from './Components/Route/PrivateRoute';
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }
@@ -41,7 +53,7 @@ const App = ({ themeMode, darkMode }) => {
 	// load user
 	useEffect(() => {
 		store.dispatch(loadUser());
-	}, []);
+	}, [loadUser, localStorage.token]);
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyle />
@@ -50,22 +62,34 @@ const App = ({ themeMode, darkMode }) => {
 					<Fragment>
 						<Route exact path='/' component={LandingPage} />
 						<Switch>
-							<Route exact path='/error' component={ErrorPage} />
-							<Route exact path='/home' component={NewsBoard} />
+							<PrivateRoute exact path='/home' component={NewsBoard} />
 							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* dept */}
-							<Route exact path='/dept/:deptUsername' component={Dept} />
-							<Route exact path='/dept/:deptUsername/settings' component={DeptSettings} />
+							<PrivateRoute exact path='/dept/:deptUsername' component={Dept} />
+							<PrivateRoute exact path='/dept/:deptUsername/settings' component={DeptSettings} />
 							{/* library */}
-							<Route exact path='/library/:libraryId' component={LibraryProfile} />
+							<PrivateRoute
+								exact
+								path='/dept/:deptUsername/create-library'
+								component={CreateLibraryProfile}
+							/>
+							<PrivateRoute exact path='/dept/:deptUsername/library' component={LibraryProfile} />
+							{/* <Route exact path='/library/:libraryId' component={LibraryProfile} /> */}
 							{/* form */}
-							<Route exact path='/dash' component={Dash} />
+							<PrivateRoute exact path='/dash' component={Dash} />
 							{/* <SignIn> */}
 							<Route exact path='/login' component={Login} />
 							{/* </SignIn> */}
 							<Route exact path='/register' component={Register} />
-							<Route exact path='/create-user-profile' component={CreateUserProfile} />
+							<PrivateRoute exact path='/create-user-profile' component={CreateUserProfile} />
+							{/* library */}
+							<PrivateRoute exact path='/pust/library' component={UserLibrary}></PrivateRoute>
+							{/*maybe upate route url*/}
+							{/* other  */}
+							<PrivateRoute exact path='/links' component={LinksPage} />
+							{/* <Route exact path='/links' component={LinksPage}></Route> */}
 							<Route exact path='/test/:deptId/:libId' component={Test} />
+							<Route exact path='/error' component={ErrorPage} />
 						</Switch>
 					</Fragment>
 				</Router>

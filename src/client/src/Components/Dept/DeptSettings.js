@@ -453,16 +453,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 
 
 
-	// redirected if not logged in
-	if (isAuthenticated === false) {
-		return <Redirect to='/' />;
-	}
 
-	// If requested dept does not exist (dept===null) then redirect to 404 page
-	// Now just redirect to home page
-	// if (dept === null && loading === false){
-	// 	return <Redirect to='/error' />;
-	// }
 
 	return loading && dept === null ? (
 		<Main

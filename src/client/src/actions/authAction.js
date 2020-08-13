@@ -23,8 +23,6 @@ export const loadUser = () => async (dispatch) => {
 
 // login
 export const login = (email, password) => async (dispatch) => {
-	console.log(email, password);
-
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
@@ -35,7 +33,7 @@ export const login = (email, password) => async (dispatch) => {
 
 	try {
 		const res = await axios.post('/api/v1/users/login', body, config);
-		console.log('action --> ', res.data);
+		// console.log('action --> ', res.data);
 		dispatch({
 			type: LOGIN_SUCCESS,
 			payload: res.data,
@@ -46,7 +44,6 @@ export const login = (email, password) => async (dispatch) => {
 			type: LOGIN_FAIL,
 		});
 		const errors = err.response.data.errors;
-		// console.log(errors);
 
 		if (errors) {
 			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -59,8 +56,6 @@ export const login = (email, password) => async (dispatch) => {
 
 // register
 export const register = ({ username, email, password }) => async (dispatch) => {
-	console.log(username, email, password);
-
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
@@ -82,7 +77,6 @@ export const register = ({ username, email, password }) => async (dispatch) => {
 		});
 	} catch (err) {
 		const errors = err.response.data.errors;
-		// console.log(err);
 
 		if (errors) {
 			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));

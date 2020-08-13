@@ -10,7 +10,7 @@ import {
 
 const initialState = {
 	token: localStorage.getItem('token'),
-	isAuthenticated: null,
+	isAuthenticated: false,
 	loading: true,
 	user: null,
 };
@@ -39,7 +39,7 @@ export default function (state = initialState, action) {
 		case LOGOUT:
 		case AUTH_ERROR:
 		case REGISTER_FAIL:
-			localStorage.removeItem('token');
+			window.localStorage.removeItem('token');
 			return {
 				...state,
 				...payload,
