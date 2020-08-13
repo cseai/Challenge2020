@@ -58,10 +58,47 @@ import { getDept } from '../../actions/deptAction';
 
 //Sanzid Editing start...
 
-import DummyContactsData from'./Components/DummyData/DummyContactsData';
-import CoverPhoto from './Components/Layout/CoverPhoto';
 
-/*import {formData,
+//Importing Dummy Data
+import DummyContactsData from'./Components/DummyData/DummyContactsData';
+//Importing Cover Photo
+import CoverPhoto from './Components/Layout/CoverPhoto';
+//Importing Onchange Handelers.
+import {onChangeNewContactPhoneData,onChangeNewContactMobileData,onChangeNewContactEmailData} from './Components/Settings/OnchangeHandeler/onchangeHandeler';
+//Importing Create Contact
+import {createContactPhoneFieldAdd,createContactMobileFieldAdd,createContactEmailFieldAdd} from './Components/Settings/CreateContact/createContact';
+
+
+/*
+import {
+
+	info,
+	setInfo,
+	contact, 
+	setContact,
+	location, 
+	setLocation,
+	deptMap, 
+	setDeptMap,
+	detailSection, 
+	setDetailSection,
+	memberSection, 
+	setMemberSection,
+	controllerSection, 
+	setControllerSection,
+	createSection, 
+	setCreateSection,
+	detailSectionEditOption, 
+	setDetailSectionEditOption,
+	detailSectionButtonValue, 
+	setDetailSectionButtonValue,
+	contactPhoneAdd, 
+	setContactPhoneAdd,
+	contactMobileAdd, 
+	setContactMobileAdd,
+	contactEmailAdd, 
+	setContactEmailAdd,
+	formData,
 	setFormData ,
 	newContactPhoneData, 
 	setNewContactPhoneData,
@@ -73,9 +110,12 @@ import CoverPhoto from './Components/Layout/CoverPhoto';
 */
 
 
+
+
 //Sanzid Editing End...
 
 const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loading, dept } }) => {
+	
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
@@ -117,7 +157,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 		active: true
 	});
 
-
+	/*
 	const onChangeNewContactPhoneData = (e) => {
 		if(e.target.name === 'number' || e.target.name === 'description'){
 			setNewContactPhoneData({...newContactPhoneData, [e.target.name]: e.target.value});
@@ -157,6 +197,9 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 		console.log(newContactEmailData[e.target.name]);
 	}
 
+	*/
+
+	/*
 	const createContactPhoneFieldAdd = (e) => {
 		console.log(newContactPhoneData);
 		// Check Data Validity
@@ -210,6 +253,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 			setContactEmailAdd(false);
 		}
 	}
+
+	*/
 
 	
 
@@ -610,7 +655,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					required
 																					value={newContactPhoneData.number}
-																					onChange={(e) => onChangeNewContactPhoneData(e)}
+																					onChange={(e) => onChangeNewContactPhoneData(e,newContactPhoneData,setNewContactPhoneData)}
 																				/>
 																			</span>
 																		</li>
@@ -623,7 +668,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					type='text'
 																					name="description"
 																					value={newContactPhoneData.description}
-																					onChange={(e) => onChangeNewContactPhoneData(e)}
+																					onChange={(e) => onChangeNewContactPhoneData(e,newContactPhoneData,setNewContactPhoneData)}
 																				/>
 																			</span>
 																		</li>
@@ -634,7 +679,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<span>
 																				<select
 																					name="active"
-																					onChange={(e) => onChangeNewContactPhoneData(e)}
+																					onChange={(e) => onChangeNewContactPhoneData(e,newContactPhoneData,setNewContactPhoneData)}
 																				>
 																					{newContactPhoneData.active ? (
 																						<Fragment>
@@ -648,7 +693,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																						</Fragment>
 																					)}
 																				</select>
-																				<button className='btn-success' onClick={e => createContactPhoneFieldAdd(e)}>Add</button>
+																				<button className='btn-success' onClick={e => createContactPhoneFieldAdd(e,newContactPhoneData,setNewContactPhoneData,contactsData, setContactsData,setContactPhoneAdd)}>Add</button>
 																				<button className='btn-warning' onClick={e => createContactPhoneFieldCancel(e)}>Cancel</button>
 																			</span>
 																		</li>
@@ -742,7 +787,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					required
 																					value={newContactMobileData.number}
-																					onChange={(e) => onChangeNewContactMobileData(e)}
+																					onChange={(e) => onChangeNewContactMobileData(e,newContactMobileData,setNewContactMobileData)}
 																				/>
 																			</span>
 																		</li>
@@ -755,7 +800,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					type='text'
 																					name="description"
 																					value={newContactMobileData.description}
-																					onChange={(e) => onChangeNewContactMobileData(e)}
+																					onChange={(e) => onChangeNewContactMobileData(e,newContactMobileData,setNewContactMobileData)}
 																				/>
 																			</span>
 																		</li>
@@ -766,7 +811,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<span>
 																			<select
 																					name="active"
-																					onChange={(e) => onChangeNewContactMobileData(e)}
+																					onChange={(e) => onChangeNewContactMobileData(e,newContactMobileData,setNewContactMobileData)}
 																				>
 																					{newContactMobileData.active ? (
 																						<Fragment>
@@ -780,7 +825,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																						</Fragment>
 																					)}
 																				</select>
-																				<button className='btn-success' onClick={e => createContactMobileFieldAdd(e)}>Add</button>
+																				<button className='btn-success' onClick={e => createContactMobileFieldAdd(e,newContactMobileData,setNewContactMobileData,contactsData, setContactsData,setContactMobileAdd)}>Add</button>
 																				<button className='btn-warning' onClick={e => createContactMobileFieldCancel(e)}>Cancel</button>
 																			</span>
 																		</li>
@@ -874,7 +919,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					required
 																					value={newContactEmailData.number}
-																					onChange={(e) => onChangeNewContactEmailData(e)}
+																					onChange={(e) => onChangeNewContactEmailData(e,newContactEmailData, setNewContactEmailData)}
 																				/>
 																			</span>
 																		</li>
@@ -887,7 +932,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					type='text'
 																					name="description"
 																					value={newContactEmailData.description}
-																					onChange={(e) => onChangeNewContactEmailData(e)}
+																					onChange={(e) => onChangeNewContactEmailData(e,newContactEmailData, setNewContactEmailData)}
 																				/>
 																			</span>
 																		</li>
@@ -898,7 +943,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<span>
 																				<select
 																					name="active"
-																					onChange={(e) => onChangeNewContactEmailData(e)}
+																					onChange={(e) => onChangeNewContactEmailData(e,newContactEmailData, setNewContactEmailData)}
 																				>
 																					{newContactEmailData.active ? (
 																						<Fragment>
@@ -912,7 +957,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																						</Fragment>
 																					)}
 																				</select>
-																				<button className='btn-success' onClick={e => createContactEmailFieldAdd(e)}>Add</button>
+																				<button className='btn-success' onClick={e => createContactEmailFieldAdd(e,newContactEmailData, setNewContactEmailData,contactsData, setContactsData,setContactEmailAdd)}>Add</button>
 																				<button className='btn-warning' onClick={e => createContactEmailFieldCancel(e)}>Cancel</button>
 																			</span>
 																		</li>
