@@ -47,11 +47,6 @@ const CreateLibraryProfile = ({
 		console.log(params);
 	}, [getDept, params.deptUsername]);
 
-	// redirected if not logged in
-	if (isAuthenticated === false) {
-		return <Redirect to='/' />;
-	}
-
 	const { name, username, since, country, addressOne, addressTwo, zipCode, shortDescription } = formData;
 
 	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
