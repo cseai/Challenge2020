@@ -54,6 +54,27 @@ import {
 // action
 import { getDept } from '../../actions/deptAction';
 
+
+
+//Sanzid Editing start...
+
+import DummyContactsData from'./Components/DummyData/DummyContactsData';
+import CoverPhoto from './Components/Layout/CoverPhoto';
+
+/*import {formData,
+	setFormData ,
+	newContactPhoneData, 
+	setNewContactPhoneData,
+	newContactMobileData, 
+	setNewContactMobileData,
+	newContactEmailData, 
+	setNewContactEmailData
+} from './Components/InitialData'
+*/
+
+
+//Sanzid Editing End...
+
 const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loading, dept } }) => {
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
@@ -71,6 +92,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	const [contactMobileAdd, setContactMobileAdd] = useState(false);
 	const [contactEmailAdd, setContactEmailAdd] = useState(false);
 
+	
 	const [formData, setFormData] = useState({
 		name: '',
 		username: '',
@@ -200,7 +222,10 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	} = formData;
 
 	// dummy contacts data
-	const [contactsData, setContactsData] = useState([
+	const [contactsData, setContactsData] = useState(DummyContactsData
+		
+		/*
+		[
 		{
 			method: 'phone',
 			numbers: [
@@ -246,7 +271,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 				}
 			]
 		}
-	]);
+	]*/);
 
 	const onChangeDetailInput = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -411,6 +436,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 					{/* <!-- start code for here --> */}
 					<DeptProfile>
 						{/* <!-- Cover photo --> */}
+						<CoverPhoto />
+						{/*
 						<div className={Styles.eduHub__profile__image}>
 							<div className={Styles.eduHub__profile__image_cover_image}>
 								<img src={require('./images/p.jpg')} alt='for good' />
@@ -435,6 +462,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 								</div>
 							</div>
 						</div>
+						*/
+						}
                         
 					</DeptProfile>
                     <DeptProfile>

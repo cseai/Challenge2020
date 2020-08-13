@@ -37,6 +37,17 @@ import {
 // action
 import { getDept } from '../../actions/deptAction';
 
+//*****Sanzid Ipmort *****/
+
+import CoverPhoto from './Components/Layout/CoverPhoto';
+
+//*****Sanzid Ipmort *****/
+
+
+
+
+
+
 const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, dept } }) => {
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
@@ -78,6 +89,8 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 					{/* <!-- start code for here --> */}
 					<DeptProfile>
 						{/* <!-- Cover photo --> */}
+						<CoverPhoto />
+						{/*
 						<div className={Styles.eduHub__profile__image}>
 							<div className={Styles.eduHub__profile__image_cover_image}>
 								<img src={require('./images/p.jpg')} alt='for good' />
@@ -102,6 +115,7 @@ const Dept = ({ getDept, isAuthenticated, match: { params }, dept: { loading, de
 								</div>
 							</div>
 						</div>
+						*/}
 						{/* <!-- user info --> */}
 						<DeptProfileInfo>
 							<div className={Styles.eduHub__profile__info_content}>
