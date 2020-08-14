@@ -12,18 +12,36 @@ import { SubBgAndColor, InbgSelect, InbgInput } from './../UserLibraryContainer'
 // redux
 import { getAllBooks } from './../../../../actions/libraryAction';
 // components
-import BooksDetailsModal from './BooksDetailsModal';
+// import BooksDetailsModal from './BooksDetailsModal';
 import Modal from './../../../Layout/Modal/Modal';
 import BookModal from './BookModal';
 
 const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks }) => {
+	// use state
+	const [open, setOpen] = useState(false);
+	const [sortBy, setSortBy] = useState('createdAt');
+	const [bookId, setBookId] = useState();
+	const [books, setBooks] = useState(null);
+
+	// use effect
 	useEffect(() => {
 		console.log(typeof id);
-		getAllBooks(id);
-	}, [getAllBooks, id]);
-	// modal selector
-	const [open, setOpen] = useState(false);
+		getAllBooks(id, sortBy);
+		console.log('changed by sort');
+	}, [getAllBooks, id, sortBy]);
 
+	// all functions
+	const changeSortBy = (e) => {
+		setSortBy(e.target.value);
+	};
+	const openClose = (book, booksById) => {
+		setOpen(true);
+		setBookId(book);
+		setBooks(booksById);
+		// console.log(bookId);
+		// console.log(booksById);
+		// console.log(books);
+	};
 	const display = () => {
 		const t = allBooks.books[1].authors;
 		return typeof t;
@@ -99,11 +117,13 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 									name='sort_by'
 									id='sort_by'
 									className={Styles.right__part__show_right_select}
+									onChange={(e) => changeSortBy(e)}
+									value={sortBy}
 								>
-									<option>Sort by</option>
-									<option>All Books</option>
-									<option>Date</option>
-									<option>Name</option>
+									<option value={sortBy}>Sort by</option>
+									<option value='_id'>All Books</option>
+									<option value={sortBy}>Date</option>
+									<option value='title'>Name</option>
 								</InbgSelect>
 							</div>
 						</div>
@@ -116,12 +136,12 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 									</Fragment>
 								) : (
 									<Fragment>
-										{Object.keys(allBooks.books).map((book, i) => (
-											<div className='col-sm-12 col-md-6 col-lg-4 col-xl-3' key={i}>
+										{Object.keys(allBooks.books).map((book, index) => (
+											<div className='col-sm-12 col-md-6 col-lg-4 col-xl-3' key={index}>
 												<SubBgAndColor className={Styles.right__part__books_card}>
 													<div
 														className={Styles.right__part__books_card_inner}
-														onClick={() => setOpen(true)}
+														onClick={() => openClose(book, allBooks.books[book])}
 													>
 														<div className={Styles.right__part__books_card_img}>
 															<img src={require('./../image/al.jpg')} alt='book image' />
@@ -151,6 +171,7 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 														</div>
 													</div>
 												</SubBgAndColor>
+												{/* {openModal()} */}
 											</div>
 										))}
 									</Fragment>
@@ -160,9 +181,11 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 					</div>
 				</div>
 			</Fragment>
-			<Modal open={open} modalClose={() => setOpen(false)}>
-				<BookModal />
-			</Modal>
+			{bookId !== 999999 && (
+				<Modal open={open} modalClose={() => setOpen(false)}>
+					<BookModal book={bookId} Allbooks={books} />
+				</Modal>
+			)}
 		</>
 	);
 };

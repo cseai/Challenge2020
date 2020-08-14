@@ -16,10 +16,11 @@ export const getLibrary = () => async (dispatch) => {
 };
 
 // get all book from specific library
-export const getAllBooks = (id) => async (dispatch) => {
+export const getAllBooks = (id, sortBy) => async (dispatch) => {
 	console.log('get all books called');
+	//const sortBy = 'createdAt';
 	try {
-		const res = await axios.get(`/api/v1/libraries/${id}/books?fields=title,_id,library,authors&sort=-createdAt`);
+		const res = await axios.get(`/api/v1/libraries/${id}/books?fields=title,_id,library,authors&sort=-${sortBy}`);
 		dispatch({
 			type: GET_ALL_BOOKS,
 			payload: res.data,
