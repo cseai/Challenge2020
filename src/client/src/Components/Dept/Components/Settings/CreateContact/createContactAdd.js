@@ -1,3 +1,8 @@
+export const createContactPhoneField = (e,setContactPhoneAdd) => {
+    setContactPhoneAdd(true);
+}
+
+
 export const createContactPhoneFieldAdd = (e,newContactPhoneData,setNewContactPhoneData,contactsData, setContactsData,setContactPhoneAdd) => {
     console.log(newContactPhoneData);
     // Check Data Validity
@@ -16,6 +21,10 @@ export const createContactPhoneFieldAdd = (e,newContactPhoneData,setNewContactPh
     }
 }
 
+export const createContactMobileField = (e,setContactMobileAdd) => {
+    setContactMobileAdd(true);
+}
+
 export const createContactMobileFieldAdd = (e,newContactMobileData,setNewContactMobileData,contactsData, setContactsData,setContactMobileAdd) => {
     console.log(newContactMobileData);
     // Check Data Validity
@@ -32,6 +41,10 @@ export const createContactMobileFieldAdd = (e,newContactMobileData,setNewContact
         });
         setContactMobileAdd(false);
     }
+}
+
+export const createContactEmailField = (e,setContactEmailAdd) => {
+    setContactEmailAdd(true);
 }
 
 export const createContactEmailFieldAdd = (e,newContactEmailData, setNewContactEmailData,contactsData, setContactsData,setContactEmailAdd) => {

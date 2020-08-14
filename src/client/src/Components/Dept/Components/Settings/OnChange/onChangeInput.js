@@ -1,6 +1,6 @@
-export const onChangeDetailInput = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+export const onChangeDetailInput = (e,formData,setFormData) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-export const onChangeContactInput = (e, method, number_index) => {
+export const onChangeContactInput = (e, method, number_index,contactsData, setContactsData) => {
     console.log(e.target.name,e.target.value, method, number_index);
     if(method==='phone'){
         if(e.target.name === 'number'){
