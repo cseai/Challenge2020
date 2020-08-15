@@ -1,20 +1,30 @@
-import React, {Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux';
+import './LibraryAdmin.css'
 
-// css and icon
+import Sidebar from './Sidebar'
+import Content from './Content'
 
 
-// components
+const LibraryAdmin = ({history}) =>{
 
-// action
 
-const LibraryAdmin = () => {
     return (
         <Fragment>
-            <hi>Library Admin Site</hi>
+            <div>
+                <div className="header">
+                    <h1>Edukos</h1>
+                </div>
+                <div className="grid-container">
+                    {/* sidebar  */}
+                    <Sidebar />
+                    {/* content  */}
+                    <Content />
+                </div>
+            </div>
         </Fragment>
     );
 };
 
-export default LibraryAdmin;
+
+export default connect()(LibraryAdmin);
