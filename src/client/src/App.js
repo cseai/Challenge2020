@@ -28,8 +28,8 @@ import CreateUserProfile from './Components/Form/CreateProfile/CreateProfile';
 
 // dept
 // import EduhubProfile from './Components/EduhubProfile/EduhubProfile';
-import Dept from './Components/Dept/DeptProfile';
-import DeptSettings from './Components/Dept/DeptSettings';
+import DeptProfile from './Components/Dept/DeptProfile/DeptProfile';
+import DeptSettings from './Components/Dept/DeptSettings/DeptSettings';
 
 //library
 import UserLibrary from './Components/Library/User Library/UserLibrary';
@@ -65,7 +65,7 @@ const App = ({ themeMode, darkMode }) => {
 							<PrivateRoute exact path='/home' component={NewsBoard} />
 							{/* <Route exact path='/eduhub/:eduhubName' component={EduhubProfile} /> */}
 							{/* dept */}
-							<PrivateRoute exact path='/dept/:deptUsername' component={Dept} />
+							<PrivateRoute exact path='/dept/:deptUsername' component={DeptProfile} />
 							<PrivateRoute exact path='/dept/:deptUsername/settings' component={DeptSettings} />
 							{/* library */}
 							<PrivateRoute
