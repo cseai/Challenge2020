@@ -11,7 +11,7 @@ const LibraryAdmin = ({history}) =>{
 
     return (
         <Fragment>
-            <div>
+            <div className="body">
                 <div className="header">
                     <h1>Edukos</h1>
                 </div>

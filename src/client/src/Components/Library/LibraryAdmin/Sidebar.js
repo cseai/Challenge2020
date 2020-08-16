@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 
+import profileImages from './images/pust2.JPG'
 
+import { Dropdown } from 'react-bootstrap'
 
 const Sidebar = () => {
 
@@ -9,58 +11,80 @@ const Sidebar = () => {
             <nav className="sidebar">
                 <div className="profile">
                     <div className="profile-img">
-                        {/* <img src="" alt="profile">  */}
+                        <img src={profileImages} alt="profile"/>
                     </div>
                     <h3>Pust Library</h3>
                 </div>
+                <div>
+                    <ul>
+                        <li>
+                            <Dropdown>
+                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
+                                    Dashboard
+                                </Dropdown.Toggle>
 
-                <ul className="list-unstyled">
-                    <li>
-                        <a href="#listone" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle main-list">Dashboard</a>
-                        <ul className="collapse list-unstyled sub-list" id="listone">
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" className="main-list">All Books</a>
-                    </li>
-                    <li>
-                        <a href="#users" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle main-list">Users</a>
-                        <ul className="collapse list-unstyled sub-list" id="users">
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#settings" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle main-list">Settings</a>
-                        <ul className="collapse list-unstyled sub-list" id="settings">
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                            <li>
-                                <a href="#">Items</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </li>
+                        <li>
+                        <Dropdown>
+                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
+                                    All Books
+                                </Dropdown.Toggle>
+                                
+                                <Dropdown.Menu>
+                                   
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                </Dropdown.Menu>
+                            
+                            </Dropdown>
+                        </li>
+                        <li>
+                            <Dropdown>
+                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
+                                    Users
+                                </Dropdown.Toggle>
+                                
+                                <Dropdown.Menu>
+                                   
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                </Dropdown.Menu>
+                            
+                            </Dropdown>
+                        </li>
+                        <li>
+                            <Dropdown>
+                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
+                                    Settings
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                    
+                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </Fragment>
     );

@@ -1,5 +1,9 @@
 import React, { Fragment } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faUserFriends } from '@fortawesome/free-solid-svg-icons'
+
+
 
 const Content = () =>{
 
@@ -7,11 +11,19 @@ const Content = () =>{
         <Fragment>
             <div className="main-content">
                 <div className="content-header">
-                    <div className="search-bar">
-                        <span>categories </span><input type="search" />
+                    <div className="header-container">
+                        <div className="search-bar-category">
+                            <span>categories </span>
+                        </div>
+                        <div className="search-bar-input">
+                            <input type="search" />
+                        </div>
+                        <div className="search-bar-icon">
+                            <FontAwesomeIcon icon={ faSearch } />
+                        </div>
                     </div>
-                    <div className="icon">
-                        
+                    <div className="header-image">
+                        <FontAwesomeIcon icon={ faUserFriends } />
                     </div>
                 </div>
 
@@ -32,30 +44,6 @@ const Content = () =>{
                             <th>Borrow</th>
                             <th>left</th>
                         </tr>
-                        <tr>
-                            <td>img</td>
-                            <td><strong>Data Structure</strong></td>
-                            <td>abc</td>
-                            {/* <td><p style="background-color: #4CBEA6;">100</p></td> */}
-                            {/* <td> <p style="background-color: darkmagenta;">100</p></td> */}
-                            {/* <td> <p style="background-color: darkorange;">100</p></td> */}
-                        </tr>
-                        {/* <tr>
-                            <td>img</td>
-                            <td><strong>Algorithm</strong></td>
-                            <td>abc</td>
-                            <td><p style="background-color: #4CBEA6;">100</p></td>
-                            <td> <p style="background-color: darkmagenta;">100</p></td>
-                            <td> <p style="background-color: darkorange;">100</p></td>
-                        </tr>
-                        <tr>
-                            <td>img</td>
-                            <td><strong>Data Structure</strong></td>
-                            <td>abc</td>
-                            <td><p style="background-color: #4CBEA6;">100</p></td>
-                            <td> <p style="background-color: darkmagenta;">100</p></td>
-                            <td> <p style="background-color: darkorange;">100</p></td>
-                        </tr> */}
                     </table>
                 </div>
             </div>

@@ -1,7 +1,11 @@
-body{
+.body{
+
+    color: black;
     margin: 0px;
     padding: 0px;
-    background-color: lightgray;
+    height: 700px;
+    background-color: #E5E5E5;
+
 }
 
 /* header */
@@ -44,7 +48,7 @@ body{
 
 .profile-img{
 
-    width: 30%;
+    width: 25%;
     height: 90px;
     margin: auto;
     position: absolute;
@@ -55,35 +59,44 @@ body{
     clear: both;
 }
 
+.profile-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+}
+
 .profile h3{
     text-align: center;
     margin: 0px;
     position: absolute;
     top: 160px;
-    left: 25%;
+    left: 35%;
 }
 
 
-ul li .main-list{
+ ul li .main-list{
 
     display: inline-block;
     width: 100%;
     height: 50px;
     font-size: 20px;
-    padding-top: 3%;
-    padding-left: 20%;
+    color: black;
+    border: none;
     margin-top: 5px;
     background-color: #F5F8FA;
 }
+.main-list:hover{
+    background-color: #4CBEA6;
+}
 
-.sub-list li{
+
+.sub-list{
 
     width: 100%;
     height: 50px;
     color: black;
     font-size: 20px;
-    padding-top: 3%;
-    padding-left:  30%;
     background-color: #F5F8FA;
     margin-top: 5px;
 }
@@ -103,48 +116,85 @@ ul li .main-list{
     border-radius: 10px;
 }
 
-
-
-.content-header .search-bar{
+.header-container{
 
     width: 60%;
-    height: 45px;
+    height: 35px;
     display: inline-flex;
+    margin-right: 5px;
 }
 
-.content-header .search-bar span{
+.header-image{
 
-    width: 30%;
-    height: 100%;
-    margin-right: 2%;
-    text-align: center;
-   
-    font-size: 160%;
-    background-color: lightgray;
-    border-radius: 10px 0px 0px 10px;
-    box-sizing: border-box;
-
-}
-
-.content-header .search-bar input{
-
-    width: 68%;
-    height: 100%;
-    background-color: lightgray;
-    border-radius: 0px 10px 10px 0px;
-    border: none;
-}
-
-.content-header .icon{
-
-    width: 7%;
-    height: 50px;
+    width: 40px;
+    height: 35px;
+    font-size: 20px;
     float: right;
-    display: inline-flex;
-    background-color: darkcyan;
+    color: #F5F8FA;
+    background-color: #4CBEA6;
+    text-align: center;
     border-radius: 50%;
 }
+.header-container .search-bar-category{
 
+    width: 25%;
+    height: 100%;
+    padding: 5px 0px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 100%;
+    box-sizing: border-box;
+    margin-right: 3px;
+    background-color: #E5E5E5;
+    border-radius: 10px 0px 0px 10px;
+
+}
+
+.header-container .search-bar-input{
+
+    width: 65%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #E5E5E5;
+}
+
+.header-container .search-bar-icon{
+
+
+    width:10%;
+    font-size: 20px;
+    color: #4CBEA6;
+    background-color: #E5E5E5;
+    text-align: center;
+    padding-top: 4px;
+    border-radius: 0px 10px 10px 0px;
+
+
+}
+.search-bar-input input{
+    
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: #E5E5E5;
+    padding: 0px 10px;
+}
+
+.search-bar-input input:focus{
+    
+    font-size: 20px;
+    background-color: #F5F8FA;
+    border: 1px solid #E5E5E5;
+}
+
+
+.header-container .search-bar-icon:hover{
+    
+    background-color: #4CBEA6;
+    color: #E5E5E5;
+
+}
 
 .content-books{
 
@@ -159,6 +209,7 @@ ul li .main-list{
 
     width: 90%;
     margin-top: 5px;
+    font-size: 18px;
     padding: 20px 3% 10px 3%;
     background-color: #F5F8FA;
     border-radius: 10px; 
