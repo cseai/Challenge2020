@@ -4,7 +4,12 @@ import profileImages from './images/pust2.JPG'
 
 import { Dropdown } from 'react-bootstrap'
 
-const Sidebar = () => {
+const Sidebar = ({activeSection, updateSection}) => {
+
+    const onSection = (e, sectionName) => {
+        // console.log('Hi',sectionName);
+        updateSection(sectionName);
+    };
 
     return (
         <Fragment>
@@ -18,69 +23,78 @@ const Sidebar = () => {
                 <div>
                     <ul>
                         <li>
-                            <Dropdown>
-                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
-                                    Dashboard
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                </Dropdown.Menu>
+                        <Dropdown onClick={(e) => onSection(e, 'library')}>
+                            <div className="main-list pl-2">Library</div>
+                        </Dropdown>
+                        </li>
+                        <li>
+                            <Dropdown onClick={(e) => onSection(e, 'dashboard')}>
+                                <div className="main-list pl-2">Dashboard</div>
+                                {activeSection === 'dashboard' && (
+                                    <div className="pl-5">
+                                        <ul className="pl-5">
+                                            <li className="sub-list">Item- 1</li>
+                                            <li className="sub-list">Item- 2</li>
+                                            <li className="sub-list">Item- 3</li>
+                                        </ul>
+                                    </div>
+                                )}
                             </Dropdown>
                         </li>
                         <li>
-                        <Dropdown>
-                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
-                                    All Books
-                                </Dropdown.Toggle>
-                                
-                                <Dropdown.Menu>
-                                   
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                </Dropdown.Menu>
-                            
+                            <Dropdown onClick={(e) => onSection(e, 'user')}>
+                                <div className="main-list pl-2">User</div>
+                                {activeSection === 'user' && (
+                                    <div className="pl-5">
+                                        <ul className="pl-5">
+                                            <li className="sub-list">Item- 1</li>
+                                            <li className="sub-list">Item- 2</li>
+                                            <li className="sub-list">Item- 3</li>
+                                        </ul>
+                                    </div>
+                                )}
                             </Dropdown>
                         </li>
                         <li>
-                            <Dropdown>
-                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
-                                    Users
-                                </Dropdown.Toggle>
-                                
-                                <Dropdown.Menu>
-                                   
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                </Dropdown.Menu>
-                            
+                            <Dropdown onClick={(e) => onSection(e, 'book')}>
+                                <div className="main-list pl-2">Books</div>
+                                {activeSection === 'book' && (
+                                    <div className="pl-5">
+                                        <ul className="pl-5">
+                                            <li className="sub-list">Item- 1</li>
+                                            <li className="sub-list">Item- 2</li>
+                                            <li className="sub-list">Item- 3</li>
+                                        </ul>
+                                    </div>
+                                )}
                             </Dropdown>
                         </li>
                         <li>
-                            <Dropdown>
-                                <Dropdown.Toggle id="dropdown-basic" className="main-list">
-                                    Settings
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                    
-                                    <Dropdown.Item href="#/action-1" className="sub-list">Action</Dropdown.Item>
-                                </Dropdown.Menu>
+                            <Dropdown onClick={(e) => onSection(e, 'resource')}>
+                                <div className="main-list pl-2">Resources</div>
+                                {activeSection === 'resource' && (
+                                    <div className="pl-5">
+                                        <ul className="pl-5">
+                                            <li className="sub-list">Item- 1</li>
+                                            <li className="sub-list">Item- 2</li>
+                                            <li className="sub-list">Item- 3</li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </Dropdown>
+                        </li>
+                        <li>
+                            <Dropdown onClick={(e) => onSection(e, 'setting')}>
+                                <div className="main-list pl-2">Settings</div>
+                                {activeSection === 'setting' && (
+                                    <div className="pl-5">
+                                        <ul className="pl-5">
+                                            <li className="sub-list">Item- 1</li>
+                                            <li className="sub-list">Item- 2</li>
+                                            <li className="sub-list">Item- 3</li>
+                                        </ul>
+                                    </div>
+                                )}
                             </Dropdown>
                         </li>
                     </ul>
