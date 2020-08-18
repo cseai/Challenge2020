@@ -3,7 +3,8 @@
     color: black;
     margin: 0px;
     padding: 0px;
-    height: 700px;
+    /* height: 700px; */
+    min-height: 100vh;
     background-color: #E5E5E5;
 
 }
@@ -33,6 +34,7 @@
 
     padding: 0px;
     margin-right: 0%;
+    min-height: 100vh;
 
 }
 
@@ -75,7 +77,7 @@
 }
 
 
- ul li .main-list{
+ul li .main-list{
 
     display: inline-block;
     width: 100%;
@@ -103,9 +105,9 @@
 
 /* main content  */
 .main-content{
-
     margin-left: 5%;
     padding: 30px 0px;
+    min-height: 100vh;
 }
 
 .content-header{
@@ -216,7 +218,7 @@
     overflow-x: auto;
 }
 
-table{
+/* table{
     width: 80%;
     border-collapse: collapse;
 }
@@ -237,4 +239,4 @@ td p{
     padding: 10px;
     border-radius: 5px;
 
-}
+} */

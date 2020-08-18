@@ -1,0 +1,105 @@
+/* ############ left Side start ############ */
+.left__part {
+	flex: 0 0 20%;
+	width: 20%;
+	height: 99vh;
+}
+.left__part__data {
+	position: fixed;
+	min-height: 99vh;
+	width: 19%;
+	/* box-shadow: 1px 1px 0px 0px #eee; */
+	min-width: 224px;
+	color: inherit;
+	background: inherit !important;
+}
+.left__part__data_content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-self: center;
+	width: 85%;
+	margin: 0 auto;
+}
+.left__part__data_content_profile {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-self: center;
+	padding-top: 40px;
+}
+.left__part__data_content_profile_img_div {
+	justify-content: center;
+	display: flex;
+	align-items: center;
+}
+.left__part__data_content_profile_img {
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 130px;
+	width: 130px;
+	border-radius: 50%;
+}
+.left__part__data_content_profile_name {
+	font-size: 20px;
+	font-weight: 400;
+	color: inherit;
+	text-align: center;
+	padding-top: 20px;
+}
+.left__part__data_content_profile_line {
+	margin-top: 15px;
+	border: 2px solid #e7edf3;
+}
+/*  */
+.left__part__data_content_link {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+	padding-top: 5%;
+	margin-left: 12%;
+}
+
+.left__part__data_content_link_content {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-top: 20px;
+}
+.left__part__data_content_link_content_icon {
+	height: 35px;
+}
+.left__part__data_content_link_content_icon i {
+	font-size: 30px;
+	color: var(--color--primary);
+}
+.left__part__data_content_link_content_links {
+	padding-left: 18px;
+	font-size: 20px;
+	color: inherit;
+	font-weight: 400;
+}
+.fasicon {
+	color: var(--color--primary);
+}
+
+/* ############ responsive ################## */
+/* big screen desktops/laptops,  --> xl */
+@media only screen and (min-width: 1200px) {
+}
+/* most tablets in landscape, many desktops/laptops  --> lg*/
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+}
+/*larger smartphones in landscape, most tablets in portrait, some small laptops  --> md*/
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+}
+/* Extra small devices (portrait phones, less than 576px) */
+@media only screen and (max-width: 575.98px) {
+}
