@@ -36,6 +36,9 @@ import UserLibrary from './Components/Library/User Library/UserLibrary';
 import LibraryProfile from './Components/Library/LibraryProfile/CreateLibraryProfile';
 import CreateLibraryProfile from './Components/Library/CreateLibrary/CreateLibraryProfile';
 
+// library-admin
+import LibraryAdmin from './Components/Library/LibraryAdmin/LibraryAdmin';
+
 // form
 import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
@@ -84,6 +87,8 @@ const App = ({ themeMode, darkMode }) => {
 							<PrivateRoute exact path='/create-user-profile' component={CreateUserProfile} />
 							{/* library */}
 							<PrivateRoute exact path='/pust/library' component={UserLibrary}></PrivateRoute>
+							{/* library-admin */}
+							<PrivateRoute exact path='/library/:libraryUsername/admin' component={LibraryAdmin}></PrivateRoute>
 							{/*maybe upate route url*/}
 							{/* other  */}
 							<PrivateRoute exact path='/links' component={LinksPage} />

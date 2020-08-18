@@ -4,5 +4,8 @@ export default {
 		{ name: 'Dept', link: '/dept/pust' },
 		{ name: 'DeptSettings', link: '/dept/pust/settings' },
 	],
-	librarys: [{ name: 'User Library', link: '/pust/library' }],
+	librarys: [
+		{ name: 'User Library', link: '/pust/library' },
+		{ name: 'Library Admin', link: '/library/pust/admin' }
+	],
 };

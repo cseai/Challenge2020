@@ -1,0 +1,56 @@
+/* icon */
+.fasicon {
+	color: var(--color--primary);
+}
+/* custiom container fluid */
+.container__fluid {
+	width: 100% vw;
+	padding: 0;
+	margin-left: 0 auto;
+	margin-right: 0 auto;
+}
+/* ###################### main  ################### */
+main {
+	width: 100%;
+	padding: 60px 0 0 0;
+}
+.main__section {
+	width: 100%;
+}
+
+.container {
+	width: 100%;
+}
+.main__section_data {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	position: absolute;
+	/* background: var(--color--primary-light-bg);
+	height: auto; */
+}
+.row {
+	margin: 0px auto !important;
+}
+
+/*  todos*/
+
+/* ############ right Side end ############ */
+
+/* ############ responsive ################## */
+/* big screen desktops/laptops,  --> xl */
+@media only screen and (min-width: 1200px) {
+}
+/* most tablets in landscape, many desktops/laptops  --> lg*/
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+}
+/*larger smartphones in landscape, most tablets in portrait, some small laptops  --> md*/
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+}
+/* Extra small devices (portrait phones, less than 576px) */
+@media only screen and (max-width: 575.98px) {
+}
