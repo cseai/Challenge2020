@@ -1,35 +1,24 @@
 import React, { Fragment } from 'react';
+import Styles from './LibraryHomeSection.module.css';
+import PropTypes from 'prop-types';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserFriends } from '@fortawesome/free-solid-svg-icons';
-
-
-const LibraryHome = () =>{
-
+const LibraryHome = ({
+	library,
+}) =>{
     return (
         <Fragment>
-            <div className="main-content">
-                <div className="content-header">
-                    <div className="header-container">
-                        <div className="search-bar-category">
-                            <span>categories </span>
-                        </div>
-                        <div className="search-bar-input">
-                            <input type="search" />
-                        </div>
-                        <div className="search-bar-icon">
-                            <FontAwesomeIcon icon={ faSearch } />
-                        </div>
-                    </div>
-                    <div className="header-image">
-                        <FontAwesomeIcon icon={ faUserFriends } />
-                    </div>
+            <div className={Styles.right__part_main}>
+                <div>
+                    <h2>{library.name} <span>[@{library.username}]</span></h2>
+                    <h3>id: {library.id}</h3>
                 </div>
-
-                <div className="content-books"><h2>Central Library and Information Center of PUST</h2></div>
             </div>
         </Fragment>
     );
-}
+};
+
+LibraryHome.propTypes = {
+	library: PropTypes.object.isRequired,
+};
 
 export default LibraryHome;

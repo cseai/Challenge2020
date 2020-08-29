@@ -14,12 +14,15 @@ import LibraryAdminRightSide from './RightSide/LibraryAdminRightSide';
 import Spinner from './../../theme/Spinner/Spinner';
 
 // action
-import { getLibrary } from './../../../actions/libraryAction';
+import { getAdminLibrary } from './../../../actions/libraryAdminAction';
 
-const LibraryAdmin = ({ getLibrary, lib: { libLoading, library } }) =>{
+const LibraryAdmin = ({
+	getAdminLibrary, 
+	lib: { libLoading, library } 
+}) =>{
     useEffect(() => {
-		getLibrary();
-	}, [getLibrary]);
+		getAdminLibrary();
+	}, [getAdminLibrary]);
     
     // All valid Section Names
     const [sectionNames] = useState({
@@ -32,7 +35,7 @@ const LibraryAdmin = ({ getLibrary, lib: { libLoading, library } }) =>{
 	});
 
     // Active Section Name
-    const [activeSection, setActiveSection] = useState(sectionNames.library);
+    const [activeSection, setActiveSection] = useState(sectionNames.book);
 
     // Update Active Section
     const updateActiveSection = (section) => {
@@ -55,9 +58,9 @@ const LibraryAdmin = ({ getLibrary, lib: { libLoading, library } }) =>{
 						<div className={Styles.container__fluid}>
 							<div className={Styles.main__section_data}>
 								{/* <!-- left bar --> */}
-								{library && <LibraryAdminLeftSide library={library} sectionNames={sectionNames} activeSection={activeSection} updateActiveSection={updateActiveSection} />}
+								{library && <LibraryAdminLeftSide library={library.library} sectionNames={sectionNames} activeSection={activeSection} updateActiveSection={updateActiveSection} />}
 								{/* <!-- right part --> */}
-								{library && <LibraryAdminRightSide id={library.library.id} sectionNames={sectionNames} activeSection={activeSection} />}
+								{library && <LibraryAdminRightSide library={library.library} sectionNames={sectionNames} activeSection={activeSection} />}
 							</div>
 						</div>
 					</LibraryAdminMain>
@@ -69,12 +72,12 @@ const LibraryAdmin = ({ getLibrary, lib: { libLoading, library } }) =>{
 
 
 LibraryAdmin.propTypes = {
-	getLibrary: PropTypes.func.isRequired,
+	getAdminLibrary: PropTypes.func.isRequired,
 	library: PropTypes.object,
 };
 
 const mapStateToprops = (state) => ({
-	lib: state.library,
+	lib: state.libadmin,
 });
-export default connect(mapStateToprops, { getLibrary })(LibraryAdmin);
+export default connect(mapStateToprops, { getAdminLibrary })(LibraryAdmin);
 

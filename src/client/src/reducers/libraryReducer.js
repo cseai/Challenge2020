@@ -7,8 +7,6 @@ const initialState = {
 	bookLoading: true,
 };
 
-// just a comment by munna
-
 export default function (state = initialState, action) {
 	const { type, payload } = action;
 

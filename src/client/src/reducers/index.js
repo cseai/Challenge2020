@@ -6,4 +6,5 @@ import eduhub from './eduHubReducer';
 // import test from './testReducer';
 import dept from './deptReducer';
 import library from './libraryReducer';
-export default combineReducers({ alert, auth, config, eduhub, dept, library });
+import libadmin from './libraryAdminReducer';
+export default combineReducers({ alert, auth, config, eduhub, dept, library, libadmin });
