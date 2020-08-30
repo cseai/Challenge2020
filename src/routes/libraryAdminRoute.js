@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const libraryController = require('../controllers/library/libraryController');
 const authController = require('../controllers/authController');
+const libraryUserController = require('../controllers/library/libraryUserController');
 const libraryBookController = require('../controllers/library/libraryBookController');
 const libraryResourceController = require('../controllers/library/libraryResourceController');
 const libraryTrxController = require('../controllers/library/libraryTrxController');
@@ -11,6 +12,13 @@ router.route('/:libraryId/removecontrollers').patch(authController.protect, libr
 router.route('/:libraryId')
     .get(authController.protect, libraryController.getLibrary)
     .patch(authController.protect, libraryController.updateLibrary);
+
+// Library/User
+router.route('/:libraryId/members')
+    .get(authController.protect, libraryUserController.getAllMembers);
+
+router.route('/:libraryId/members/:userId')
+    .get(authController.protect, libraryUserController.getMember);
 
 // Library/Book
 router.route('/:libraryId/books')
