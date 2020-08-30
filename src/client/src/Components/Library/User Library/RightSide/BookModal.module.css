@@ -1,0 +1,54 @@
+.bookModal {
+	position: fixed;
+	z-index: 1000;
+	top: 5%;
+	left: 20%;
+	right: 20%;
+	background: white;
+	/* color: red; */
+	height: auto;
+	height: 100%;
+	/* //transform: translate(-10%, -20%); */
+}
+.bookModalInner {
+	position: relative;
+	height: auto;
+	/* background: red; */
+	overflow: hidden;
+	min-height: 500px;
+}
+/* .bookModalMain {
+} */
+.Row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.colLeft {
+	height: 350px;
+	width: 250px;
+	position: relative;
+	/* top: 10%; */
+	/* left: 20%; */
+	margin: 0 atuo;
+	/* transform: translate(-10%, -5%); */
+	margin: 0 auto;
+	top: 10%;
+}
+.colLeftImage {
+	width: 100%;
+	height: 100%;
+}
+
+.colRight {
+	padding-top: 30px;
+	/* background: red; */
+}
+colRight_bookName p {
+	font-size: 26px;
+	font-weight: 600;
+	text-align: left;
+}
+.colRight_author {
+}

@@ -41,8 +41,10 @@ import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './Components/Route/PrivateRoute';
+
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
+	console.log('$$$$$$$$$$$token#######');
 }
 
 const App = ({ themeMode, darkMode }) => {
@@ -103,13 +105,13 @@ App.propTypes = {
 	// darkMode: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	darkMode: state.config.darkMode,
 });
 
 const GlobalStyle = createGlobalStyle`
 	body {
-		background: ${(props) => props.theme.colors.background};
+		background: ${props => props.theme.colors.background};
 		color: ${({ theme }) => theme.colors.color};
 		transition: all 0.25s linear;
 }

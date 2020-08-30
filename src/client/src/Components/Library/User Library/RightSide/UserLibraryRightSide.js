@@ -3,7 +3,7 @@ import Styles from './UserLibraryRightSide.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 //css,spinner,container,icon
-import Spinner from './../../../theme/Spinner/Spinner';
+// import Spinner from './../../../theme/Spinner/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,7 +31,7 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 	}, [getAllBooks, id, sortBy]);
 
 	// all functions
-	const changeSortBy = (e) => {
+	const changeSortBy = e => {
 		setSortBy(e.target.value);
 	};
 	const openClose = (book, booksById) => {
@@ -117,7 +117,7 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 									name='sort_by'
 									id='sort_by'
 									className={Styles.right__part__show_right_select}
-									onChange={(e) => changeSortBy(e)}
+									onChange={e => changeSortBy(e)}
 									value={sortBy}
 								>
 									<option value={sortBy}>Sort by</option>
@@ -128,16 +128,25 @@ const UserLibraryRightSide = ({ id, getAllBooks, bookLoading, loading, allBooks 
 							</div>
 						</div>
 						<div className={Styles.right__part__books}>
-							<Row className={Styles.row}>
+							<Row
+								className={Styles.row}
+								style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}
+							>
 								{loading || bookLoading || allBooks === null || allBooks === 'undefined' ? (
 									<Fragment>
-										<Spinner />
-										loading...
+										<img
+											src={require('./../../../theme/Spinner/Spin-0.8s-217px.svg')}
+											alt='loading...'
+										/>
 									</Fragment>
 								) : (
 									<Fragment>
 										{Object.keys(allBooks.books).map((book, index) => (
-											<div className='col-sm-12 col-md-6 col-lg-4 col-xl-3' key={index}>
+											<div
+												className='col-sm-12 col-md-6 col-lg-4 col-xl-3'
+												key={index}
+												style={{ marginBottom: '40px' }}
+											>
 												<SubBgAndColor className={Styles.right__part__books_card}>
 													<div
 														className={Styles.right__part__books_card_inner}
@@ -197,7 +206,7 @@ UserLibraryRightSide.propTypes = {
 	// AllBooks: PropTypes.object,
 };
 
-const mapStateToprops = (state) => ({
+const mapStateToprops = state => ({
 	loading: state.library.loading,
 	bookLoading: state.library.bookLoading,
 	allBooks: state.library.books,

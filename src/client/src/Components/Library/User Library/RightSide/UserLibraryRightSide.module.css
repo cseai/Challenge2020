@@ -163,8 +163,8 @@ button :focus {
 	height: 300px;
 	min-width: 180px;
 	max-width: 190px;
-	margin: 0px 7px 45px 7px;
-	background: initial !important;
+	margin: 0 auto !important;
+	background: inherit !important;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;

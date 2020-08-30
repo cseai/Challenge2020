@@ -1,42 +1,36 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import Modal from './../../../Layout/Modal/Modal';
 import { connect } from 'react-redux';
-
-const bookModal = {
-	position: 'fixed',
-	zIndex: 1000,
-	top: '50%',
-	left: '50%',
-	background: 'white',
-	color: 'red',
-	transform: 'translate(-50%,-50%)',
-};
+//css
+import Styles from './BookModal.module.css';
+import { Row, Col } from 'react-bootstrap';
 
 const BookModal = ({ book, Allbooks }) => {
-	// const [open, setOpen] = useState(openM);
-
-	// useEffect(() => {
-	// 	display();
-	// }, [book, Allbooks]);
-
-	// function display() {
-	// 	// const t = typeof Allbooks;
-	// 	return <div>{Allbooks._id}</div>;
-	// 	console.log(Allbooks._id);
-	// 	// return Allbooks[0]._id;
-	// }
 	return (
 		<Fragment>
-			<div style={bookModal}>
-				{book} {Allbooks._id} {Allbooks.title}
+			<div className={Styles.bookModal}>
+				<div className={Styles.bookModalInner}>
+					<div className={Styles.Row}>
+						<div className={Styles.Col_left}>
+							<div className={Styles.colLeft}>
+								<img className={Styles.colLeftImage} src={require('./../image/al.jpg')} alt='goo' />
+							</div>
+						</div>
+						<div className={Styles.Col_right}>
+							<div className={Styles.colRight}>
+								<div className={Styles.colRight_bookName}>
+									<p>Algorithms Design</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/* {book} {Allbooks._id} {Allbooks.title} */}
 			</div>
-			{/* {display()} */}
-			<div></div>
 		</Fragment>
 	);
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	books: state.library.books.books,
 });
 
