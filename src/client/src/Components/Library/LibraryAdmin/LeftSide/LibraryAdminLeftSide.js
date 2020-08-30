@@ -1,20 +1,21 @@
 import React, { Fragment } from 'react';
 import Styles from './LibraryAdminLeftSide.module.css';
+import PropTypes from 'prop-types';
+//css, spinner, container, icon
 import { SubBgAndColor } from './../LibraryAdminContainer.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faChartLine, faBookReader, faBook, faSwatchbook, faCogs } from '@fortawesome/free-solid-svg-icons';
 
 const LibraryAdminLeftSide = ({
-	library: {
-		library: { id, name },
-	},
+	library: { id, name },
 	sectionNames,
 	activeSection, 
 	updateActiveSection,
 }) => {
 	// Left Side Bar Click Event
 	const onSection = (e, sectionName) => {
-        console.log('Hi,',sectionName, 'was clicked');
+		console.log('Hi,',sectionName, 'was clicked');
+		console.log(e.target);
         updateSection(sectionName);
 	};
 	
@@ -144,6 +145,13 @@ const LibraryAdminLeftSide = ({
 			</div>
 		</Fragment>
 	);
+};
+
+LibraryAdminLeftSide.propTypes = {
+	library: PropTypes.object.isRequired,
+	sectionNames: PropTypes.object.isRequired,
+	activeSection: PropTypes.string.isRequired,
+	updateActiveSection: PropTypes.func.isRequired,
 };
 
 export default LibraryAdminLeftSide;
