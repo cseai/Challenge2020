@@ -3,7 +3,7 @@ import Styles from './BookSection.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 //css, spinner, container, icon
-import Spinner from './../../../../theme/Spinner/Spinner';
+import Spinner from './../../../../theme/Spinner/Spin-0.8s-217px.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -116,56 +116,66 @@ const BookSection = ({
                                 </BookTableSortSelect>
                             </div>
                         </BookTableTitle>
-                        <BookTableRowHead>
-                            <BookTableCell>SN</BookTableCell>
-                            <BookTableCell>Image</BookTableCell>
-                            <BookTableCell>Book Info</BookTableCell>
-                            <BookTableCell>Book Status</BookTableCell>
-                        </BookTableRowHead>
-                        {allBooks && allBooks.books.length > 0 && allBooks.books.map((book, index) => (
-                        <BookTableRow key={book.id}>
-                            <BookTableCell>
-                                <div className={Styles.right__part__books__books_table_cell_sn}>
-                                    <p>{index + 1}</p>
+                        {loading || bookLoading || allBooks === null || allBooks === 'undefined' ? (
+                            <Fragment>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img src={Spinner} alt='loading...' />
                                 </div>
-                            </BookTableCell>
-                            <BookTableCell>
-                                <div className={Styles.right__part__books__books_table_cell_book_img}>
-                                    <img src={require('./../../images/al.jpg')} alt='book image' />
-                                </div>
-                            </BookTableCell>
-                            <BookTableCell>
-                                <div className={Styles.right__part__books__books_table_cell_book_info}>
-                                    <div className={Styles.right__part__books__books_table_cell_book_info_title}>
-                                        <p>{book.title}</p>
-                                    </div>
-                                    <div className={Styles.right__part__books__books_table_cell_book_info_authors}>
-                                        <p>Authors:  
-                                            {Object.keys(book.authors).map((author, index) => (
-                                                <span key={book.authors[author].authorId}> {book.authors[author].authorName} | </span>
-                                            ))}
-                                        </p>
-                                    </div>
-                                </div>
-                            </BookTableCell>
-                            <BookTableCell>
-                                <div className={Styles.right__part__books__books_table_cell_book_status}>
-                                    <div className={Styles.right__part__books__books_table_cell_book_status_total_count}>
-                                        <p><span>Total</span></p>
-                                        <p><span>20</span></p>
-                                    </div>
-                                    <div className={Styles.right__part__books__books_table_cell_book_status_total_available}>
-                                        <p><span>Available</span></p>
-                                        <p><span>12</span></p>
-                                    </div>
-                                    <div className={Styles.right__part__books__books_table_cell_book_status_total_unavailable}>
-                                        <p><span>Unavailable</span></p>
-                                        <p><span>8</span></p>
-                                    </div>
-                                </div>
-                            </BookTableCell>
-                        </BookTableRow>
-                        ))}
+                            </Fragment>
+                        ) : (
+                            <Fragment>
+                                <BookTableRowHead>
+                                    <BookTableCell>SN</BookTableCell>
+                                    <BookTableCell>Image</BookTableCell>
+                                    <BookTableCell>Book Info</BookTableCell>
+                                    <BookTableCell>Book Status</BookTableCell>
+                                </BookTableRowHead>
+                                {allBooks && allBooks.books.length > 0 && allBooks.books.map((book, index) => (
+                                <BookTableRow key={book.id}>
+                                    <BookTableCell>
+                                        <div className={Styles.right__part__books__books_table_cell_sn}>
+                                            <p>{index + 1}</p>
+                                        </div>
+                                    </BookTableCell>
+                                    <BookTableCell>
+                                        <div className={Styles.right__part__books__books_table_cell_book_img}>
+                                            <img src={require('./../../images/al.jpg')} alt='book image' />
+                                        </div>
+                                    </BookTableCell>
+                                    <BookTableCell>
+                                        <div className={Styles.right__part__books__books_table_cell_book_info}>
+                                            <div className={Styles.right__part__books__books_table_cell_book_info_title}>
+                                                <p>{book.title}</p>
+                                            </div>
+                                            <div className={Styles.right__part__books__books_table_cell_book_info_authors}>
+                                                <p>Authors:  
+                                                    {Object.keys(book.authors).map((author, index) => (
+                                                        <span key={book.authors[author].authorId}> {book.authors[author].authorName} | </span>
+                                                    ))}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </BookTableCell>
+                                    <BookTableCell>
+                                        <div className={Styles.right__part__books__books_table_cell_book_status}>
+                                            <div className={Styles.right__part__books__books_table_cell_book_status_total_count}>
+                                                <p><span>Total</span></p>
+                                                <p><span>20</span></p>
+                                            </div>
+                                            <div className={Styles.right__part__books__books_table_cell_book_status_total_available}>
+                                                <p><span>Available</span></p>
+                                                <p><span>12</span></p>
+                                            </div>
+                                            <div className={Styles.right__part__books__books_table_cell_book_status_total_unavailable}>
+                                                <p><span>Unavailable</span></p>
+                                                <p><span>8</span></p>
+                                            </div>
+                                        </div>
+                                    </BookTableCell>
+                                </BookTableRow>
+                                ))}
+                            </Fragment>
+                        )}
                     </BookTableMain>
                 </div>
             </div>

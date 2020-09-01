@@ -2,6 +2,8 @@ import axios from 'axios';
 import { 
 	LIBEARY_ADMIN_LOAD,
 	LIBEARY_ADMIN_LOAD_FAIL,
+	GET_ADMIN_ALL_MEMBERS,
+	GET_ADMIN_ALL_MEMBERS_FAIL,
 	GET_ADMIN_ALL_BOOKS,
 	GET_ADMIN_ALL_BOOKS_FAIL,
 	GET_ADMIN_ALL_RESOURCES,
@@ -41,6 +43,22 @@ export const getAllBooks = () => async (dispatch) => {
 		console.log(err);
 		dispatch({
 			type: GET_ADMIN_ALL_BOOKS_FAIL,
+		});
+	}
+};
+
+// GET | Get All Users of Library
+export const getAllUsers = () => async (dispatch) => {
+	try {
+		const res = await axios.get('/api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/members');
+		dispatch({
+			type: GET_ADMIN_ALL_MEMBERS,
+			payload: res.data,
+		});
+	} catch (err) {
+		console.log(err);
+		dispatch({
+			type: GET_ADMIN_ALL_MEMBERS_FAIL,
 		});
 	}
 };

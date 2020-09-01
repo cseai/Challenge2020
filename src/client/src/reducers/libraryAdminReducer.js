@@ -1,6 +1,8 @@
 import { 
 	LIBEARY_ADMIN_LOAD,
 	LIBEARY_ADMIN_LOAD_FAIL,
+	GET_ADMIN_ALL_MEMBERS,
+	GET_ADMIN_ALL_MEMBERS_FAIL,
 	GET_ADMIN_ALL_BOOKS,
 	GET_ADMIN_ALL_BOOKS_FAIL,
 	GET_ADMIN_ALL_RESOURCES,
@@ -15,6 +17,7 @@ import {
 
 const initialState = {
 	library: null,
+	members: null,
 	books: null,
 	resources: null,
 	trxs: null,
@@ -24,6 +27,7 @@ const initialState = {
 	loading: true,
 	libLoading: true,
 	userLoading: true,
+	memberLoading: true,
 	bookLoading: true,
 	resourceLoading: true,
     trxLoading: true,
@@ -43,6 +47,19 @@ export default function (state = initialState, action){
 				loading: false,
 			};
 		case LIBEARY_ADMIN_LOAD_FAIL:
+			return {
+				...state,
+				library: null,
+				loading: true,
+			};
+		case GET_ADMIN_ALL_MEMBERS:
+			return {
+				...state,
+				members: payload,
+				memberLoading: false,
+				loading: false,
+			};
+		case GET_ADMIN_ALL_MEMBERS_FAIL:
 			return {
 				...state,
 				library: null,
