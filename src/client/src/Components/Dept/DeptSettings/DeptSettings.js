@@ -61,6 +61,7 @@ import { getDept } from '../../../actions/deptAction';
 //Sanzid Importing
 import SettingsCoverPhoto from './settingsComponents/SettingsCovrPhoto';
 import DeptSettingsBar from './settingsComponents/DeptSettingsBar';
+import DeptSettingsDetailSectionButton from './settingsComponents/DeptSettingsDetailSectionButton'
 
 //Sanzid Importing
 
@@ -440,9 +441,12 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 							{/* Detail Section */}
                             {detailSection && (
 								<Fragment>
+									< DeptSettingsDetailSectionButton />
+									{/** 
 									<div className={Styles.detail__option__button__section}>
 										<button className='' onClick={(e) => detailSectionButtonClick(e)}>{detailSectionButtonValue}</button>
 									</div>
+									*/}
 									{detailSectionEditOption ? (
 										// Edit Mode 
 										// {/* code start here */}
