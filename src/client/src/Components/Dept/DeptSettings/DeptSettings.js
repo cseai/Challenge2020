@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-// import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -54,73 +54,7 @@ import {
 // action
 import { getDept } from '../../../actions/deptAction';
 
-
-
-//Sanzid Editing start...
-
-
-//Importing Dummy Data
-import DummyContactsData from'./SubComponents/DummyData/DummyContactsData';
-//Importing Cover Photo
-import CoverPhoto from './SubComponents/Layout/CoverPhoto';
-//Importing Onchange Handelers.
-import {onChangeNewContactPhoneData,onChangeNewContactMobileData,onChangeNewContactEmailData} from './SubComponents/Settings/OnChange/onchangeHandeler';
-//Importing Create Contact
-import {createContactPhoneField,createContactPhoneFieldAdd,createContactMobileField,createContactMobileFieldAdd,createContactEmailField,createContactEmailFieldAdd} from './SubComponents/Settings/CreateContact/createContactAdd';
-//Importing Onchange Input
-import {onChangeDetailInput,onChangeContactInput} from './SubComponents/Settings/OnChange/onChangeInput'
-//Importing Contact cancel or delet contact
-import {onClickContactDelete,createContactPhoneFieldCancel,createContactMobileFieldCancel,createContactEmailFieldCancel} from './SubComponents/Settings/CreateContact/createContactCancel'
-
-//Importing onSectionChange
-import {onSectionChange} from './SubComponents/Settings/OnChange/onSectionChange'
-/*
-import {
-
-	info,
-	setInfo,
-	contact, 
-	setContact,
-	location, 
-	setLocation,
-	deptMap, 
-	setDeptMap,
-	detailSection, 
-	setDetailSection,
-	memberSection, 
-	setMemberSection,
-	controllerSection, 
-	setControllerSection,
-	createSection, 
-	setCreateSection,
-	detailSectionEditOption, 
-	setDetailSectionEditOption,
-	detailSectionButtonValue, 
-	setDetailSectionButtonValue,
-	contactPhoneAdd, 
-	setContactPhoneAdd,
-	contactMobileAdd, 
-	setContactMobileAdd,
-	contactEmailAdd, 
-	setContactEmailAdd,
-	formData,
-	setFormData ,
-	newContactPhoneData, 
-	setNewContactPhoneData,
-	newContactMobileData, 
-	setNewContactMobileData,
-	newContactEmailData, 
-	setNewContactEmailData
-} from './Components/InitialData'
-*/
-
-
-
-
-//Sanzid Editing End...
-
 const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loading, dept } }) => {
-	
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
@@ -137,7 +71,6 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	const [contactMobileAdd, setContactMobileAdd] = useState(false);
 	const [contactEmailAdd, setContactEmailAdd] = useState(false);
 
-	
 	const [formData, setFormData] = useState({
 		name: '',
 		username: '',
@@ -162,6 +95,102 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 		active: true
 	});
 
+
+	const onChangeNewContactPhoneData = (e) => {
+		if(e.target.name === 'number' || e.target.name === 'description'){
+			setNewContactPhoneData({...newContactPhoneData, [e.target.name]: e.target.value});
+			console.log(e.target.name, e.target.value, e.target);
+		}
+		else if(e.target.name === 'active'){
+			setNewContactPhoneData({...newContactPhoneData, [e.target.name]: JSON.parse(e.target.value)});
+			console.log(e.target.name, e.target.value, e.target);
+		}
+		console.log(newContactPhoneData);
+		console.log(newContactPhoneData[e.target.name]);
+	}
+
+	const onChangeNewContactMobileData = (e) => {
+		if(e.target.name === 'number' || e.target.name === 'description'){
+			setNewContactMobileData({...newContactMobileData, [e.target.name]: e.target.value});
+			console.log(e.target.name, e.target.value, e.target);
+		}
+		else if(e.target.name === 'active'){
+			setNewContactMobileData({...newContactMobileData, [e.target.name]: JSON.parse(e.target.value)});
+			console.log(e.target.name, e.target.value, e.target);
+		}
+		console.log(newContactMobileData);
+		console.log(newContactMobileData[e.target.name]);
+	}
+
+	const onChangeNewContactEmailData = (e) => {
+		if(e.target.name === 'number' || e.target.name === 'description'){
+			setNewContactEmailData({...newContactEmailData, [e.target.name]: e.target.value});
+			console.log(e.target.name, e.target.value, e.target);
+		}
+		else if(e.target.name === 'active'){
+			setNewContactEmailData({...newContactEmailData, [e.target.name]: JSON.parse(e.target.value)});
+			console.log(e.target.name, e.target.value, e.target);
+		}
+		console.log(newContactEmailData);
+		console.log(newContactEmailData[e.target.name]);
+	}
+
+	const createContactPhoneFieldAdd = (e) => {
+		console.log(newContactPhoneData);
+		// Check Data Validity
+		if(newContactPhoneData.number !== ''){
+			// Do Somthing Here
+			console.log('Data is OK');
+			contactsData[0].numbers.push({...newContactPhoneData});
+			setContactsData(contactsData);
+			console.log(contactsData[0].numbers);
+			setNewContactPhoneData({
+				number: '',
+				description: '',
+				active: true
+			});
+			setContactPhoneAdd(false);
+		}
+	}
+
+	const createContactMobileFieldAdd = (e) => {
+		console.log(newContactMobileData);
+		// Check Data Validity
+		if(newContactMobileData.number !== ''){
+			// Do Somthing Here
+			console.log('Data is OK');
+			contactsData[1].numbers.push({...newContactMobileData});
+			setContactsData(contactsData);
+			console.log(contactsData[2].numbers);
+			setNewContactMobileData({
+				number: '',
+				description: '',
+				active: true
+			});
+			setContactMobileAdd(false);
+		}
+	}
+
+	const createContactEmailFieldAdd = (e) => {
+		console.log(newContactEmailData);
+		// Check Data Validity
+		if(newContactEmailData.number !== ''){
+			// Do Somthing Here
+			console.log('Data is OK');
+			contactsData[2].numbers.push({...newContactEmailData});
+			setContactsData(contactsData);
+			console.log(contactsData[2].numbers);
+			setNewContactEmailData({
+				number: '',
+				description: '',
+				active: true
+			});
+			setContactEmailAdd(false);
+		}
+	}
+
+	
+
 	const {
 		name,
 		username,
@@ -171,7 +200,109 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	} = formData;
 
 	// dummy contacts data
-	const [contactsData, setContactsData] = useState(DummyContactsData);
+	const [contactsData, setContactsData] = useState([
+		{
+			method: 'phone',
+			numbers: [
+				{
+					number: '01234567898',
+					description: 'Register ofice, Pabna University of Science and Technology',
+					active: true
+				},
+				{
+					number: '23234567898',
+					description: 'Controller ofice, Pabna University of Science and Technology',
+					active: true
+				}
+			]
+		},
+		{
+			method: 'mobile',
+			numbers: [
+				{
+					number: '01745678913',
+					description: 'Register ofice, Pabna University of Science and Technology',
+					active: true
+				},
+				{
+					number: '01945678913',
+					description: 'Controller ofice, Pabna University of Science and Technology',
+					active: false
+				}
+			]
+		},
+		{
+			method: 'email',
+			numbers: [
+				{
+					number: 'register@pust.ac.bd',
+					description: 'Register ofice, Pabna University of Science and Technology',
+					active: true
+				},
+				{
+					number: 'controller@pust.ac.bd',
+					description: 'Controller ofice, Pabna University of Science and Technology',
+					active: true
+				}
+			]
+		}
+	]);
+
+	const onChangeDetailInput = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+	const onChangeContactInput = (e, method, number_index) => {
+		console.log(e.target.name,e.target.value, method, number_index);
+		if(method==='phone'){
+			if(e.target.name === 'number'){
+				contactsData[0].numbers[number_index].number = e.target.value
+			}else if(e.target.name === 'description'){
+				contactsData[0].numbers[number_index].description = e.target.value
+			}else if(e.target.name === 'active'){
+				contactsData[0].numbers[number_index].active = e.target.value
+			}
+			setContactsData({...contactsData});
+			// console.log(contactsData[0])
+		}else if(method==='mobile'){
+			if(e.target.name === 'number'){
+				contactsData[1].numbers[number_index].number = e.target.value
+			}else if(e.target.name === 'description'){
+				contactsData[1].numbers[number_index].description = e.target.value
+			}else if(e.target.name === 'active'){
+				contactsData[1].numbers[number_index].active = e.target.value
+			}
+			setContactsData({...contactsData});
+			// console.log(contactsData[1]);
+		}else if(method==='email'){
+			if(e.target.name === 'number'){
+				contactsData[2].numbers[number_index].number = e.target.value
+			}else if(e.target.name === 'description'){
+				contactsData[2].numbers[number_index].description = e.target.value
+			}else if(e.target.name === 'active'){
+				contactsData[2].numbers[number_index].active = e.target.value
+			}
+			setContactsData({...contactsData});
+			// console.log(contactsData[2])
+		}
+	}
+
+	const onClickContactDelete = (e, method, number_index) => {
+		if(method==='phone'){
+			console.log(contactsData[0]);
+			contactsData[0].numbers.splice(number_index, 1);
+			setContactsData({...contactsData});
+			console.log(contactsData[0]);
+		}else if(method==='mobile'){
+			console.log(contactsData[1]);
+			contactsData[1].numbers.splice(number_index, 1);
+			setContactsData({...contactsData});
+			console.log(contactsData[1]);
+		}else if(method==='email'){
+			console.log(contactsData[2]);
+			contactsData[2].numbers.splice(number_index, 1);
+			setContactsData({...contactsData});
+			console.log(contactsData[2]);
+		}
+	}
 
 	const onSubmitDetailSection = (e) => {
 		e.preventDefault();
@@ -200,6 +331,59 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 			setFormData({...formData, name: dept.name, username: dept.username, since: dept.since, shortDescription: dept.shortDescription})
 		}
 	}
+    
+    const onSectionChange = (e) => {
+        if( e.target.value === 'detail'){
+            setDetailSection(true);
+            setMemberSection(false);
+            setControllerSection(false);
+			setCreateSection(false);
+        }else if( e.target.value === 'member'){
+            setDetailSection(false);
+            setMemberSection(true);
+            setControllerSection(false);
+            setCreateSection(false);
+        }else if( e.target.value === 'controller'){
+            setDetailSection(false);
+            setMemberSection(false);
+            setControllerSection(true);
+            setCreateSection(false);
+        }else if( e.target.value === 'create'){
+            setDetailSection(false);
+            setMemberSection(false);
+            setControllerSection(false);
+            setCreateSection(true);
+        }
+	}
+	
+
+	const createContactPhoneField = (e) => {
+		setContactPhoneAdd(true);
+	}
+	const createContactPhoneFieldCancel = (e) => {
+		setContactPhoneAdd(false);
+		setNewContactPhoneData({
+			number: '',
+			description: '',
+			active: true
+		});
+	}
+	const createContactMobileField = (e) => {
+		setContactMobileAdd(true);
+	}
+	const createContactMobileFieldCancel = (e) => {
+		setContactMobileAdd(false);
+	}
+	const createContactEmailField = (e) => {
+		setContactEmailAdd(true);
+	}
+	const createContactEmailFieldCancel = (e) => {
+		setContactEmailAdd(false);
+	}
+
+
+
+
 
 	return loading && dept === null ? (
 		<Main
@@ -218,7 +402,31 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 					{/* <!-- start code for here --> */}
 					<DeptProfile>
 						{/* <!-- Cover photo --> */}
-						<CoverPhoto />
+						<div className={Styles.eduHub__profile__image}>
+							<div className={Styles.eduHub__profile__image_cover_image}>
+								<img src={require('./images/p.jpg')} alt='for good' />
+								<div className={Styles.eduHub__profile__image_cover_image_overlay}>
+									<div className={Styles.eduHub__profile__image_cover_image_overlay_upload}>
+										<i>
+											<FontAwesomeIcon icon={faCamera} />
+											Upload
+										</i>
+									</div>
+								</div>
+							</div>
+							<div className={Styles.eduHub__profile__image_profile_image}>
+								<img src={require('./images/rain-bus-1.jpg')} alt='profile picture good' />
+								<div className={Styles.eduHub__profile__image_profile_image_overlay}>
+									<div className={Styles.eduHub__profile__image_cover_image_overlay_upload}>
+										<i>
+											<FontAwesomeIcon icon={faCamera} />
+										</i>
+										<span>Upload </span>
+									</div>
+								</div>
+							</div>
+						</div>
+                        
 					</DeptProfile>
                     <DeptProfile>
                         <div className={Styles.settings__container}>
@@ -227,16 +435,16 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 							</div>
                             <div className={Styles.tab__section}>
                                 <div className={Styles.tab_section_inner_div}>
-									<button className={Styles.tab__section__button} value='detail' onClick={ (e) => onSectionChange(e,setDetailSection,setMemberSection,setControllerSection,setCreateSection) }>Details</button>
+									<button className={Styles.tab__section__button} value='detail' onClick={ (e) => onSectionChange(e) }>Details</button>
                                 </div>
                                 <div className={Styles.tab_section_inner_div}>
-                                    <button className={Styles.tab__section__button} value='member' onClick={ (e) => onSectionChange(e,setDetailSection,setMemberSection,setControllerSection,setCreateSection) }>Members</button>
+                                    <button className={Styles.tab__section__button} value='member' onClick={ (e) => onSectionChange(e) }>Members</button>
                                 </div>
                                 <div className={Styles.tab_section_inner_div}>
-                                    <button className={Styles.tab__section__button} value='controller' onClick={ (e) => onSectionChange(e,setDetailSection,setMemberSection,setControllerSection,setCreateSection) }>Controllers</button>
+                                    <button className={Styles.tab__section__button} value='controller' onClick={ (e) => onSectionChange(e) }>Controllers</button>
                                 </div>
                                 <div className={Styles.tab_section_inner_div}>
-                                    <button className={Styles.tab__section__button} value='create' onClick={ (e) => onSectionChange(e,setDetailSection,setMemberSection,setControllerSection,setCreateSection) }>Create</button>
+                                    <button className={Styles.tab__section__button} value='create' onClick={ (e) => onSectionChange(e) }>Create</button>
                                 </div>
                             </div>
 							{/* Detail Section */}
@@ -267,7 +475,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 															className={Styles.update__hub__form_control_in_field}
 															name='name'
 															value={name}
-															onChange={(e) => onChangeDetailInput(e,formData,setFormData)}
+															onChange={(e) => onChangeDetailInput(e)}
 														/>
 													</div>
 												</div>
@@ -288,7 +496,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 															className={Styles.update__hub__form_control_in_field}
 															name='username'
 															value={username}
-															onChange={(e) => onChangeDetailInput(e,formData,setFormData)}
+															onChange={(e) => onChangeDetailInput(e)}
 														/>
 													</div>
 												</div>
@@ -309,7 +517,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 															className={Styles.update__hub__form_control_in_field}
 															name='since'
 															value={since}
-															onChange={(e) => onChangeDetailInput(e,formData,setFormData)}
+															onChange={(e) => onChangeDetailInput(e)}
 														/>
 													</div>
 												</div>
@@ -323,7 +531,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 															rows='7'
 															name='shortDescription'
 															value={shortDescription}
-															onChange={(e) => onChangeDetailInput(e,formData,setFormData)}
+															onChange={(e) => onChangeDetailInput(e)}
 														></CreateProfileTextField>
 													</div>
 												</div>
@@ -347,7 +555,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon onClick={e => createContactPhoneField(e,setContactPhoneAdd)} icon={faPlus} />
+																		<FontAwesomeIcon onClick={e => createContactPhoneField(e)} icon={faPlus} />
 																	</i>
 																</span>
 															</div>
@@ -364,7 +572,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					required
 																					value={newContactPhoneData.number}
-																					onChange={(e) => onChangeNewContactPhoneData(e,newContactPhoneData,setNewContactPhoneData)}
+																					onChange={(e) => onChangeNewContactPhoneData(e)}
 																				/>
 																			</span>
 																		</li>
@@ -377,7 +585,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					type='text'
 																					name="description"
 																					value={newContactPhoneData.description}
-																					onChange={(e) => onChangeNewContactPhoneData(e,newContactPhoneData,setNewContactPhoneData)}
+																					onChange={(e) => onChangeNewContactPhoneData(e)}
 																				/>
 																			</span>
 																		</li>
@@ -388,7 +596,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<span>
 																				<select
 																					name="active"
-																					onChange={(e) => onChangeNewContactPhoneData(e,newContactPhoneData,setNewContactPhoneData)}
+																					onChange={(e) => onChangeNewContactPhoneData(e)}
 																				>
 																					{newContactPhoneData.active ? (
 																						<Fragment>
@@ -402,8 +610,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																						</Fragment>
 																					)}
 																				</select>
-																				<button className='btn-success' onClick={e => createContactPhoneFieldAdd(e,newContactPhoneData,setNewContactPhoneData,contactsData, setContactsData,setContactPhoneAdd)}>Add</button>
-																				<button className='btn-warning' onClick={e => createContactPhoneFieldCancel(e,setContactPhoneAdd,setNewContactPhoneData)}>Cancel</button>
+																				<button className='btn-success' onClick={e => createContactPhoneFieldAdd(e)}>Add</button>
+																				<button className='btn-warning' onClick={e => createContactPhoneFieldCancel(e)}>Cancel</button>
 																			</span>
 																		</li>
 																	</ul>
@@ -422,7 +630,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					value={number.number}
 																					// value="1784394509"
-																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				/>
 																			</span>
 																		</li>
@@ -436,7 +644,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="description"
 																					value={number.description}
 																					// value="Register ofice, Pabna University of Science and Technology"
-																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				/>
 																			</span>
 																		</li>
@@ -452,13 +660,13 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																				<select
 																					name="active"
 																					value={number.active}
-																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='phone', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				>
 																					<option value={true}>Active</option>
 																					<option value={false}>Deactive</option>
 																				</select>
 																				<i>
-																					<FontAwesomeIcon icon={faTrash} onClick={(e, method='phone', number_index=key) => onClickContactDelete(e, method, number_index,contactsData, setContactsData)} />
+																					<FontAwesomeIcon icon={faTrash} onClick={(e, method='phone', number_index=key) => onClickContactDelete(e, method, number_index)} />
 																				</i>
 																			</span>
 																		</li>
@@ -479,7 +687,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon onClick={e => createContactMobileField(e,setContactMobileAdd)} icon={faPlus} />
+																		<FontAwesomeIcon onClick={e => createContactMobileField(e)} icon={faPlus} />
 																	</i>
 																</span>
 															</div>
@@ -496,7 +704,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					required
 																					value={newContactMobileData.number}
-																					onChange={(e) => onChangeNewContactMobileData(e,newContactMobileData,setNewContactMobileData)}
+																					onChange={(e) => onChangeNewContactMobileData(e)}
 																				/>
 																			</span>
 																		</li>
@@ -509,7 +717,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					type='text'
 																					name="description"
 																					value={newContactMobileData.description}
-																					onChange={(e) => onChangeNewContactMobileData(e,newContactMobileData,setNewContactMobileData)}
+																					onChange={(e) => onChangeNewContactMobileData(e)}
 																				/>
 																			</span>
 																		</li>
@@ -520,7 +728,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<span>
 																			<select
 																					name="active"
-																					onChange={(e) => onChangeNewContactMobileData(e,newContactMobileData,setNewContactMobileData)}
+																					onChange={(e) => onChangeNewContactMobileData(e)}
 																				>
 																					{newContactMobileData.active ? (
 																						<Fragment>
@@ -534,8 +742,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																						</Fragment>
 																					)}
 																				</select>
-																				<button className='btn-success' onClick={e => createContactMobileFieldAdd(e,newContactMobileData,setNewContactMobileData,contactsData, setContactsData,setContactMobileAdd)}>Add</button>
-																				<button className='btn-warning' onClick={e => createContactMobileFieldCancel(e,setContactMobileAdd)}>Cancel</button>
+																				<button className='btn-success' onClick={e => createContactMobileFieldAdd(e)}>Add</button>
+																				<button className='btn-warning' onClick={e => createContactMobileFieldCancel(e)}>Cancel</button>
 																			</span>
 																		</li>
 																	</ul>
@@ -554,7 +762,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					value={number.number}
 																					// value="01745678913"
-																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				/>
 																			</span>
 																		</li>
@@ -568,7 +776,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="description"
 																					value={number.description}
 																					// value="Register ofice, Pabna University of Science and Technology"
-																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				/>
 																			</span>{' '}
 																		</li>
@@ -584,13 +792,13 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																				<select
 																					name='active'
 																					value={number.active}
-																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				>
 																					<option value={true}>Active</option>
 																					<option value={false}>Deactive</option>
 																				</select>
 																				<i>
-																					<FontAwesomeIcon icon={faTrash} onClick={(e, method='mobile', number_index=key) => onClickContactDelete(e, method, number_index,contactsData, setContactsData)} />
+																					<FontAwesomeIcon icon={faTrash} onClick={(e, method='mobile', number_index=key) => onClickContactDelete(e, method, number_index)} />
 																				</i>
 																			</span>
 																		</li>
@@ -611,7 +819,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																</p>
 																<span>
 																	<i>
-																		<FontAwesomeIcon onClick={e => createContactEmailField(e,setContactEmailAdd)} icon={faPlus} />
+																		<FontAwesomeIcon onClick={e => createContactEmailField(e)} icon={faPlus} />
 																	</i>
 																</span>
 															</div>
@@ -628,7 +836,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					required
 																					value={newContactEmailData.number}
-																					onChange={(e) => onChangeNewContactEmailData(e,newContactEmailData, setNewContactEmailData)}
+																					onChange={(e) => onChangeNewContactEmailData(e)}
 																				/>
 																			</span>
 																		</li>
@@ -641,7 +849,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					type='text'
 																					name="description"
 																					value={newContactEmailData.description}
-																					onChange={(e) => onChangeNewContactEmailData(e,newContactEmailData, setNewContactEmailData)}
+																					onChange={(e) => onChangeNewContactEmailData(e)}
 																				/>
 																			</span>
 																		</li>
@@ -652,7 +860,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																			<span>
 																				<select
 																					name="active"
-																					onChange={(e) => onChangeNewContactEmailData(e,newContactEmailData, setNewContactEmailData)}
+																					onChange={(e) => onChangeNewContactEmailData(e)}
 																				>
 																					{newContactEmailData.active ? (
 																						<Fragment>
@@ -666,8 +874,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																						</Fragment>
 																					)}
 																				</select>
-																				<button className='btn-success' onClick={e => createContactEmailFieldAdd(e,newContactEmailData, setNewContactEmailData,contactsData, setContactsData,setContactEmailAdd)}>Add</button>
-																				<button className='btn-warning' onClick={e => createContactEmailFieldCancel(e,setContactEmailAdd)}>Cancel</button>
+																				<button className='btn-success' onClick={e => createContactEmailFieldAdd(e)}>Add</button>
+																				<button className='btn-warning' onClick={e => createContactEmailFieldCancel(e)}>Cancel</button>
 																			</span>
 																		</li>
 																	</ul>
@@ -686,7 +894,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="number"
 																					value={number.number}
 																					// value="register@pust.ac.bd"
-																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				/>
 																			</span>
 																		</li>
@@ -700,7 +908,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																					name="description"
 																					value={number.description}
 																					// value="Register ofice, Pabna University of Science and Technology"
-																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				/>
 																			</span>
 																		</li>
@@ -716,13 +924,13 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 																				<select
 																					name='active'
 																					value={number.active}
-																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index,contactsData, setContactsData)}
+																					onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
 																				>
 																					<option value={true}>Active</option>
 																					<option value={false}>Deactive</option>
 																				</select>
 																				<i>
-																					<FontAwesomeIcon icon={faTrash} onClick={(e, method='email', number_index=key) => onClickContactDelete(e, method, number_index,contactsData, setContactsData)} />
+																					<FontAwesomeIcon icon={faTrash} onClick={(e, method='email', number_index=key) => onClickContactDelete(e, method, number_index)} />
 																				</i>
 																			</span>
 																		</li>
