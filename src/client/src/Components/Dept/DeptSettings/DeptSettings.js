@@ -60,7 +60,7 @@ import { getDept } from '../../../actions/deptAction';
 
 //Sanzid Importing
 import SettingsCoverPhoto from './settingsComponents/SettingsCovrPhoto';
-
+import DeptSettingsBar from './settingsComponents/DeptSettingsBar';
 
 //Sanzid Importing
 
@@ -435,23 +435,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 					</DeptProfile>
                     <DeptProfile>
                         <div className={Styles.settings__container}>
-							<div className={Styles.hub__name__section}>
-								<h2>{dept.name}</h2>
-							</div>
-                            <div className={Styles.tab__section}>
-                                <div className={Styles.tab_section_inner_div}>
-									<button className={Styles.tab__section__button} value='detail' onClick={ (e) => onSectionChange(e) }>Details</button>
-                                </div>
-                                <div className={Styles.tab_section_inner_div}>
-                                    <button className={Styles.tab__section__button} value='member' onClick={ (e) => onSectionChange(e) }>Members</button>
-                                </div>
-                                <div className={Styles.tab_section_inner_div}>
-                                    <button className={Styles.tab__section__button} value='controller' onClick={ (e) => onSectionChange(e) }>Controllers</button>
-                                </div>
-                                <div className={Styles.tab_section_inner_div}>
-                                    <button className={Styles.tab__section__button} value='create' onClick={ (e) => onSectionChange(e) }>Create</button>
-                                </div>
-                            </div>
+							{/** Dept settings bar components */}
+							<DeptSettingsBar/>
 							{/* Detail Section */}
                             {detailSection && (
 								<Fragment>
