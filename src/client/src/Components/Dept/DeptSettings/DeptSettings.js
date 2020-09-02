@@ -68,8 +68,12 @@ import DeptSettingsDetailSectionButton from './settingsComponents/DeptSettingsDe
 const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loading, dept } }) => {
 	//Sanzid Editing....
 
-	const detail = useSelector(state=> state.deptSettings);
-	console.log(detail,"Is details");
+	const detailSection = useSelector(state=> state.deptSettings.DETAIL_SECTION);
+	const memberSection = useSelector(state=> state.deptSettings.MEMBER_SECTION);
+	const controllerSection = useSelector(state=> state.deptSettings.CONTROLLER_SECTION);
+	const createSection = useSelector(state=> state.deptSettings.CREATE_SECTION);
+	const detailSectionEditOption = useSelector(state=> state.deptSettings.DETAIL_SECTION_EDIT_OPTION);
+	console.log(detailSection,"Is details");
 
 
 
@@ -89,13 +93,6 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
     const [deptMap, setDeptMap] = useState(false);
-    const [detailSection, setDetailSection] = useState(true);
-    const [memberSection, setMemberSection] = useState(false);
-    const [controllerSection, setControllerSection] = useState(false);
-	const [createSection, setCreateSection] = useState(false);
-	
-	const [detailSectionEditOption, setDetailSectionEditOption] = useState(false);
-	const [detailSectionButtonValue, setDetailSectionButtonValue] = useState('Edit');
 
 	const [contactPhoneAdd, setContactPhoneAdd] = useState(false);
 	const [contactMobileAdd, setContactMobileAdd] = useState(false);
@@ -349,42 +346,8 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 	}, [getDept, params.deptUsername]);
 	
 	// Handle Detail Section Mode [View or Edit]
-	const detailSectionButtonClick = (e) => {
-		if(detailSectionEditOption){
-			// Change to View Mode
-			setDetailSectionEditOption(false)
-			setDetailSectionButtonValue('Edit');
-		}else{
-			// Change to Edit Mode
-			setDetailSectionEditOption(true)
-			setDetailSectionButtonValue('View');
-			setFormData({...formData, name: dept.name, username: dept.username, since: dept.since, shortDescription: dept.shortDescription})
-		}
-	}
-    
-    const onSectionChange = (e) => {
-        if( e.target.value === 'detail'){
-            setDetailSection(true);
-            setMemberSection(false);
-            setControllerSection(false);
-			setCreateSection(false);
-        }else if( e.target.value === 'member'){
-            setDetailSection(false);
-            setMemberSection(true);
-            setControllerSection(false);
-            setCreateSection(false);
-        }else if( e.target.value === 'controller'){
-            setDetailSection(false);
-            setMemberSection(false);
-            setControllerSection(true);
-            setCreateSection(false);
-        }else if( e.target.value === 'create'){
-            setDetailSection(false);
-            setMemberSection(false);
-            setControllerSection(false);
-            setCreateSection(true);
-        }
-	}
+	
+ 
 	
 
 	const createContactPhoneField = (e) => {
