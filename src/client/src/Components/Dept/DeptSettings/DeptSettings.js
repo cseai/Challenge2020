@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import { connect,useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Styles from './DeptSettings.module.css';
@@ -54,7 +54,36 @@ import {
 // action
 import { getDept } from '../../../actions/deptAction';
 
+
+
+
+
+//Sanzid Importing
+import SettingsCoverPhoto from './settingsComponents/SettingsCovrPhoto';
+
+
+//Sanzid Importing
+
 const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loading, dept } }) => {
+	//Sanzid Editing....
+
+	const detail = useSelector(state=> state.deptSettings);
+	console.log(detail,"Is details");
+
+
+
+	//Sanzid Editing...
+
+
+
+
+
+
+
+
+
+
+
 	const [info, setInfo] = useState(false);
 	const [contact, setContact] = useState(false);
 	const [location, setLocation] = useState(false);
@@ -402,31 +431,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 					{/* <!-- start code for here --> */}
 					<DeptProfile>
 						{/* <!-- Cover photo --> */}
-						<div className={Styles.eduHub__profile__image}>
-							<div className={Styles.eduHub__profile__image_cover_image}>
-								<img src={require('./images/p.jpg')} alt='for good' />
-								<div className={Styles.eduHub__profile__image_cover_image_overlay}>
-									<div className={Styles.eduHub__profile__image_cover_image_overlay_upload}>
-										<i>
-											<FontAwesomeIcon icon={faCamera} />
-											Upload
-										</i>
-									</div>
-								</div>
-							</div>
-							<div className={Styles.eduHub__profile__image_profile_image}>
-								<img src={require('./images/rain-bus-1.jpg')} alt='profile picture good' />
-								<div className={Styles.eduHub__profile__image_profile_image_overlay}>
-									<div className={Styles.eduHub__profile__image_cover_image_overlay_upload}>
-										<i>
-											<FontAwesomeIcon icon={faCamera} />
-										</i>
-										<span>Upload </span>
-									</div>
-								</div>
-							</div>
-						</div>
-                        
+						<SettingsCoverPhoto/>  
 					</DeptProfile>
                     <DeptProfile>
                         <div className={Styles.settings__container}>
