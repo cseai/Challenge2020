@@ -96,7 +96,7 @@ const InitialState = {
    CONTACT : false,
    LOCATION : false,
    DEPT_MAP : false,
-   DETAIL_SECTION : false,
+   DETAIL_SECTION : true,
    MEMBER_SECTION : false,
    CONTROLLER_SECTION : false,
    CREATE_SECTION : false,
@@ -150,23 +150,36 @@ export default (state = InitialState , action)=>{
         }
         case SET_DETAIL_SECTION: return {
             ...state,
-            DETAIL_SECTION : action.payload
+            DETAIL_SECTION : action.payload,
+            MEMBER_SECTION : false,
+            CONTROLLER_SECTION :false,
+            CREATE_SECTION : false
         }
         case SET_MEMBER_SECTION: return {
             ...state,
-            MEMBER_SECTION : action.payload
+            DETAIL_SECTION : false,
+            MEMBER_SECTION : action.payload,
+            CONTROLLER_SECTION :false,
+            CREATE_SECTION :false
         }
         case SET_CONTROLLER_SECTION: return {
             ...state,
-            CONTROLLER_SECTION : action.payload
+            DETAIL_SECTION : false,
+            MEMBER_SECTION : false,
+            CONTROLLER_SECTION :action.payload,
+            CREATE_SECTION :false
         }
         case SET_CREATE_SECTION: return {
             ...state,
+            DETAIL_SECTION : false,
+            MEMBER_SECTION : false,
+            CONTROLLER_SECTION :false,
             CREATE_SECTION : action.payload
         }
         case SET_DETAIL_SECTION_EDIT_OPTION: return {
             ...state,
-            DETAIL_SECTION_EDIT_OPTION : action.payload
+            DETAIL_SECTION_EDIT_OPTION : action.payload,
+            DETAIL_SECTION_BUTTON_VALUE : action.payload ? "View" : "Edit"
         }
         case SET_DETAIL_SECTION_BUTTON_VALUE: return {
             ...state,
