@@ -201,9 +201,41 @@ export default (state = InitialState , action)=>{
             ...state,
             NEW_CONTACT_PHONE_DATA : action.payload
         }
-        case SET_FORM_DATA: return {
-            ...state,
-            FORM_DATA : action.payload
+        case SET_FORM_DATA: switch (action.payload.target.name) {
+            case 'name' : return{
+                ...state,
+                FORM_DATA :{
+                    ...state.FORM_DATA,
+                    name: action.payload.target.value,
+                }
+            }
+            case 'username' : return{
+                ...state,
+                FORM_DATA :{
+                    ...state.FORM_DATA,
+                    username: action.payload.target.value,
+                }
+            }
+            case 'since' : return{
+                ...state,
+                FORM_DATA :{
+                    ...state.FORM_DATA,
+                    since: action.payload.target.value,
+                }
+            }
+            case 'shortDescription' : return{
+                ...state,
+                FORM_DATA :{
+                    ...state.FORM_DATA,
+                    shortDescription: action.payload.target.value,
+                }
+            }
+            default : return{
+                ...state,
+                FORM_DATA :{
+                    ...state.FORM_DATA
+                }
+            }
         }
         case SET_CONTACT_EMAIL_ADD: return {
             ...state,

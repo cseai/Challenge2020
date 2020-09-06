@@ -63,6 +63,7 @@ import SettingsCoverPhoto from './settingsComponents/SettingsCovrPhoto';
 import DeptSettingsBar from './settingsComponents/DeptSettingsBar';
 import DeptSettingsDetailSectionButton from './settingsComponents/DeptSettingsDetailSectionButton'
 import ViewDetails from './settingsComponents/viewMode/index';
+import Name from './settingsComponents/editMode/settingsEditName';
 
 //Sanzid Importing
 
@@ -83,17 +84,6 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 
 
 
-
-
-
-
-
-
-
-	const [info, setInfo] = useState(false);
-	const [contact, setContact] = useState(false);
-	const [location, setLocation] = useState(false);
-    const [deptMap, setDeptMap] = useState(false);
 
 	const [contactPhoneAdd, setContactPhoneAdd] = useState(false);
 	const [contactMobileAdd, setContactMobileAdd] = useState(false);
@@ -414,26 +404,7 @@ const DeptSettings = ({ getDept, isAuthenticated, match: { params }, dept: { loa
 										<div className={Styles.update__hub__container}>
 											<form className={Styles.update__hub__form} onSubmit={(e) => onSubmitDetailSection(e)}>
 												{/* Name  */}
-												<div className={Styles.update__hub__form_control}>
-													<div className={Styles.update__hub__form_control_title}>
-														<label>Name</label>
-														<span className={Styles.required}> * </span>
-													</div>
-													<div className={Styles.update__hub__form_control_in}>
-														<div className={Styles.update__hub__form_control_in_left}>
-															<ProfileIcon>
-																<FontAwesomeIcon icon={faUniversity} />
-															</ProfileIcon>
-														</div>
-														<CreateProfileFormControlInField
-															type='text'
-															className={Styles.update__hub__form_control_in_field}
-															name='name'
-															value={name}
-															onChange={(e) => onChangeDetailInput(e)}
-														/>
-													</div>
-												</div>
+												<Name />
 												{/* Username  */}
 												<div className={Styles.update__hub__form_control}>
 													<div className={Styles.update__hub__form_control_title}>
