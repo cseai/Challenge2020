@@ -15,11 +15,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // action
 import { getDept } from '../../../actions/deptAction';
-
-
-
-
-
 //Sanzid Importing
 import SettingsCoverPhoto from './settingsComponents/SettingsCovrPhoto';
 import DeptSettingsBar from './settingsComponents/DeptSettingsBar';

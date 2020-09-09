@@ -6,8 +6,6 @@ import {
 	faMobileAlt,
 	faKeyboard,
 	faAlignLeft,
-	faEnvelope,
-	faAt,
 	faPlus,
 	faCheckCircle,
 	faTimesCircle,
@@ -32,11 +30,6 @@ export default function(){
     const newContactMobileData = useSelector(state=>state.deptSettings.NEW_CONTACT_MOBILE_DATA);
     console.log(newContactMobileData);
     const dispatch = useDispatch();
-
-
-
-
-
     return(
         <div className={Styles.update__hub__contact__method__div}>
             <div className={Styles.update__hub__contact_inner_heading}>
@@ -123,10 +116,10 @@ export default function(){
                             <span>
                                 <input
                                     type='text'
-                                    name="number"
+                                    name="mobile-number"
                                     value={number.number}
                                     // value="01745678913"
-                                    onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
+                                    onChange={(e) => dispatch(onChangeContactInput(e,key))}
                                 />
                             </span>
                         </li>
@@ -137,10 +130,10 @@ export default function(){
                             <span>
                                 <textarea 
                                     type='text'
-                                    name="description"
+                                    name="mobile-description"
                                     value={number.description}
                                     // value="Register ofice, Pabna University of Science and Technology"
-                                    onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
+                                    onChange={(e) => dispatch(onChangeContactInput(e,key))}
                                 />
                             </span>{' '}
                         </li>
@@ -154,15 +147,15 @@ export default function(){
                             </i>
                             <span>
                                 <select
-                                    name='active'
+                                    name='mobile-active'
                                     value={number.active}
-                                    onChange={(e, method='mobile', number_index=key) => onChangeContactInput(e, method, number_index)}
+                                    onChange={(e) => dispatch(onChangeContactInput(e,key))}
                                 >
                                     <option value={true}>Active</option>
                                     <option value={false}>Deactive</option>
                                 </select>
                                 <i>
-                                    <FontAwesomeIcon icon={faTrash} onClick={(e, method='mobile', number_index=key) => onClickContactDelete(e, method, number_index)} />
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => dispatch(onClickContactDelete("mobile",key))} />
                                 </i>
                             </span>
                         </li>

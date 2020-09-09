@@ -121,10 +121,10 @@ export default function(){
                             <span>
                                 <input
                                     type='text'
-                                    name="number"
+                                    name="email-number"
                                     value={number.number}
                                     // value="register@pust.ac.bd"
-                                    onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
+                                    onChange={(e) => dispatch(onChangeContactInput(e,key))}
                                 />
                             </span>
                         </li>
@@ -135,10 +135,10 @@ export default function(){
                             <span>
                                 <textarea 
                                     type='text'
-                                    name="description"
+                                    name="email-description"
                                     value={number.description}
                                     // value="Register ofice, Pabna University of Science and Technology"
-                                    onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
+                                    onChange={(e) => dispatch(onChangeContactInput(e,key))}
                                 />
                             </span>
                         </li>
@@ -152,15 +152,15 @@ export default function(){
                             </i>
                             <span>
                                 <select
-                                    name='active'
+                                    name='email-active'
                                     value={number.active}
-                                    onChange={(e, method='email', number_index=key) => onChangeContactInput(e, method, number_index)}
+                                    onChange={(e) => dispatch(onChangeContactInput(e,key))}
                                 >
                                     <option value={true}>Active</option>
                                     <option value={false}>Deactive</option>
                                 </select>
                                 <i>
-                                    <FontAwesomeIcon icon={faTrash} onClick={(e, method='email', number_index=key) => onClickContactDelete(e, method, number_index)} />
+                                    <FontAwesomeIcon icon={faTrash} onClick={()=>dispatch(onClickContactDelete("email",key))} />
                                 </i>
                             </span>
                         </li>

@@ -6,9 +6,6 @@ import {
 	faPhoneAlt,
 	faKeyboard,
 	faAlignLeft,
-	faMobileAlt,
-	faEnvelope,
-	faAt,
 	faPlus,
 	faCheckCircle,
 	faTimesCircle,
@@ -124,7 +121,7 @@ export default function(){
                             <span>
                                 <input
                                     type='text'
-                                    name="number"
+                                    name="phone-number"
                                     value={number.number}
                                     // value="1784394509"
                                     onChange={(e) => dispatch(onChangeContactInput(e,key))}
@@ -138,7 +135,7 @@ export default function(){
                             <span>
                                 <textarea 
                                     type='text'
-                                    name="description"
+                                    name="phone-description"
                                     key = {key}
                                     value={number.description}
                                     // value="Register ofice, Pabna University of Science and Technology"
@@ -156,8 +153,7 @@ export default function(){
                             </i>
                             <span>
                                 <select
-                                    name="active"
-                                    key = {key}
+                                    name="phone-active"
                                     value={number.active}
                                     onChange={(e) => dispatch(onChangeContactInput(e,key))}
                                 >
@@ -165,7 +161,7 @@ export default function(){
                                     <option value={false}>Deactive</option>
                                 </select>
                                 <i>
-                                    <FontAwesomeIcon icon={faTrash} key = {key} onClick={(e) => dispatch(onClickContactDelete(e,key))} />
+                                    <FontAwesomeIcon icon={faTrash}  onClick={() => dispatch(onClickContactDelete("phone",key))} />
                                 </i>
                             </span>
                         </li>

@@ -369,7 +369,7 @@ export default (state = InitialState , action)=>{
             if(state.NEW_CONTACT_MOBILE_DATA.number !=""){
                 console.log(state.FORM_DATA.contacts);
                 let newData = state.CONTACTS_DATA;
-                newData[0].numbers.push(state.NEW_CONTACT_MOBILE_DATA);
+                newData[1].numbers.push(state.NEW_CONTACT_MOBILE_DATA);
                 //state.CONTACTS_DATA[0].push()
             return{
                 ...state,
@@ -412,7 +412,7 @@ export default (state = InitialState , action)=>{
             if(state.NEW_CONTACT_EMAIL_DATA.number !=""){
                 console.log(state.FORM_DATA.contacts);
                 let newData = state.CONTACTS_DATA;
-                newData[0].numbers.push(state.NEW_CONTACT_EMAIL_DATA);
+                newData[2].numbers.push(state.NEW_CONTACT_EMAIL_DATA);
                 //state.CONTACTS_DATA[0].push()
             return{
                 ...state,
@@ -457,18 +457,41 @@ export default (state = InitialState , action)=>{
             const newData = [...state.CONTACTS_DATA];
 
             switch (action.payload.target.name) {
-                case 'number':
+                case 'phone-number':
                     newData[0].numbers[action.key].number = action.payload.target.value;
                     break;
                 
-                case 'description':
+                case 'phone-description':
                     newData[0].numbers[action.key].description = action.payload.target.value;
                     break;
-                case 'active':
+                case 'phone-active':
                     newData[0].numbers[action.key].active = action.payload.target.value;
                     break;
+                
+
+                case 'mobile-number':
+                    newData[1].numbers[action.key].number = action.payload.target.value;
+                    break;
+                
+                case 'mobile-description':
+                    newData[1].numbers[action.key].description = action.payload.target.value;
+                    break;
+                case 'mobile-active':
+                    newData[1].numbers[action.key].active = action.payload.target.value;
+                    break;
+
+                case 'email-number':
+                    newData[2].numbers[action.key].number = action.payload.target.value;
+                    break;
+                
+                case 'email-description':
+                    newData[2].numbers[action.key].description = action.payload.target.value;
+                    break;
+                case 'email-active':
+                    newData[2].numbers[action.key].active = action.payload.target.value;
+                    break;
                 default:
-                    newData[0] = [...newData];
+                    newData = [...newData];
                     break;
             }
             return{
@@ -478,15 +501,43 @@ export default (state = InitialState , action)=>{
         }
         
         case ON_CLICK_CONTACT_DELETE:{
-            state.CONTACTS_DATA[0].numbers.splice(action.payload.key,1);
-            console.log(state.CONTACTS_DATA,"... new");
-            const newData = state.CONTACTS_DATA;
-            return{
-                ...state,
-                CONTACTS_DATA: newData,
+            console.log(action.key);
+            switch (action.payload) {
+                case 'phone':{
+                    state.CONTACTS_DATA[0].numbers.splice(action.key,1);
+                    console.log(action.payload);
+                    console.log(state.CONTACTS_DATA,"... new");
+                    const newData = state.CONTACTS_DATA;
+                    return{
+                        ...state,
+                        CONTACTS_DATA: newData,
+                    }
+                }
+                case 'mobile':{
+                    state.CONTACTS_DATA[1].numbers.splice(action.key,1);
+                    console.log(action.payload);
+                    console.log(state.CONTACTS_DATA,"... new");
+                    const newData = state.CONTACTS_DATA;
+                    return{
+                        ...state,
+                        CONTACTS_DATA: newData,
+                    }
+                }
+                case 'email':{
+                    state.CONTACTS_DATA[2].numbers.splice(action.key,1);
+                    console.log(action.payload);
+                    console.log(state.CONTACTS_DATA,"... new");
+                    const newData = state.CONTACTS_DATA;
+                    return{
+                        ...state,
+                        CONTACTS_DATA: newData,
+                    }
+                }
+                default :return{
+                    ...state
+                }
             }
         }
-
         //Additonal change end...
         case SET_CONTACT_EMAIL_ADD: return {
             ...state,
