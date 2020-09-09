@@ -187,7 +187,14 @@ export default (state = InitialState , action)=>{
         case SET_DETAIL_SECTION_EDIT_OPTION: return {
             ...state,
             DETAIL_SECTION_EDIT_OPTION : action.payload,
-            DETAIL_SECTION_BUTTON_VALUE : action.payload ? "View" : "Edit"
+            DETAIL_SECTION_BUTTON_VALUE : action.payload ? "View" : "Edit",
+            FORM_DATA : {
+                name: action.dept.name,
+                username: action.dept.username,
+                since: action.dept.since,
+                shortDescription: action.dept.shortDescription,
+                contacts: []
+                }
         }
         case SET_DETAIL_SECTION_BUTTON_VALUE: return {
             ...state,

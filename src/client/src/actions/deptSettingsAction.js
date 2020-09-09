@@ -77,10 +77,11 @@ export const setCreateSection =(createSection)=>{
         payload : createSection
     }
 }
-export const setDetailSectionEditOption =(detailSectionEditOption)=>{
+export const setDetailSectionEditOption =(detailSectionEditOption,dept)=>{
     return{
         type : SET_DETAIL_SECTION_EDIT_OPTION,
-        payload : detailSectionEditOption
+        payload : detailSectionEditOption,
+        dept:dept
     }
 }
 export const setDetailSectionButtonValue =(detailSectionButtonValue)=>{
