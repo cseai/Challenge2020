@@ -16,7 +16,15 @@ import {
     SET_FORM_DATA,
     SET_CONTACT_EMAIL_ADD,
     SET_CONTACT_MOBILE_ADD,
-    SET_CONTACT_PHONE_ADD} from './../actions/types';
+    SET_CONTACT_PHONE_ADD,
+    CREATE_CONTACT_PHONE_FIELD_ADD,
+    CREATE_CONTACT_PHONE_FIELD_CANCEL,
+    CREATE_CONTACT_MOBILE_FIELD_ADD,
+    CREATE_CONTACT_MOBILE_FIELD_CANCEL,
+    CREATE_CONTACT_EMAIL_FIELD_ADD,
+    CREATE_CONTACT_EMAIL_FIELD_CANCEL,
+    ON_CHANGE_CONTACT_INPUT,
+    ON_CLICK_CONTACT_DELETE} from './../actions/types';
 /*
 import {
 	setInfo,
@@ -189,18 +197,96 @@ export default (state = InitialState , action)=>{
             ...state,
             CONTACTS_DATA : action.payload
         }
-        case SET_NEW_CONTACT_EMAIL_DATA: return {
-            ...state,
-            NEW_CONTACT_EMAIL_DATA : action.payload
+
+        //Additional change start ....
+        case SET_NEW_CONTACT_EMAIL_DATA: switch (action.payload.target.name) {
+            case 'number':return{
+                ...state,
+                NEW_CONTACT_EMAIL_DATA:{
+                    ...state.NEW_CONTACT_EMAIL_DATA,
+                    number : action.payload.target.value
+                }
+            }
+            case 'description':return{
+                ...state,
+                NEW_CONTACT_EMAIL_DATA:{
+                    ...state.NEW_CONTACT_EMAIL_DATA,
+                    description : action.payload.target.value
+                }
+            }
+            case 'active':return{
+                ...state,
+                NEW_CONTACT_EMAIL_DATA:{
+                    ...state.NEW_CONTACT_EMAIL_DATA,
+                    active : action.payload.target.value
+                }
+            }
+            default : return{
+                ...state,
+                NEW_CONTACT_EMAIL_DATA:{
+                    ...state.NEW_CONTACT_EMAIL_DATA
+                }
+            }
         }
-        case SET_NEW_CONTACT_MOBILE_DATA: return {
-            ...state,
-            NEW_CONTACT_MOBILE_DATA : action.payload
+        case SET_NEW_CONTACT_MOBILE_DATA: switch (action.payload.target.name) {
+            case 'number':return{
+                ...state,
+                NEW_CONTACT_MOBILE_DATA:{
+                    ...state.NEW_CONTACT_MOBILE_DATA,
+                    number : action.payload.target.value
+                }
+            }
+            case 'description':return{
+                ...state,
+                NEW_CONTACT_MOBILE_DATA:{
+                    ...state.NEW_CONTACT_MOBILE_DATA,
+                    description : action.payload.target.value
+                }
+            }
+            case 'active':return{
+                ...state,
+                NEW_CONTACT_MOBILE_DATA:{
+                    ...state.NEW_CONTACT_MOBILE_DATA,
+                    active : action.payload.target.value
+                }
+            }
+            default : return{
+                ...state,
+                NEW_CONTACT_MOBILE_DATA:{
+                    ...state.NEW_CONTACT_MOBILE_DATA
+                }
+            }
         }
-        case SET_NEW_CONTACT_PHONE_DATA: return {
-            ...state,
-            NEW_CONTACT_PHONE_DATA : action.payload
+        case SET_NEW_CONTACT_PHONE_DATA: switch (action.payload.target.name) {
+            case 'number':return{
+                ...state,
+                NEW_CONTACT_PHONE_DATA:{
+                    ...state.NEW_CONTACT_PHONE_DATA,
+                    number : action.payload.target.value
+                }
+            }
+            case 'description':return{
+                ...state,
+                NEW_CONTACT_PHONE_DATA:{
+                    ...state.NEW_CONTACT_PHONE_DATA,
+                    description : action.payload.target.value
+                }
+            }
+            case 'active':return{
+                ...state,
+                NEW_CONTACT_PHONE_DATA:{
+                    ...state.NEW_CONTACT_PHONE_DATA,
+                    active : action.payload.target.value
+                }
+            }
+            default : return{
+                ...state,
+                NEW_CONTACT_PHONE_DATA:{
+                    ...state.NEW_CONTACT_PHONE_DATA
+                }
+            }
         }
+
         case SET_FORM_DATA: switch (action.payload.target.name) {
             case 'name' : return{
                 ...state,
@@ -237,6 +323,171 @@ export default (state = InitialState , action)=>{
                 }
             }
         }
+        case CREATE_CONTACT_PHONE_FIELD_ADD :{ 
+            
+            if(state.NEW_CONTACT_PHONE_DATA.number !=""){
+                console.log(state.FORM_DATA.contacts);
+                let newData = state.CONTACTS_DATA;
+                newData[0].numbers.push(state.NEW_CONTACT_PHONE_DATA);
+                //state.CONTACTS_DATA[0].push()
+            return{
+                ...state,
+                CONTACTS_DATA:newData,
+
+                FORM_DATA :{
+                    ...state.FORM_DATA,
+                    contacts : [...state.FORM_DATA.contacts,state.NEW_CONTACT_PHONE_DATA]
+                },
+                NEW_CONTACT_PHONE_DATA : {
+                    number: '',
+                    description: '',
+                    active: true
+                },
+                CONTACT_PHONE_ADD : false
+            }
+            }else{
+                return{
+                    ...state
+                }
+            }
+        }
+        case CREATE_CONTACT_PHONE_FIELD_CANCEL : return{
+            ...state,
+            NEW_CONTACT_PHONE_DATA : {
+                number: '',
+                description: '',
+                active: true
+            },
+            CONTACT_PHONE_ADD : false
+        }
+
+
+
+
+        case CREATE_CONTACT_MOBILE_FIELD_ADD :{ 
+            
+            if(state.NEW_CONTACT_MOBILE_DATA.number !=""){
+                console.log(state.FORM_DATA.contacts);
+                let newData = state.CONTACTS_DATA;
+                newData[0].numbers.push(state.NEW_CONTACT_MOBILE_DATA);
+                //state.CONTACTS_DATA[0].push()
+            return{
+                ...state,
+                CONTACTS_DATA:newData,
+
+                FORM_DATA :{
+                    ...state.FORM_DATA,
+                    contacts : [...state.FORM_DATA.contacts,state.NEW_CONTACT_MOBILE_DATA]
+                },
+                NEW_CONTACT_MOBILE_DATA : {
+                    number: '',
+                    description: '',
+                    active: true
+                },
+                CONTACT_MOBILE_ADD : false
+            }
+            }else{
+                return{
+                    ...state
+                }
+            }
+        }
+        case CREATE_CONTACT_MOBILE_FIELD_CANCEL : return{
+            ...state,
+            NEW_CONTACT_MOBILE_DATA : {
+                number: '',
+                description: '',
+                active: true
+            },
+            CONTACT_MOBILE_ADD : false
+        }
+
+
+
+
+
+
+        case CREATE_CONTACT_EMAIL_FIELD_ADD :{ 
+            
+            if(state.NEW_CONTACT_EMAIL_DATA.number !=""){
+                console.log(state.FORM_DATA.contacts);
+                let newData = state.CONTACTS_DATA;
+                newData[0].numbers.push(state.NEW_CONTACT_EMAIL_DATA);
+                //state.CONTACTS_DATA[0].push()
+            return{
+                ...state,
+                CONTACTS_DATA:newData,
+
+                FORM_DATA :{
+                    ...state.FORM_DATA,
+                    contacts : [...state.FORM_DATA.contacts,state.NEW_CONTACT_EMAIL_DATA]
+                },
+                NEW_CONTACT_EMAIL_DATA : {
+                    number: '',
+                    description: '',
+                    active: true
+                },
+                CONTACT_EMAIL_ADD : false
+            }
+            }else{
+                return{
+                    ...state
+                }
+            }
+        }
+        case CREATE_CONTACT_EMAIL_FIELD_CANCEL : return{
+            ...state,
+            NEW_CONTACT_EMAIL_DATA : {
+                number: '',
+                description: '',
+                active: true
+            },
+            CONTACT_EMAIL_ADD : false
+        }
+
+
+
+
+
+        case ON_CHANGE_CONTACT_INPUT :{
+            console.log(action.payload.target.value,'is the value');
+            
+            console.log(action.payload," From payload");
+            console.log(action.payload.target.value);
+            const newData = [...state.CONTACTS_DATA];
+
+            switch (action.payload.target.name) {
+                case 'number':
+                    newData[0].numbers[action.key].number = action.payload.target.value;
+                    break;
+                
+                case 'description':
+                    newData[0].numbers[action.key].description = action.payload.target.value;
+                    break;
+                case 'active':
+                    newData[0].numbers[action.key].active = action.payload.target.value;
+                    break;
+                default:
+                    newData[0] = [...newData];
+                    break;
+            }
+            return{
+                ...state,
+                CONTACTS_DATA: newData
+            }
+        }
+        
+        case ON_CLICK_CONTACT_DELETE:{
+            state.CONTACTS_DATA[0].numbers.splice(action.payload.key,1);
+            console.log(state.CONTACTS_DATA,"... new");
+            const newData = state.CONTACTS_DATA;
+            return{
+                ...state,
+                CONTACTS_DATA: newData,
+            }
+        }
+
+        //Additonal change end...
         case SET_CONTACT_EMAIL_ADD: return {
             ...state,
             CONTACT_EMAIL_ADD : action.payload

@@ -16,7 +16,16 @@ import {
     SET_FORM_DATA,
     SET_CONTACT_EMAIL_ADD,
     SET_CONTACT_MOBILE_ADD,
-    SET_CONTACT_PHONE_ADD} from './types';
+    SET_CONTACT_PHONE_ADD,
+    CREATE_CONTACT_PHONE_FIELD_ADD,
+    CREATE_CONTACT_PHONE_FIELD_CANCEL,
+    CREATE_CONTACT_MOBILE_FIELD_ADD,
+    CREATE_CONTACT_MOBILE_FIELD_CANCEL,
+    CREATE_CONTACT_EMAIL_FIELD_ADD,
+    CREATE_CONTACT_EMAIL_FIELD_CANCEL,
+    ON_CHANGE_CONTACT_INPUT,
+    ON_CLICK_CONTACT_DELETE
+} from './types';
 
 
 export const setInfo =(info)=>{
@@ -126,5 +135,59 @@ export const setContactsData =(contactsData)=>{
     return{
         type : SET_CONTACTS_DATA,
         payload : contactsData
+    }
+}
+
+
+export const createContactPhoneFieldAdd = () =>{
+    return{
+        type : CREATE_CONTACT_PHONE_FIELD_ADD
+    }
+}
+export const createContactPhoneFieldCancel=()=>{
+    return{
+        type: CREATE_CONTACT_PHONE_FIELD_CANCEL
+    }
+}
+
+export const createContactMobileFieldAdd = () =>{
+    return{
+        type : CREATE_CONTACT_MOBILE_FIELD_ADD
+    }
+}
+export const createContactMobileFieldCancel=()=>{
+    return{
+        type: CREATE_CONTACT_MOBILE_FIELD_CANCEL
+    }
+}
+
+
+export const createContactEmailFieldAdd = () =>{
+    return{
+        type : CREATE_CONTACT_EMAIL_FIELD_ADD
+    }
+}
+export const createContactEmailFieldCancel=()=>{
+    return{
+        type: CREATE_CONTACT_EMAIL_FIELD_CANCEL
+    }
+}
+
+
+
+
+
+export const onChangeContactInput=(input,key)=>{
+    return{
+        type : ON_CHANGE_CONTACT_INPUT,
+        payload : input,
+        key : key
+    }
+}
+export const onClickContactDelete=(input,key)=>{
+    return{
+        type : ON_CLICK_CONTACT_DELETE,
+        payload: input,
+        key : key
     }
 }
