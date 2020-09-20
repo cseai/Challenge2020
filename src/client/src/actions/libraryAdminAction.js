@@ -4,6 +4,8 @@ import {
 	LIBEARY_ADMIN_LOAD_FAIL,
 	GET_ADMIN_ALL_MEMBERS,
 	GET_ADMIN_ALL_MEMBERS_FAIL,
+	GET_ADMIN_CONNECTED_USER,
+	GET_ADMIN_CONNECTED_USER_FAIL,
 	GET_ADMIN_ALL_BOOKS,
 	GET_ADMIN_ALL_BOOKS_FAIL,
 	GET_ADMIN_ALL_RESOURCES,
@@ -59,6 +61,38 @@ export const getAllUsers = () => async (dispatch) => {
 		console.log(err);
 		dispatch({
 			type: GET_ADMIN_ALL_MEMBERS_FAIL,
+		});
+	}
+};
+
+
+// GET | Get Connected User
+export const getConnectedUser = (userId) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/v1/libraries/admin/5ec6367d30bac62ae0cda5fe/members/${userId}`);
+		dispatch({
+			type: GET_ADMIN_CONNECTED_USER,
+			payload: res.data,
+		});
+	} catch (err) {
+		console.log(err);
+		dispatch({
+			type: GET_ADMIN_CONNECTED_USER_FAIL,
+		});
+	}
+};
+
+// removeConnectedUser
+export const removeConnectedUser = () => async (dispatch) => {
+	try {
+		dispatch({
+			type: GET_ADMIN_CONNECTED_USER,
+			payload: null,
+		});
+	} catch (err) {
+		console.log(err);
+		dispatch({
+			type: GET_ADMIN_CONNECTED_USER_FAIL,
 		});
 	}
 };

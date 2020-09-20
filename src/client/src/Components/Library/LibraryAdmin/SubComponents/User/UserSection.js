@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Spinner from './../../../../theme/Spinner/Spin-0.8s-217px.svg';
 import { Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserFriends, faUserCog, faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTimes, faMinusSquare , faUserFriends, faUserCog, faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import { 
     SubBgAndColor, 
     InbgSelect, 
@@ -29,17 +29,21 @@ import {
     BookTableTitleH2,
 } from './UserSectionContainer';
 // redux
-import { getAllBooks, getAllUsers } from './../../../../../actions/libraryAdminAction';
+import { getAllBooks, getAllUsers, getConnectedUser, removeConnectedUser } from './../../../../../actions/libraryAdminAction';
 // components
 const UserSection = ({ 
     getAllBooks,
     getAllUsers,
+    getConnectedUser,
+    removeConnectedUser,
     library: {library},
     loading,
     libLoading,
     memberLoading,
+    connectedUserLoading,
     bookLoading,
     allMembers,
+    connectedUser,
     allBooks
 }) =>{
     useEffect(() => {
@@ -51,6 +55,49 @@ const UserSection = ({
 		console.log(typeof library.id);
 		getAllBooks(library.id);
     }, [getAllBooks, library.id]);
+
+    // showUserSearchList: when UserList will show
+    const [showUserSearchList, setShowUserSearchList] = useState(false);
+    const [userSearchInput, setUserSearchInput] = useState("");
+
+
+    const onConnectUser = (e, userId) => {
+        console.log('Hi,',userId, 'was clicked');
+        // action: get connected user
+        getConnectedUser(userId);
+        // clear input
+        setUserSearchInput("");
+        // close UserList
+        setShowUserSearchList(false);
+    }; 
+    
+    const onUserSearchFocus = (e) => {
+        console.log('Hi, Type something...', e);
+        setShowUserSearchList(true);
+    };
+
+    const onUserSearchBlur = (e) => {
+        console.log('Hi, you have stoped typing...', e);
+        // setShowUserSearchList(false);
+    };
+
+    // Search input value change
+    const onChangeUserSearchInput = (e) => {
+        setUserSearchInput(e.target.value);
+    };
+
+    // clear User Search
+    const onClearUserSearch = (e) => {
+        // clear input
+        setUserSearchInput("");
+        // close UserList
+        setShowUserSearchList(false);
+    };
+
+    // Remove Connected User
+    const onRemoveConnectedUser = (e) => {
+        removeConnectedUser();
+    }
 
     return (
         <Fragment>
@@ -64,7 +111,12 @@ const UserSection = ({
                                 <option>Email</option>
                                 <option>Name</option>
                             </InbgSelect>
-                            <InbgInput />
+                            <InbgInput
+                                value={userSearchInput}
+                                onFocus={(e) => onUserSearchFocus(e)} 
+                                onBlur={(e) => onUserSearchBlur(e)}
+                                onChange={(e) => onChangeUserSearchInput(e)} 
+                            />
                             <button>
                                 <div className={Styles.fasicon}>
                                     <FontAwesomeIcon
@@ -78,24 +130,59 @@ const UserSection = ({
                                     />
                                 </div>
                             </button>
+                            {showUserSearchList && (
+                                <button>
+                                    <div className={Styles.fasicon}>
+                                        <FontAwesomeIcon
+                                            icon={faTimes}
+                                            style={{
+                                                height: '32px',
+                                                width: '32px',
+                                                color: 'inherit',
+                                                paddingTop: '5px',
+                                                marginLeft: '15px',
+                                            }}
+                                            onClick={(e) => onClearUserSearch(e)}
+                                        />
+                                    </div>
+                                </button>
+                            )}
                         </div>
-                        <button className={Styles.right__part__search_icon}>
-                            <div className={Styles.fasicon}>
-                                <FontAwesomeIcon
-                                    icon={faUserCog}
-                                    style={{
-                                        height: '32px',
-                                        width: '32px',
-                                        color: 'inherit',
-                                        paddingTop: '5px',
-                                    }}
-                                />
-                            </div>
-                        </button>
+                        {/* Connected User Section */}
+                        {connectedUser !== null && connectedUserLoading === false && (
+                            <Fragment>
+                                <div className={Styles.right__part__search_connected_user_section}>
+                                    <div className={Styles.right__part__search_connected_user}>
+                                        <div className={Styles.right__part__search_connected_user_img}>
+                                            <img src={require('./../../images/default-user-image.jpg')} alt='profile image' />
+                                        </div>
+                                        <div className={Styles.right__part__search_connected_user_name}>
+                                            <h3>@{connectedUser.user.username}</h3>
+                                        </div>
+                                    </div>
+                                    <button className={Styles.right__part__search_connected_user_remove}>
+                                        <div className={Styles.fasicon}>
+                                            <FontAwesomeIcon
+                                                icon={faMinusSquare}
+                                                style={{
+                                                    height: '32px',
+                                                    width: '32px',
+                                                    color: 'inherit',
+                                                    paddingTop: '5px',
+                                                    marginLeft: '0px',
+                                                    paddingLeft: '0px',
+                                                }}
+                                                onClick={(e) => onRemoveConnectedUser(e)}
+                                            />
+                                        </div>
+                                    </button>
+                                </div>
+                            </Fragment>
+                        )}
                     </SubBgAndColor>
                 </div>
                 {/* Members Table */}
-                <div className={Styles.right__part__user__members_table}>
+                { showUserSearchList && (<div className={Styles.right__part__user__members_table}>
                     <MemberTableMain>
                         <MemberTableTitle>
                             <div>
@@ -152,10 +239,10 @@ const UserSection = ({
                                     <MemberTableCell>
                                         <div className={Styles.right__part__user__members_table_cell_member_actions}>
                                             <div className={Styles.right__part__user__members_table_cell_member_actions_connect}>
-                                                <p><span>Connect</span></p>
+                                                <button onClick={(e) => onConnectUser(e, member._id)}>Connect</button>
                                             </div>
                                             <div className={Styles.right__part__user__members_table_cell_member_actions_view}>
-                                                <p><span>View</span></p>
+                                                <button>View</button>
                                             </div>
                                         </div>
                                     </MemberTableCell>
@@ -164,7 +251,7 @@ const UserSection = ({
                             </Fragment>
                         )}
                     </MemberTableMain>
-                </div>
+                </div>)}
                 {/* Book Table */}
                 <div className={Styles.right__part__books__books_table}>
                     <BookTableMain>
@@ -262,17 +349,21 @@ const UserSection = ({
 
 UserSection.propTypes = (state) => ({
     getAllBooks: PropTypes.func.isRequired,
-    getAllUsers: PropTypes.func.isRequired
+    getAllUsers: PropTypes.func.isRequired,
+    getConnectedUser: PropTypes.func.isRequired,
+    removeConnectedUser: PropTypes.func.isRequired,
 });
 
 const mapStateToprops = (state) => ({
     library: state.libadmin.library,
     allMembers: state.libadmin.members,
+    connectedUser: state.libadmin.user,
     allBooks: state.libadmin.books,
     loading: state.libadmin.loading,
     libLoading: state.libadmin.libLoading,
     memberLoading: state.libadmin.memberLoading,
+    connectedUserLoading: state.libadmin.userLoading,
     bookLoading: state.libadmin.bookLoading,
 });
 
-export default connect(mapStateToprops, {getAllBooks, getAllUsers})(UserSection);
+export default connect(mapStateToprops, {getAllBooks, getAllUsers, getConnectedUser, removeConnectedUser})(UserSection);

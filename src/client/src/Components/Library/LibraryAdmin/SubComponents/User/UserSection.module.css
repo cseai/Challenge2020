@@ -92,6 +92,53 @@ button :focus {
 	font-size: 30px;
 	color: var(--color--primary);
 }
+.right__part__search_connected_user_section {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	outline: none !important;
+	border: none !important;
+	background: transparent;
+}
+.right__part__search_connected_user {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	outline: none !important;
+	border: none !important;
+	background: transparent;
+}
+.right__part__search_connected_user_img{
+	width: 80px;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: 5px;
+	justify-content: center;
+	align-items: center;
+}
+.right__part__search_connected_user_img img{
+	width: 40px;
+	height: 40px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 50%;
+}
+.right__part__search_connected_user_name{
+	font-size: 20px;
+	color: var(--color--primary);
+	width: auto;
+}
+.right__part__search_connected_user_remove{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	outline: none !important;
+	border: none !important;
+	background: transparent;
+	margin: 0 15px;
+}
 /* .right__part__search_in button i {
 } */
 
@@ -155,10 +202,27 @@ button :focus {
 	justify-content: space-between;
 	padding: 0 .75em;
 }
+
+.right__part__user__members_table_cell_member_actions_connect button {
+	font-size: 16px;
+	width: 100%;
+	color: inherit !important;
+	border: none;
+	outline: none;
+	background: none;
+}
 .right__part__user__members_table_cell_member_actions_view {
 	display: flex;
 	justify-content: space-between;
 	padding: 0 .75em;
+}
+.right__part__user__members_table_cell_member_actions_view button {
+	font-size: 16px;
+	width: 100%;
+	color: inherit !important;
+	border: none;
+	outline: none;
+	background: none;
 }
 /* ############ Member Table Part end ############ */
 
