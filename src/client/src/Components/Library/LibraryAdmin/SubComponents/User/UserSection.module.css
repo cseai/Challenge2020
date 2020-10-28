@@ -1,6 +1,314 @@
+/* icon */
+.fasicon {
+	color: var(--color--primary);
+}
+/* ############ right Side start ############ */
+.right__part {
+	flex: 0 0 80%;
+	width: 100%;
+	height: 1000px;
+	/* background-color: rgb(0, 214, 161); */
+}
 .right__part_main {
 	/* background: red; */
 	width: 95%;
 	margin: 0 auto;
 	margin-top: 30px;
+}
+.right__part__search {
+	margin: 0 auto;
+	width: 100%;
+	height: auto;
+}
+.right__part__search_main {
+	margin: 20px 1%;
+	padding: 20px;
+	background: inherit !important;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 10px;
+}
+.right__part__search_in {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.right__part__search_in select {
+	padding: 11px;
+	border-radius: 10px 0px 0px 10px;
+	outline: none;
+	border: none;
+	background: var(--color--primary-light-ibg);
+	color: var(--color--primary-light-tc);
+	font-size: 16px;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+.right__part__search_in input {
+	border-radius: 0px 10px 10px 0px;
+	padding: 7px 34px 8px 10px;
+	outline: none;
+	border-left: 1px solid var(--color--primary-light-tc);
+	border-top: none;
+	border-bottom: none;
+	border-right: none;
+	background: var(--color--primary-light-ibg);
+	color: var(--color--primary-light-tc);
+	width: 250px;
+	font-size: 20px;
+}
+.right__part__search_in button {
+	font-size: 20px;
+	color: var(--color--primary-light-tc);
+	outline: none !important;
+	border: none !important;
+	background: transparent;
+	transform: translateX(-30px);
+	position: relative;
+	z-index: 2;
+	cursor: pointer;
+}
+button :focus {
+	outline: none !important;
+	border: none !important;
+}
+.right__part__search_in button :active,
+.right__part__search_in button :focus {
+	transform: translate(2px, 1px);
+	-moz-outline-style: none !important;
+	-webkit-outline-style: none !important;
+	outline-style: none !important;
+	outline: none !important;
+	border: none !important;
+}
+.right__part__search_icon {
+	border: none;
+	outline: none;
+	background: transparent;
+}
+.right__part__search_icon i {
+	font-size: 30px;
+	color: var(--color--primary);
+}
+.right__part__search_connected_user_section {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	outline: none !important;
+	border: none !important;
+	background: transparent;
+}
+.right__part__search_connected_user {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	outline: none !important;
+	border: none !important;
+	background: transparent;
+}
+.right__part__search_connected_user_img{
+	width: 80px;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: 5px;
+	justify-content: center;
+	align-items: center;
+}
+.right__part__search_connected_user_img img{
+	width: 40px;
+	height: 40px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 50%;
+}
+.right__part__search_connected_user_name{
+	font-size: 20px;
+	color: var(--color--primary);
+	width: auto;
+}
+.right__part__search_connected_user_remove{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	outline: none !important;
+	border: none !important;
+	background: transparent;
+	margin: 0 15px;
+}
+/* .right__part__search_in button i {
+} */
+
+/* CUSTOM MEMBER TABLE USING GRID AND FLEX */
+.right__part__user__members_table {
+	margin: 0 auto;
+	width: 100%;
+	height: auto;
+}
+.right__part__user__members_table_cell_sn {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	justify-content: center;
+	align-items: center;
+}
+.right__part__user__members_table_cell_member_img {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	justify-content: center;
+	align-items: center;
+}
+.right__part__user__members_table_cell_member_img img{
+	width: 60px;
+	height: 60px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	/* border-radius: 3px 3px 3px 3px; */
+	border-radius: 50%;
+}
+.right__part__user__members_table_cell_member_info {
+	margin: 0;
+}
+.right__part__user__members_table_cell_member_info_name p{
+	font-size: 16px;
+	font-weight: 400;
+	color: inherit !important;
+}
+.right__part__user__members_table_cell_member_info_extra p{
+	font-size: 14px;
+	/* font-weight: inherit; */
+	color: inherit !important;
+	font-weight: 300;
+	/* color: #dae0e0 !important; */
+}
+.right__part__user__members_table_cell_member_actions {
+	min-width: 120px;
+}
+.right__part__user__members_table_cell_member_actions :hover{
+	background: var(--color--primary);
+	color: var(--color--primary-dark-tc);
+	border: none;
+	border-radius: 2px;
+}
+.right__part__user__members_table_cell_member_actions_connect {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 .75em;
+}
+
+.right__part__user__members_table_cell_member_actions_connect button {
+	font-size: 16px;
+	width: 100%;
+	color: inherit !important;
+	border: none;
+	outline: none;
+	background: none;
+}
+.right__part__user__members_table_cell_member_actions_view {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 .75em;
+}
+.right__part__user__members_table_cell_member_actions_view button {
+	font-size: 16px;
+	width: 100%;
+	color: inherit !important;
+	border: none;
+	outline: none;
+	background: none;
+}
+/* ############ Member Table Part end ############ */
+
+/* CUSTOM BOOK TABLE USING GRID AND FLEX */
+.right__part__books__books_table {
+	margin: 0 auto;
+	width: 100%;
+	height: auto;
+}
+.right__part__books__books_table_cell_sn {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	justify-content: center;
+	align-items: center;
+}
+.right__part__books__books_table_cell_book_img {
+	width: 100%;
+	height: 100%;
+}
+.right__part__books__books_table_cell_book_img img{
+	width: 100%;
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 3px 3px 3px 3px;
+}
+.right__part__books__books_table_cell_book_info {
+	margin: 0;
+}
+.right__part__books__books_table_cell_book_info_title p{
+	font-size: 16px;
+	font-weight: 400;
+	color: inherit !important;
+}
+.right__part__books__books_table_cell_book_info_authors p{
+	font-size: 14px;
+	/* font-weight: inherit; */
+	color: inherit !important;
+	font-weight: 300;
+	/* color: #dae0e0 !important; */
+}
+.right__part__books__books_table_cell_book_status {
+	min-width: 120px;
+}
+.right__part__books__books_table_cell_book_status :hover{
+	background: var(--color--primary);
+	color: var(--color--primary-dark-tc);
+	border: none;
+	border-radius: 2px;
+}
+.right__part__books__books_table_cell_book_status_total_count {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 .75em;
+}
+.right__part__books__books_table_cell_book_status_total_available {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 .75em;
+}
+.right__part__books__books_table_cell_book_status_total_unavailable {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 .75em;
+}
+/* ############ Book Table Part end ############ */
+/*  todos*/
+
+/* ############ right Side end ############ */
+
+/* ############ responsive ################## */
+/* big screen desktops/laptops,  --> xl */
+@media only screen and (min-width: 1199.5px) {
+}
+/* most tablets in landscape, many desktops/laptops  --> lg*/
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+}
+/*larger smartphones in landscape, most tablets in portrait, some small laptops  --> md*/
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+}
+/* Extra small devices (portrait phones, less than 576px) */
+@media only screen and (max-width: 575.98px) {
 }

@@ -85,6 +85,40 @@ Response:
 - `controllers`: Updated Library Controllers `Array`
 
 
+## GET | Get All Users of Library
+```bash
+    {{URL}}api/v1/libraries/admin/:libraryId/members
+```
+Params:
+- libraryId : `libraryId`
+
+Fields: [`TODO`]
+- `_id`: `MemberGroup`
+- `username`: 
+- `email`:
+
+Response: [`TODO`]
+- `success`: `Boolean` [true]
+- `msg`: 'Get Library Users',
+- `members`: `Array` of populated [User] `Object`
+
+## GET | Get Member of Library
+```bash
+    {{URL}}api/v1/libraries/admin/:libraryId/members/:userId
+```
+Params:
+- libraryId : `libraryId`
+- userId: `userId`, User (Member) of this Library
+
+Fields: [`TODO`]
+- `username`: `username`
+- `email`: `email`
+
+Response:
+- `success`: `Boolean` [true]
+- `msg`: `String`
+- `user`: User `Object`
+
 ## GET | Get All Books of Library
 ```bash
     {{URL}}api/v1/libraries/admin/:libraryId/books

@@ -42,7 +42,7 @@ const LibraryAdmin = ({
 	});
 
     // Active Section Name
-    const [activeSection, setActiveSection] = useState(sectionNames.book);
+    const [activeSection, setActiveSection] = useState(sectionNames.user);
 
     // Update Active Section
     const updateActiveSection = (section) => {
