@@ -44,6 +44,7 @@ import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './Components/Route/PrivateRoute';
+
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }

@@ -16,6 +16,13 @@ import Spinner from './../../theme/Spinner/Spinner';
 // action
 import { getAdminLibrary } from './../../../actions/libraryAdminAction';
 
+// AUTH
+import setAuthToken from './../../../utils/setAuthToken';
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
+
+
 const LibraryAdmin = ({
 	getAdminLibrary, 
 	lib: { libLoading, library } 
