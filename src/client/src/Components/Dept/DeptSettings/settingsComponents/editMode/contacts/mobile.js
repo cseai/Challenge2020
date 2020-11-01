@@ -1,4 +1,4 @@
-import React,{Fragment} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
 import {useSelector ,useDispatch} from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,7 +25,8 @@ import ContactProfile from '../../viewMode/Contact';
 export default function(){
     const contactMobileAdd = useSelector(state=>state.deptSettings.CONTACT_MOBILE_ADD);
     console.log(contactMobileAdd);
-    const contactsData = useSelector(state=>state.deptSettings.CONTACTS_DATA);
+    //const contactsData = useSelector(state=>state.deptSettings.CONTACTS_DATA);
+    const [contactsData, setContactsData] = useState(useSelector(state=>state.deptSettings.CONTACTS_DATA));
     console.log(contactsData);
     const newContactMobileData = useSelector(state=>state.deptSettings.NEW_CONTACT_MOBILE_DATA);
     console.log(newContactMobileData);

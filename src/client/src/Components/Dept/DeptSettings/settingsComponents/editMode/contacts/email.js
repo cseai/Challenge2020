@@ -1,4 +1,4 @@
-import React,{Fragment} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
 import {useSelector ,useDispatch} from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,7 +27,8 @@ export default function(){
 
     const contactEmailAdd = useSelector(state=>state.deptSettings.CONTACT_EMAIL_ADD);
     console.log(contactEmailAdd);
-    const contactsData = useSelector(state=>state.deptSettings.CONTACTS_DATA);
+    //const contactsData = useSelector(state=>state.deptSettings.CONTACTS_DATA);
+    const [contactsData, setContactsData] = useState(useSelector(state=>state.deptSettings.CONTACTS_DATA));
     console.log(contactsData);
     const newContactEmailData = useSelector(state=>state.deptSettings.NEW_CONTACT_EMAIL_DATA);
     console.log(newContactEmailData);

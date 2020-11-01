@@ -1,4 +1,4 @@
-import React,{Fragment} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
 import {useSelector ,useDispatch} from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,13 +27,12 @@ export default function(){
     
     const contactPhoneAdd = useSelector(state=>state.deptSettings.CONTACT_PHONE_ADD);
     console.log(contactPhoneAdd);
-    const contactsData = useSelector(state=>state.deptSettings.CONTACTS_DATA);
+    //const contactsData = useSelector(state=>state.deptSettings.CONTACTS_DATA);
+    const [contactsData, setContactsData] = useState(useSelector(state=>state.deptSettings.CONTACTS_DATA));
     console.log(contactsData);
     const newContactPhoneData = useSelector(state=>state.deptSettings.NEW_CONTACT_PHONE_DATA);
     console.log(newContactPhoneData);
     const dispatch = useDispatch();
-
-
 
     return(
         <div id="contactPhoneDiv" className={Styles.update__hub__contact__method__div}>
@@ -92,8 +91,9 @@ export default function(){
                                     name="active"
                                     onChange={(e) => dispatch(setNewContactPhoneData(e))}
                                 >
-                                    {newContactPhoneData.active ? (
+                                    {(newContactPhoneData.active=== true) ? (
                                         <Fragment>
+                                            {console.log(newContactPhoneData.active," I am from inner")}
                                             <option value={true} selected >Active</option>
                                             <option value={false}>Deactive</option>
                                         </Fragment>
@@ -143,9 +143,10 @@ export default function(){
                                 />
                             </span>
                         </li>
+                        {console.log(number.active,"   ", key , " we the")}
                         <li>
                             <i>
-                                {number.active ? (
+                                {(number.active=== true) ? (
                                 <FontAwesomeIcon icon={faCheckCircle} />
                                 ):(
                                     <FontAwesomeIcon icon={faTimesCircle} />

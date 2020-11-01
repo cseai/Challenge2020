@@ -511,33 +511,45 @@ export default (state = InitialState , action)=>{
             console.log(action.key);
             switch (action.payload) {
                 case 'phone':{
-                    state.CONTACTS_DATA[0].numbers.splice(action.key,1);
+                   // state.CONTACTS_DATA[0].numbers.splice(action.key,1);
                     console.log(action.payload);
                     console.log(state.CONTACTS_DATA,"... new");
-                    const newData = state.CONTACTS_DATA;
+                    //const newData = state.CONTACTS_DATA;
                     return{
                         ...state,
-                        CONTACTS_DATA: newData,
+                        CONTACTS_DATA: [
+                            state.CONTACTS_DATA[0].numbers.splice(action.key,1),
+                            state.CONTACTS_DATA[1],
+                            state.CONTACTS_DATA[2]
+                        ]
                     }
                 }
                 case 'mobile':{
-                    state.CONTACTS_DATA[1].numbers.splice(action.key,1);
+                    //state.CONTACTS_DATA[1].numbers.splice(action.key,1);
                     console.log(action.payload);
                     console.log(state.CONTACTS_DATA,"... new");
-                    const newData = state.CONTACTS_DATA;
+                    //const newData = state.CONTACTS_DATA;
                     return{
                         ...state,
-                        CONTACTS_DATA: newData,
+                        CONTACTS_DATA: [
+                            state.CONTACTS_DATA[0],
+                            state.CONTACTS_DATA[1].numbers.splice(action.key,1),
+                            state.CONTACTS_DATA[2]
+                        ]
                     }
                 }
                 case 'email':{
-                    state.CONTACTS_DATA[2].numbers.splice(action.key,1);
+                    //state.CONTACTS_DATA[2].numbers.splice(action.key,1);
                     console.log(action.payload);
                     console.log(state.CONTACTS_DATA,"... new");
-                    const newData = state.CONTACTS_DATA;
+                    //const newData = state.CONTACTS_DATA;
                     return{
                         ...state,
-                        CONTACTS_DATA: newData,
+                        CONTACTS_DATA: [
+                            state.CONTACTS_DATA[0],
+                            state.CONTACTS_DATA[1],
+                            state.CONTACTS_DATA[2].numbers.splice(action.key,1)
+                        ]
                     }
                 }
                 default :return{
